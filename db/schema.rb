@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904025848) do
+ActiveRecord::Schema.define(version: 20130908155458) do
+
+  create_table "carpeta", force: true do |t|
+    t.integer  "idEstudiante"
+    t.string   "tipoMateria"
+    t.integer  "creditos"
+    t.integer  "idMateria"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "estudiantes", force: true do |t|
     t.string   "nombre"
@@ -25,6 +34,9 @@ ActiveRecord::Schema.define(version: 20130904025848) do
   create_table "materia", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
+    t.integer  "cupoUltimoSemestre"
+    t.integer  "cupo"
+    t.string   "tipo"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
