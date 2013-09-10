@@ -4,6 +4,8 @@ CoordinadorAlpes::Application.routes.draw do
   get "materia/new"
   get "estudiante/new"
   get "users/new"
+  get "estado_carpeta/home"
+  post "estado_carpeta/estadoCarpeta"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

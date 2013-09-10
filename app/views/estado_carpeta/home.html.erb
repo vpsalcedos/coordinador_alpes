@@ -1,0 +1,13 @@
+<div class="container">
+  <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+</div>
+<h1>Ver estado de carpeta</h1>
+
+<p>Ver tipo de materia faltantes y número de materias</p>
+<%= form_tag('estadoCarpeta',:method => :post) do%>
+    <label> <h4>¿ Cuál es tu código?</h4></label>
+    <input name="codigo">
+    <%= submit_tag("Ver acumulado carpeta") %>
+<% end %>

@@ -1,9 +1,21 @@
 <h1>EstadoCarpeta#estadoCarpeta</h1>
-<%= @hola %>
-<%= @estudiante.id %>
-<%= @estudiante.nombre %>
-<%= @estudiante.apellido %>
-<%= @estudiante.codigo %>
-<%= @estudiante.programa %>
+<table>
+  <tr>
+    <th>Tipo de Materia</th>
+    <th>Número de Créditos</th>
+    <th>Número de Materias</th>
+
+  </tr>
+  <% @faltantes.each do |materia| %>
+
+      <tr>
+        <td><%= materia.tipoMateria %></td>
+        <td><%= materia.numCreFaltantes %></td>
+        <td><%= materia.numCreFaltantes/4 %></td>
+
+      </tr>
+  <% end %>
+</table>
+
 
 <p>Find me in app/views/estado_carpeta/estadoCarpeta.html.erb</p>
