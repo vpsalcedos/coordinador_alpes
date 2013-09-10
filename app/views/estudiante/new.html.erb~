@@ -2,7 +2,7 @@
 <p>Find me in app/views/estudiante/new.html.erb</p>
 
 <br>
-<%= form_tag(estudiante_result_path , method: "get") do%>
+<%= form_tag(estudiante_resultado_path , method: "get") do%>
     <p> mostrar todos los estudiantes<p>
 <%= submit_tag("mostrar") %>
 <% end %>
