@@ -1,4 +1,4 @@
 class EstudianteController < ApplicationController
-  def result
+  def creditosfaltantes
   end
 end
