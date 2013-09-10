@@ -1,4 +1,5 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "estudiante/result"
   get "materia/new"
   get "estudiante/new"
   get "users/new"
