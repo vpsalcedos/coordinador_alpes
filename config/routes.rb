@@ -1,4 +1,5 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "estudiante/buscarEstudiantesMasOcho"
   post "estudiante/creditosfaltantes"
 
   get "estado_carpeta/estadoCarpeta"

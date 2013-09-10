@@ -1,0 +1,27 @@
+<h1>Estudiante#buscarEstudiantesMasOcho</h1>
+<p>Find me in app/views/estudiante/buscarEstudiantesMasOcho.html.erb</p>
+
+<br><br>
+<h1>ESTUDIANTESCon mas de 8</h1>
+<br>
+
+<table>                         
+  <tr>         
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Codigo</th>
+    <th>Programa</th>
+    <th>Creditos</th>	
+  </tr>
+<% @algunos.each do |estudiante| %>
+
+	  <tr>
+	    <td><%= estudiante.nombre %></td>
+	    <td><%= estudiante.apellido %></td>
+	    <td><%= estudiante.codigo %></td>  
+	    <td><%= estudiante.programa %></td> 
+
+	  </tr>
+
+<% end %>
+</table> 
