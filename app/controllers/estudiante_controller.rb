@@ -1,7 +1,7 @@
 class EstudianteController < ApplicationController
 
   def creditosfaltantes
-	print("Seb<astian es gay")
+	@creditosFestu = (Carpeta.where(idEstudiante: = 200822049 , idMateria = nil , creditos: 4))*4
   end
 	
   def result 
