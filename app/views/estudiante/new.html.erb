@@ -9,7 +9,11 @@
 
 <br><br><br><br>
 
-<%= form_tag(estudiante_creditosfaltantes_path , method: "get") do%>
-    <p> ir a creditso faltantes<p>
-<%= submit_tag("ir") %>
+<%= form_tag(estudiante_creditosfaltantes_path , method: "post") do%>
+ 
+<p> Conocer creditos faltantes del estudiante :<p>
+  <br> 
+<p> Codigo estudiante :<p>
+<input codigo="codigo">
+<%= submit_tag("consultar") %>
 <% end %>

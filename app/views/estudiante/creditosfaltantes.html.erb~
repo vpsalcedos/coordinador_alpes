@@ -1,8 +1,2 @@
 <h1>Estudiante#creditosfaltantes</h1>
 <p>Find me in app/views/estudiante/creditosfaltantes.html.erb</p>
-
-<br><br>
-<h1>ESTUDIANTES : @codigo</h1>
-<br>
-
-@creditosFestu

@@ -6,3 +6,14 @@
     <p> mostrar todos los estudiantes<p>
 <%= submit_tag("mostrar") %>
 <% end %>
+
+<br><br><br><br>
+
+<%= form_tag(estudiante_creditosfaltantes_path , method: "post") do%>
+ 
+<p> Conocer creditos faltantes del estudiante :<p>
+  <br> 
+<p> Codigo estudiante :<p>
+<input codigo="codigo">
+<%= submit_tag("ir") %>
+<% end %>
