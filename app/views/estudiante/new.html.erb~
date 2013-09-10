@@ -15,5 +15,5 @@
   <br> 
 <p> Codigo estudiante :<p>
 <input codigo="codigo">
-<%= submit_tag("ir") %>
+<%= submit_tag("consultar") %>
 <% end %>

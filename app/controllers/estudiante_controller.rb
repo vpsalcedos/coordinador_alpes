@@ -2,8 +2,18 @@ class EstudianteController < ApplicationController
 
   def creditosfaltantes
 	@codigo= params[:codigo]
+	print("\n------codigo---------\n")
+	print(@codigo)
+	print("\n---------------\n")
 
-	@creditosFestu = (Carpeta.where(idEstudiante: = codigo , idMateria = nil , creditos: 4).size)*4
+	e = Estudiante.find_by codigo:@codigo
+	
+	c = Carpeta.where(idEstudiante: e.id , idMateria: nil , creditos: "4")
+	@creditosFestu = c.size*4
+
+	print("\n------creditos---------\n")
+	print(@creditosFestu)
+	print("\n---------------\n")
   end
 	
   def result 
