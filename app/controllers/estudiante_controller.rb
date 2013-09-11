@@ -16,14 +16,21 @@ class EstudianteController < ApplicationController
 	print("\n---------------\n")
   end
 	
-  def buscarEstudianteMasOcho
+  def buscarEstudiantesMasOcho
+	@algunos = []
 	todos = Estudiante.all
 	todos.each do |estudiante|
 		id = estudiante.id
+		print("\n------id---------\n")
+		print(id)
+		print("\n---------------\n")
 		creditosFal = (Carpeta.where(idEstudiante: id , idMateria: nil , creditos: 4).size)*4
 		if(creditosFal<8)
-			@algunos(estudiante)
-
+			e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
+			@algunos << e
+				print("\n------creditos Faltantes---------\n")
+				print(creditosFal)
+				print("\n---------------\n")
 		else
 		end
 	end

@@ -6,22 +6,25 @@
 <br>
 
 <table>                         
-  <tr>         
+  <tr>   
+    <th>Id</th>      
     <th>Nombre</th>
     <th>Apellido</th>
     <th>Codigo</th>
     <th>Programa</th>
-    <th>Creditos</th>	
+     	
   </tr>
-<% @todos.each do |estudiante| %>
+<% @algunos.each do |estudiante| %>
+ <tr>
+	 <% estudiante.each do |e| %>
 
-	  <tr>
-	    <td><%= estudiante.nombre %></td>
-	    <td><%= estudiante.apellido %></td>
-	    <td><%= estudiante.codigo %></td>  
-	    <td><%= estudiante.programa %></td> 
+	 
+	    <td><%= e %></td>
 
-	  </tr>
 
+	 
+
+	<% end %>
+ </tr>
 <% end %>
 </table> 

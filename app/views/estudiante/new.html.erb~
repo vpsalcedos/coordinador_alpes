@@ -18,6 +18,7 @@
 <%= submit_tag("consultar") %>
 <% end %>
 
+<%= form_tag(estudiante_buscarEstudiantesMasOcho_path , method: "get") do%>
 <p> Conocer Estudiantes Mas de 8<p>
   <br> 
 <%= submit_tag("Ver") %>
