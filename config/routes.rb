@@ -1,4 +1,8 @@
 CoordinadorAlpes::Application.routes.draw do
+  post "reservas/ultimosEstudiantes"
+  get "reservas/reservasUltimosEst"
+  get "reservas/home"
+
   get "estudiante/buscarEstudiantesMasOcho"
   post "estudiante/creditosfaltantes"
 
@@ -7,6 +11,7 @@ CoordinadorAlpes::Application.routes.draw do
   get "materia/new"
   get "estudiante/new"
   get "users/new"
+
   get "estado_carpeta/home"
   post "estado_carpeta/estadoCarpeta"
   # The priority is based upon order of creation: first created -> highest priority.
