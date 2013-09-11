@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe EstudianteController do
 
-  describe "GET 'result'" do
+  describe "GET 'buscarEstudiantesMasOcho'" do
     it "returns http success" do
-      get 'result'
+      get 'buscarEstudiantesMasOcho'
       response.should be_success
     end
   end
