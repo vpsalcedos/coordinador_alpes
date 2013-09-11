@@ -2,4 +2,9 @@
 <p>Ver estudiantes de último semestre</p>
 <%= form_tag('ultimosEstudiantes',:method => :post) do%>
     <%= submit_tag("Ver") %>
+<% end%>
+
+ <p>Limpiar Escenario</p>
+<%= form_tag('limpiarEscenario',:method => :get) do%>
+<%= submit_tag("Limpiar") %>
 <% end %>

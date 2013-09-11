@@ -1,2 +1,19 @@
 <h1>Reservas#reservasUltimosEst</h1>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>tipo</th>
+    <th>tipo</th>
+  </tr>
+  <% @materias.each do |mat| %>
+
+      <tr>
+        <td><%= mat.nombre %></td>
+        <td><%= mat.tipo %></td>
+        <td><%= mat.cupoUltimoSemestre %></td>
+
+      </tr>
+
+  <% end %>
+</table>
 <p>Find me in app/views/reservas/reservasUltimosEst.html.erb</p>
