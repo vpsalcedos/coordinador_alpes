@@ -2,12 +2,14 @@ class ReservasController < ApplicationController
   def ultimosEstudiantes
     @ultimosSem=[]
     creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(idMateria:nil).group("idEstudiante");
-
+    @totalCred=0
     creditosFal.each do |est|
       if(est.numCred<=8)
         @ultimosSem.push(Estudiante.find(est.idEstudiante))
+        @totalCred+=est.numCred
       end
     end
+
   end
 
   def darEstUltimosSem(carpetas)
@@ -42,21 +44,22 @@ class ReservasController < ApplicationController
                materia.cupoUltimoSemestre+=1
                materia.save
              else
-               #Tiene varias materias de se tipo
+               #Le faltan dos materias
 
                n= (tipofalt.numCreFaltantes/4).round
-               #Asumiendo materias de cuatro créditos
 
-                #Ejecutar el mismo código pero ir eliminando de las posibles materias
-                # aquellas a las que ya se adiciono un cupo
+               randMat1=Random.rand(materiasPosibles.size)
+               randMat2=Random.rand(materiasPosibles.size)
+               while(randMat1==randMat2)
+                 randMat2=Random.rand(materiasPosibles.size)
+               end
+               materia=materiasPosibles[randMat1]
+               materia.cupoUltimoSemestre+=1
+               materia.save
 
-               #for i in 0..(n-1)
-                 #randMat=Random.rand(materiasPosibles.size)
-                 #materia=materiasPosibles[randMat]
-                 #materia.cupoUltimoSemestre+=1
-                 #materia.save
-                 #Como se quita una materia de la lista sin eliminarla de la BD?
-               #end
+               materia=materiasPosibles[randMat2]
+               materia.cupoUltimoSemestre+=1
+               materia.save
              end
            end
       end
