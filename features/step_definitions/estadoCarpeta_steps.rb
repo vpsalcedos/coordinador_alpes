@@ -3,7 +3,7 @@ Given(/^I have entered (\d+) code in the code field$/) do |h|
   @code= h.to_i
 end
 
-When(/^I press "Ver acumulado carpeta"$/)
+When(/^I press "Ver acumulado carpeta"$/) do
   fill_in "codigo", with: @code.to_i
   click_button "Ver acumulado carpeta"
 end
@@ -12,7 +12,7 @@ Then(/^I should see an error message$/) do
   expect(page).to have_selector('div.alert.alert-error')
 end
 
-Given(/^have entered a negative value in the code field$/) do
+Given(/^I have entered a negative code in the code field$/) do
   visit '/estado_carpeta/home'
   @code=-1
 end

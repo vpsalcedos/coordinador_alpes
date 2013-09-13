@@ -12,4 +12,4 @@ Feature: Ver tipo de materias faltantes y número de materias
   Scenario: I have entered a negative value in the code field
     Given I have entered a negative code in the code field
     When I press "Ver acumulado carpeta"
-    Then I should see an error messsage
+    Then I should see an error message
