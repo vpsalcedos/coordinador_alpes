@@ -18,4 +18,8 @@
   <% end %>
 </table>
 <p> Número de cupos asignados= <%=n%></p>
+<p>Limpiar Escenario</p>
+<%= form_tag('limpiarEscenario',:method => :get) do%>
+<%= submit_tag("Limpiar") %>
+<% end %>
 <p>Find me in app/views/reservas/reservasUltimosEst.html.erb</p>
