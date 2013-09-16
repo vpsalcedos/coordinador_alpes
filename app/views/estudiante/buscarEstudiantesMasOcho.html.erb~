@@ -1,10 +1,11 @@
-<h1>Estudiante#buscarEstudiantesMasOcho</h1>
-<p>Find me in app/views/estudiante/buscarEstudiantesMasOcho.html.erb</p>
 
 <br><br>
-<h1>ESTUDIANTESCon mas de 8</h1>
+<h1>ESTUDIANTES</h1>
 <br>
 
+
+Estudiantes que NO estan en ultimo semestre
+<br><br>
 <table>                         
   <tr>   
     <th>Id</th>      
@@ -12,19 +13,19 @@
     <th>Apellido</th>
     <th>Codigo</th>
     <th>Programa</th>
-     	
+     <th>Creditos</th>	
   </tr>
 <% @algunos.each do |estudiante| %>
  <tr>
 	 <% estudiante.each do |e| %>
-
-	 
 	    <td><%= e %></td>
-
-
-	 
-
 	<% end %>
  </tr>
 <% end %>
 </table> 
+<br><br>
+<%= form_tag(estudiante_cuposmas8_path , method: "get") do%>
+      Darle cupos a todos los estudiantes 
+      <%= submit_tag("Dar cupos") %>
+<% end %>
+<br><br><br><br><br><br>

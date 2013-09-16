@@ -10,7 +10,6 @@
 <br><br><br><br>
 
 <%= form_tag(estudiante_creditosfaltantes_path , method: "post") do%>
- 
 <p> Conocer creditos faltantes del estudiante :<p>
   <br> 
 <p> Codigo estudiante :<p>
@@ -19,7 +18,7 @@
 <% end %>
 
 <%= form_tag(estudiante_buscarEstudiantesMasOcho_path , method: "get") do%>
-<p> Conocer Estudiantes Mas de 8<p>
+<p> A los estudiantes de mas de 8 creditos asigarles aleatoriamente cupos en las materias del tipo que le faltan<p>
   <br> 
 <%= submit_tag("Ver") %>
 <% end %>

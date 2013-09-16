@@ -1,0 +1,81 @@
+<h1>Coordinador de los Alpes</h1>
+<br><br>
+
+<br>
+<h1>Ver cupos materias</h1>
+<br>
+<%= form_tag(materia_cupos_path, method: "get") do%>
+    <%= submit_tag("Ver") %>
+<% end%>
+<br><br>
+<br>
+<h1>RESERVAS ESTUDIANTE ULTIMO SEMESTRE</h1>
+<br>
+<p>Ver estudiantes de último semestre</p>
+
+
+<%= form_tag(reservas_ultimosEstudiantes_path, method: "get") do%>
+    <%= submit_tag("Ver") %>
+<% end%>
+<br>
+ <p>Limpiar Escenario</p>
+<%= form_tag(reservas_limpiarEscenario_path, method: "get") do%>
+    <%= submit_tag("Limpiar") %>
+<% end %>
+<br>
+ <p>Reservar Cupos Estudiantes de Ultimo Semestre</p>
+<%= form_tag(reservas_reservasUltimosEst_path, method: "get") do%>
+    <%= submit_tag("Reservar") %>
+<% end %>
+
+
+
+<br><br><br>
+<br>
+<h1>ESTADO CARPETA </h1>
+<br>
+<div class="container">
+  <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+</div>
+<br>
+Ver estado de carpeta
+
+<p>Ver tipo de materia faltantes y número de materias</p>
+<%= form_tag(estado_carpeta_estadoCarpeta_path , method: "post") do%>
+    <label> <h4>¿ Cuál es tu código?</h4></label>
+    <input name="codigo">
+    <%= submit_tag("Ver acumulado carpeta") %>
+<% end %>
+<br>
+
+
+<br>
+
+<br>
+<br>
+<h1>ESTUDIANTE</h1>
+<br>
+<%= form_tag(estudiante_result_path , method: "get") do%>
+    <p> mostrar todos los estudiantes<p>
+    <%= submit_tag("mostrar") %>
+<% end %>
+
+<br>
+
+<%= form_tag(estudiante_creditosfaltantes_path , method: "post") do%>
+<p> Conocer creditos faltantes del estudiante :<p>
+  <br> 
+<p> Codigo estudiante :<p>
+<input name="codigo">
+    <%= submit_tag("consultar") %>
+<% end %>
+
+<%= form_tag(estudiante_buscarEstudiantesMasOcho_path , method: "get") do%>
+<p> A los estudiantes de mas de 8 creditos asigarles aleatoriamente cupos en las materias del tipo que le faltan<p>
+   <br> 
+   <%= submit_tag("Ver") %>
+<% end %>
+<br><br><br>
+<p>Find me in app/views/welcome/index.html.erb</p>

@@ -1,0 +1,25 @@
+<h1>REservas Cupos Estudiantes que NO estan en ultimo semetre</h1>
+
+<br><br>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Tipo</th>
+    <th>Cupos</th>
+  </tr>
+  
+  <% @materias.each do |mat| %>
+
+      <tr>
+        <td><%= mat.nombre %></td>
+        <td><%= mat.tipo %></td>
+        <td><%= mat.cupo %></td>
+        
+      </tr>
+
+  <% end %>
+</table>
+
+
+
+

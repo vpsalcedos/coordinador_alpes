@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe EstudianteController do
+describe MateriaController do
 
-  describe "GET 'cuposmas8'" do
+  describe "GET 'cupos'" do
     it "returns http success" do
-      get 'cuposmas8'
+      get 'cupos'
       response.should be_success
     end
   end

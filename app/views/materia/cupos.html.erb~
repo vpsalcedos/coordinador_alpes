@@ -1,0 +1,21 @@
+<h1>Cupos de Materias</h1>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Tipo</th>
+    <th>CuposUltimoSemestre</th>
+    <th>CuposNoUltimoSemestre</th>
+  </tr>
+  
+  <% @materias.each do |mat| %>
+
+      <tr>
+	<td><%= mat.id %></td>
+        <td><%= mat.nombre %></td>
+        <td><%= mat.tipo %></td>
+        <td><%= mat.cupoUltimoSemestre %></td>
+        <td><%= mat.cupo %></td>
+      </tr>
+
+  <% end %>
+</table>

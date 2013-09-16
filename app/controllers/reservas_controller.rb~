@@ -81,7 +81,6 @@ class ReservasController < ApplicationController
     materias=Materia.all
     materias.each do |mate|
       mate.cupoUltimoSemestre=0
-      mate.cupo=0  #
       mate.save
     end
 

@@ -1,17 +1,26 @@
 CoordinadorAlpes::Application.routes.draw do
-  get "estudiante/creditosfaltantes"
+  get "welcome/index"
+  post "reservas/ultimosEstudiantes"
+  get "reservas/reservasUltimosEst"
+  get "reservas/limpiarEscenario"
+  get "reservas/home"
+
+  get "estudiante/buscarEstudiantesMasOcho"
+  post "estudiante/creditosfaltantes"
+
   get "estado_carpeta/estadoCarpeta"
   get "estudiante/result"
   get "materia/new"
   get "estudiante/new"
   get "users/new"
+
   get "estado_carpeta/home"
   post "estado_carpeta/estadoCarpeta"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
