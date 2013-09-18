@@ -1,6 +1,7 @@
 <h1>Estudiantes de último semestre</h1>
 <table>
   <tr>
+    <th>id</th>
     <th>Nombre</th>
     <th>Apellido</th>
     <th>Codigo</th>

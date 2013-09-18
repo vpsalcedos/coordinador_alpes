@@ -1,6 +1,4 @@
 <h1>EstadoCarpeta#estadoCarpeta</h1>
-
-<div class="well">
 <table>
   <tr>
     <th>Tipo de Materia</th>
@@ -18,6 +16,6 @@
       </tr>
   <% end %>
 </table>
-</div>
+
 
 <p>Find me in app/views/estado_carpeta/estadoCarpeta.html.erb</p>

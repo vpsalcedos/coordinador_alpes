@@ -1,5 +1,24 @@
-<h1>Estudiante#cuposmas8</h1>
-<p>Find me in app/views/estudiante/cuposmas8.html.erb</p>
+<h1>REservas Cupos Estudiantes que NO estan en ultimo semetre</h1>
+
+<br><br>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Tipo</th>
+    <th>Cupos</th>
+  </tr>
+  
+  <% @materias.each do |mat| %>
+
+      <tr>
+        <td><%= mat.nombre %></td>
+        <td><%= mat.tipo %></td>
+        <td><%= mat.cupo %></td>
+        
+      </tr>
+
+  <% end %>
+</table>
 
 
 

@@ -1,14 +1,22 @@
-<h1>Coordinador de los Alpes</h1>
-<br><br>
 
-<br>
+<div class="well">
+<p style="font-size:20px;">Bienvenido al Coordinador de los Alpes</p>
+
+</div>
+
+
+<div class="well">
 <h1>Ver cupos materias</h1>
 <br>
 <%= form_tag(materia_cupos_path, method: "get") do%>
+Ver cupos de todas las materias
     <%= submit_tag("Ver") %>
 <% end%>
-<br><br>
-<br>
+
+</div>
+<div class="well">
+
+
 <h1>RESERVAS ESTUDIANTE ULTIMO SEMESTRE</h1>
 <br>
 <p>Ver estudiantes de último semestre</p>
@@ -30,8 +38,10 @@
 
 
 
-<br><br><br>
-<br>
+</div>
+<div class="well">
+
+
 <h1>ESTADO CARPETA </h1>
 <br>
 <div class="container">
@@ -51,10 +61,10 @@ Ver estado de carpeta
 <br>
 
 
-<br>
 
-<br>
-<br>
+</div>
+<div class="well">
+
 <h1>ESTUDIANTE</h1>
 <br>
 <%= form_tag(estudiante_result_path , method: "get") do%>

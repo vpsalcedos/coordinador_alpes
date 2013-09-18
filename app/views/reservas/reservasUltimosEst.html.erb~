@@ -2,6 +2,7 @@
 <br><br>
 <table>
   <tr>
+	<th>id</th>
     <th>Nombre</th>
     <th>Tipo</th>
     <th>CuposUltimoSemestre</th>
