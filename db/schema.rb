@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130908155458) do
+ActiveRecord::Schema.define(version: 20131001195502) do
 
   create_table "carpeta", force: true do |t|
     t.integer  "idEstudiante"
@@ -34,11 +34,32 @@ ActiveRecord::Schema.define(version: 20130908155458) do
   create_table "materia", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
-    t.integer  "cupoUltimoSemestre"
-    t.integer  "cupo"
     t.string   "tipo"
+    t.string   "programa"
+    t.integer  "creditos"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "planeacions", force: true do |t|
+    t.integer  "idMateria_id"
+    t.integer  "cupos"
+    t.string   "semestre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "planeacions", ["idMateria_id"], name: "index_planeacions_on_idMateria_id"
+
+  create_table "registros", force: true do |t|
+    t.integer  "idEstudiante_id"
+    t.integer  "idPlaneacion_id"
+    t.string   "prioridad"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "registros", ["idEstudiante_id"], name: "index_registros_on_idEstudiante_id"
+  add_index "registros", ["idPlaneacion_id"], name: "index_registros_on_idPlaneacion_id"
 
 end
