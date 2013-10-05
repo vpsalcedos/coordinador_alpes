@@ -6,5 +6,5 @@ Feature: Ver estudiantes de ultimo semestre
 
   Scenario: Asiganar cupos segun BD
     Given I have enter to the home page
-    When I press "Resrevar"
-    Then I should see 32 asigned quotas
+    When I press "Ver"
+    Then I should see 2 asigned quotas
