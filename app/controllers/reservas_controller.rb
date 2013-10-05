@@ -36,30 +36,32 @@ class ReservasController < ApplicationController
           #Para cada tipo que le falta, buscar la lista de materias faltantes de ese tipo
            faltantes.each do |tipofalt|
              materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
-             if(tipofalt.numCreFaltantes<=4)
-               #Es solo una materia(Asumiendo materias de 4 créditos)
+             if(!materiasPosibles.empty?)
+               if(tipofalt.numCreFaltantes<=4)
+                 #Es solo una materia(Asumiendo materias de 4 créditos)
 
-               randMat=Random.rand(materiasPosibles.size)
-               materia=materiasPosibles[randMat]
-               materia.cupoUltimoSemestre+=1
-               materia.save
-             else
-               #Le faltan dos materias
+                 randMat=Random.rand(materiasPosibles.size)
+                 materia=materiasPosibles[randMat]
+                 #Agregar el cupo
+                 agregarAPlaneacion(materia.id,"Ultimo Semestre","1",est.id)
+               else
+                 #Le faltan dos materias
 
-               n= (tipofalt.numCreFaltantes/4).round
+                 n= (tipofalt.numCreFaltantes/4).round
 
-               randMat1=Random.rand(materiasPosibles.size)
-               randMat2=Random.rand(materiasPosibles.size)
-               while(randMat1==randMat2)
+                 randMat1=Random.rand(materiasPosibles.size)
                  randMat2=Random.rand(materiasPosibles.size)
-               end
-               materia=materiasPosibles[randMat1]
-               materia.cupoUltimoSemestre+=1
-               materia.save
+                 while(randMat1==randMat2)
+                   randMat2=Random.rand(materiasPosibles.size)
+                 end
+                 materia=materiasPosibles[randMat1]
+                 #Agregar el cupo
+                 agregarAPlaneacion(materia.id,"Ultimo Semestre","1",est.id)
 
-               materia=materiasPosibles[randMat2]
-               materia.cupoUltimoSemestre+=1
-               materia.save
+                 materia=materiasPosibles[randMat2]
+                 #Agregar el cupo
+                 agregarAPlaneacion(materia.id,"Ultimo Semestre","1",est.id)
+               end
              end
            end
       end
@@ -74,6 +76,21 @@ class ReservasController < ApplicationController
     faltantes=[]
     faltantes=carpetas.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
     return faltantes
+  end
+
+  def agregarAPlaneacion(materia,prioridad,semestre,estudiante)
+    planeaciones=Planeacion.all
+    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=1",(materia))
+    if(planeacionesMateria.empty?)
+      #Toca crearlo
+      p=Planeacion.create(idMateria_id: materia, cupos: 1, semestre: semestre)
+      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: p.id, prioridad: prioridad)
+    else
+      planeado=planeacionesMateria[1]
+      
+      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: 1, prioridad: prioridad)
+    end
+    
   end
 
 

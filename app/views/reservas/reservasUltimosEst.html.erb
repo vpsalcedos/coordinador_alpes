@@ -7,7 +7,6 @@
 	<th>id</th>
     <th>Nombre</th>
     <th>Tipo</th>
-    <th>CuposUltimoSemestre</th>
   </tr>
   <% n=0%>
   <% @materias.each do |mat| %>
@@ -16,8 +15,6 @@
 	<td><%= mat.id %></td>
         <td><%= mat.nombre %></td>
         <td><%= mat.tipo %></td>
-        <td><%= mat.cupoUltimoSemestre %></td>
-        <% n+=mat.cupoUltimoSemestre%>
       </tr>
 
   <% end %>
