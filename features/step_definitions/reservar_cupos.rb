@@ -7,7 +7,7 @@ When(/^I press "Resrevar"$/) do
 end
 
 Then(/^I should see 32 asigned quotas/) do
-  expect(page).to have_content('Número de cupos asignados= ')
+  expect(page).to have_content('de cupos asignados= ')
 end
 
 When(/^I press "Ver"$/) do
@@ -15,5 +15,5 @@ When(/^I press "Ver"$/) do
 end
 
 Then(/^I should see 2 asigned quotas/) do
-  expect(page).to have_content('El número de materias que se estos estudiantes tiene que ver es: 2')
+  expect(page).to have_content('de materias que se estos estudiantes tiene que ver es: 2')
 end
