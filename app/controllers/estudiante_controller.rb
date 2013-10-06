@@ -32,8 +32,6 @@ def creditosfaltantes
 		if(creditosFal>8)
 			e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
 			@algunos << e
-
-		else
 		end
 	end
 end
@@ -43,65 +41,97 @@ end
   end
 
   def cuposmas8
-	
-	@algunos = []
-	todos = Estudiante.all
-	todos.each do |estudiante|
-		id = estudiante.id
 
-		faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
-		creditosFal = 0
-		faltantes.each do |fal|
-			creditosFal += fal.numCreFaltantes		
-		end
-		
-		#creditosFal = (Carpeta.where(idEstudiante: id , idMateria: nil , creditos: 4).size)*4
-		if(creditosFal>8)
-			#e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
-			#@algunos << e
-			i = 0
-			faltantes.each do |tipofalt|
-				 materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
-				
-				if(tipofalt.numCreFaltantes<=4)
-              			 	#Es solo una materia(Asumiendo materias de 4 créditos)
-					if(i<2)
-               					randMat=Random.rand(materiasPosibles.size)
-               					materia=materiasPosibles[randMat]
-               					materia.cupo+=1
-               					materia.save
-					
-						i += 1 
-					end
-            			 else
-              				#Le faltan dos materias
+    @algunos = []
+    todos = Estudiante.all
+    todos.each do |estudiante|
+      id = estudiante.id
 
-					n= (tipofalt.numCreFaltantes/4).round
-               			 	randMat1=Random.rand(materiasPosibles.size)
-              				randMat2=Random.rand(materiasPosibles.size)
-              			 	while(randMat1==randMat2)
-               			 	 	randMat2=Random.rand(materiasPosibles.size)
-             			 	end
-					if(i<2)
-             					materia=materiasPosibles[randMat1]
-            					materia.cupo+=1
-            			 		materia.save
-						i += 1
-					end
-					if(i<2)
-						materia=materiasPosibles[randMat2]
-           			 		materia.cupo+=1
-            			 		materia.save	
-						i += 1
-					end
-				end
-			
-				
-			end
-		else
-		end
-	end
-	@materias =  Materia.all
+      faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+      creditosFal = 0
+      faltantes.each do |fal|
+        creditosFal += fal.numCreFaltantes
+      end
+
+      #creditosFal = (Carpeta.where(idEstudiante: id , idMateria: nil , creditos: 4).size)*4
+      if(creditosFal>8)
+        #e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
+        #@algunos << e
+        i = 0
+        faltantes.each do |tipofalt|
+          materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+          if(!materiasPosibles.empty?)
+            if(tipofalt.numCreFaltantes<=4)
+              #Es solo una materia(Asumiendo materias de 4 créditos)
+              if(i<2)
+                          randMat=Random.rand(materiasPosibles.length)
+                          materia=materiasPosibles[randMat]
+
+                          #materia.cupo+=1
+                          #materia.save
+                          prioridad=darPrioridad(materia,estudiante)
+                          agregarAPlaneacion(materia.id,prioridad,"1",id)
+
+
+              i += 1
+              end
+              else
+                        #Le faltan dos materias
+
+                        n= (tipofalt.numCreFaltantes/4).round
+                        randMat1=Random.rand(materiasPosibles.size)
+                        randMat2=Random.rand(materiasPosibles.size)
+                        while(randMat1==randMat2)
+                          randMat2=Random.rand(materiasPosibles.size)
+                         end
+              if(i<2)
+                          materia=materiasPosibles[randMat1]
+                          #materia.cupo+=1
+                          #materia.save
+                          prioridad=darPrioridad(materia,estudiante)
+                          agregarAPlaneacion(materia.id,prioridad,"1",id)
+                i += 1
+              end
+              if(i<2)
+                materia=materiasPosibles[randMat2]
+                        #materia.cupo+=1
+                        #materia.save
+                        prioridad=darPrioridad(materia,estudiante)
+                        agregarAPlaneacion(materia.id,prioridad,"1",id)
+                i += 1
+              end
+            end
+          end
+        end
+      end
+    end
+    @materias =  Materia.all
 
   end
+
+  def agregarAPlaneacion(materia,prioridad,semestre,estudiante)
+    planeaciones=Planeacion.all
+    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=1",(materia))
+    if(planeacionesMateria.empty?)
+      #Toca crearlo
+      p=Planeacion.create(idMateria_id: materia, cupos: 1, semestre: semestre)
+      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: p.id, prioridad: prioridad)
+    else
+      planeado=planeacionesMateria[1]
+
+      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: 1, prioridad: prioridad)
+    end
+
+  end
+
+  def darPrioridad(materia,estudiante)
+    prioridad=""
+    if(estudiante.programa==materia.programa)
+      prioridad="Mismo programa"
+    else
+      prioridad=estudiante.programa
+    end
+    return prioridad
+  end
+
 end
