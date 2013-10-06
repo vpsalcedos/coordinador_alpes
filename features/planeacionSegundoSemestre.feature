@@ -12,7 +12,7 @@ Feature: Planear Materias Segundo Semestre
  #BD Test
   Scenario: Los cupos son asignados al segundo semestre
      Given I have enter to the planning page
-     When I press "Cupos de Segundo Semestre"
+     When I press "Planear Semestres"
     Then The database should have 0 additional rows in the table Registro with semester 2 and idEstudiante 1
      Then The database should have 2 additional rows in the table Registro with semester 2 and idEstudiante 2
     Then The database should have 2 additional rows in the table Registro with semester 2 and idEstudiante 3

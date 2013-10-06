@@ -72,15 +72,11 @@ class ReservasController < ApplicationController
 
     end
     @materias=Materia.all
-    #cuposmas8
-    #darEstUltimosYNoUltSem( "2")
-    #darTiposFaltantesSem(1, "2")
-    #darTiposFaltantesSem(2, "2")
-    #darTiposFaltantesSem(3, "2")
+    
   end
 
   # Inicio métodos para calcular los otros cupos
-
+  #ARREGLARRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!
   def cuposmas8
 
     @algunos = []
@@ -167,15 +163,15 @@ class ReservasController < ApplicationController
 
   def agregarAPlaneacion(materia,prioridad,semestre,estudiante)
     planeaciones=Planeacion.all
-    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=1",(materia))
+    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=?",(materia),(semestre))
     if(planeacionesMateria.empty?)
       #Toca crearlo
       p=Planeacion.create(idMateria_id: materia, cupos: 1, semestre: semestre)
       Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: p.id, prioridad: prioridad)
     else
-      planeado=planeacionesMateria[1]
-      
-      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: 1, prioridad: prioridad)
+      planeado=planeacionesMateria[0]
+      planeado.cupos+=1;
+      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: planeado.id, prioridad: prioridad)
     end
 
   end
@@ -199,10 +195,12 @@ class ReservasController < ApplicationController
       credFaltantes=est.numCred-numRegistroSem*4;
       if(credFaltantes<=8 and credFaltantes>0)
         ultimosSem.push(Estudiante.find(est.idEstudiante))
-
+        puts "Ultimo semestre"
+        puts est.idEstudiante
       elsif (credFaltantes>8)
         noUltimoSem.push(Estudiante.find(est.idEstudiante))
-
+        puts "No Ultimo semestre"
+        puts est.idEstudiante
       end
     end
     return ultimosSem, noUltimoSem
@@ -231,15 +229,144 @@ class ReservasController < ApplicationController
 
 
   def limpiarEscenario
-    materias=Materia.all
-    materias.each do |mate|
-      mate.cupoUltimoSemestre=0
-      mate.cupo=0  #
-      mate.save
-    end
-
+    Planeacion.delete_all
+    Registro.delete_all
     render 'home'
   end
 
+def reservasSemestrePorEstUltimo(semestre)
+    
+    ultimosSem,noUltimoSem=darEstUltimosYNoUltSem(semestre)
+    @materias=[]
+    ultimosSem.each do |est|
+
+      #Para cada estudiante,definir cada tipo de materia que le falta y el número de cŕeditos
+      faltantes=darTiposFaltantesSem( est.id, semestre)
+      if(!faltantes.empty?)
+          #Para cada tipo que le falta, buscar la lista de materias faltantes de ese tipo
+           faltantes.each do |tipofalt|
+             materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+             if(!materiasPosibles.empty?)
+               if(tipofalt.numCreFaltantes<=4)
+                 #Es solo una materia(Asumiendo materias de 4 créditos)
+
+                 randMat=Random.rand(materiasPosibles.size)
+                 materia=materiasPosibles[randMat]
+                 #Agregar el cupo
+                 prioridad="Ultimo Semestre " << est.programa
+                 agregarAPlaneacion(materia.id,prioridad,semestre,est.id)
+               else
+                 #Le faltan dos materias
+
+                 n= (tipofalt.numCreFaltantes/4).round
+
+                 randMat1=Random.rand(materiasPosibles.size)
+                 randMat2=Random.rand(materiasPosibles.size)
+                 while(randMat1==randMat2)
+                   randMat2=Random.rand(materiasPosibles.size)
+                 end
+                 materia=materiasPosibles[randMat1]
+                 #Agregar el cupo
+                 prioridad="Ultimo Semestre " << est.programa
+                 agregarAPlaneacion(materia.id, prioridad,semestre,est.id)
+
+                 materia=materiasPosibles[randMat2]
+                 #Agregar el cupo
+                 prioridad="Ultimo Semestre " << est.programa
+                 agregarAPlaneacion(materia.id,prioridad,semestre,est.id)
+               end
+             end
+           end
+      end
+
+    end
+    @materias=Materia.all
+    
+  end
+
+  # Inicio métodos para calcular los otros cupos
+  #ARREGLARRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  def reservasSemestrePorEst(semestre)
+
+    
+    ultimosSem,noUltimoSem=darEstUltimosYNoUltSem(semestre)
+    @materias=[]
+    noUltimoSem.each do |est|
+
+      #Para cada estudiante,definir cada tipo de materia que le falta y el número de cŕeditos
+      faltantes=darTiposFaltantesSem( est.id, semestre)
+
+      #e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
+      #@algunos << e
+      i = 0
+      faltantes.each do |tipofalt|
+        materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+        if(!materiasPosibles.empty?)
+          if(tipofalt.numCreFaltantes<=4)
+            #Es solo una materia(Asumiendo materias de 4 créditos)
+            if(i<2)
+              randMat=Random.rand(materiasPosibles.length)
+              materia=materiasPosibles[randMat]
+
+              #materia.cupo+=1
+              #materia.save
+              prioridad=darPrioridad(materia,est)
+              agregarAPlaneacion(materia.id,prioridad,semestre,est.id)
+
+
+              i += 1
+            end
+          else
+            #Le faltan dos materias
+
+            n= (tipofalt.numCreFaltantes/4).round
+            randMat1=Random.rand(materiasPosibles.size)
+            randMat2=Random.rand(materiasPosibles.size)
+            while(randMat1==randMat2)
+              randMat2=Random.rand(materiasPosibles.size)
+            end
+            if(i<2)
+              materia=materiasPosibles[randMat1]
+              #materia.cupo+=1
+              #materia.save
+              prioridad=darPrioridad(materia,est)
+              agregarAPlaneacion(materia.id,prioridad,semestre,est.id)
+              i += 1
+            end
+            if(i<2)
+              materia=materiasPosibles[randMat2]
+              #materia.cupo+=1
+              #materia.save
+              prioridad=darPrioridad(materia,est)
+              agregarAPlaneacion(materia.id,prioridad,semestre,est.id)
+              i += 1
+            end
+          end
+        end
+      end
+      
+    end
+    @materias =  Materia.all
+  end
+
+  def planearSemestres
+    Planeacion.delete_all
+    Registro.delete_all
+
+    #Planeacion de primer semestre
+    reservasUltimosEst
+    cuposmas8
+    #Planeacion otros semestres
+    semestre=2
+    while semestre<5 do
+      reservasSemestrePorEstUltimo(semestre.to_s)
+      reservasSemestrePorEst(semestre.to_s)
+      semestre+=1
+    end
+    registros=Registro.all
+    puts registros.length
+
+    render 'home'
+  end
 
 end
