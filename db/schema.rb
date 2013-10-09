@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001195502) do
+ActiveRecord::Schema.define(version: 20131009024705) do
 
   create_table "carpeta", force: true do |t|
     t.integer  "idEstudiante"
     t.string   "tipoMateria"
     t.integer  "creditos"
-    t.integer  "idMateria"
+    t.string   "codigoMateria"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "estudiantes", force: true do |t|
     t.string   "nombre"
+    t.string   "codigo"
     t.string   "apellido"
-    t.integer  "codigo"
     t.string   "programa"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -42,24 +42,19 @@ ActiveRecord::Schema.define(version: 20131001195502) do
   end
 
   create_table "planeacions", force: true do |t|
-    t.integer  "idMateria_id"
+    t.string   "codigoMateria"
     t.integer  "cupos"
     t.string   "semestre"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "planeacions", ["idMateria_id"], name: "index_planeacions_on_idMateria_id"
-
   create_table "registros", force: true do |t|
-    t.integer  "idEstudiante_id"
-    t.integer  "idPlaneacion_id"
+    t.integer  "idEstudiante"
+    t.integer  "idPlaneacion"
     t.string   "prioridad"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "registros", ["idEstudiante_id"], name: "index_registros_on_idEstudiante_id"
-  add_index "registros", ["idPlaneacion_id"], name: "index_registros_on_idPlaneacion_id"
 
 end
