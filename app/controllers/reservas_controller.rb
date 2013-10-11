@@ -2,7 +2,7 @@ class ReservasController < ApplicationController
 
   def ultimosEstudiantes
     @ultimosSem=[]
-    creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(idMateria:nil).group("idEstudiante");
+    creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(codigoMateria:nil).group("idEstudiante");
     @totalCred=0
     creditosFal.each do |est|
       if(est.numCred<=8)
@@ -15,7 +15,7 @@ class ReservasController < ApplicationController
 
   def darEstUltimosSem(carpetas)
     ultimosSem=[]
-    creditosFal = carpetas.select("sum(creditos) as numCred, idEstudiante").where(idMateria:nil).group("idEstudiante");
+    creditosFal = carpetas.select("sum(creditos) as numCred, idEstudiante").where(codigoMateria:nil).group("idEstudiante");
 
     creditosFal.each do |est|
       if(est.numCred<=8)
@@ -84,13 +84,13 @@ class ReservasController < ApplicationController
     todos.each do |estudiante|
       id = estudiante.id
 
-      faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+      faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
       creditosFal = 0
       faltantes.each do |fal|
         creditosFal += fal.numCreFaltantes
       end
 
-      #creditosFal = (Carpeta.where(idEstudiante: id , idMateria: nil , creditos: 4).size)*4
+      #creditosFal = (Carpeta.where(idEstudiante: id , codigoMateria: nil , creditos: 4).size)*4
       if(creditosFal>8)
         #e = [ estudiante.id , estudiante.nombre , estudiante.apellido , estudiante.codigo , estudiante.programa , creditosFal ]
         #@algunos << e
@@ -157,21 +157,21 @@ class ReservasController < ApplicationController
 
   def darTiposFaltantes(carpetas, id)
     faltantes=[]
-    faltantes=carpetas.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+    faltantes=carpetas.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
     return faltantes
   end
 
   def agregarAPlaneacion(materia,prioridad,semestre,estudiante)
     planeaciones=Planeacion.all
-    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=?",(materia),(semestre))
+    planeacionesMateria=planeaciones.where("codigoMateria=? AND semestre=?",(materia),(semestre))
     if(planeacionesMateria.empty?)
       #Toca crearlo
-      p=Planeacion.create(idMateria_id: materia, cupos: 1, semestre: semestre)
-      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: p.id, prioridad: prioridad)
+      p=Planeacion.create(codigoMateria: materia, cupos: 1, semestre: semestre)
+      Registro.create(idEstudiante: estudiante, idPlaneacion: p.id, prioridad: prioridad)
     else
       planeado=planeacionesMateria[0]
       planeado.cupos+=1;
-      Registro.create(idEstudiante_id: estudiante, idPlaneacion_id: planeado.id, prioridad: prioridad)
+      Registro.create(idEstudiante: estudiante, idPlaneacion: planeado.id, prioridad: prioridad)
     end
 
   end
@@ -180,12 +180,12 @@ class ReservasController < ApplicationController
 
     ultimosSem=[]
     noUltimoSem=[]
-    creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(idMateria:nil).group("idEstudiante");
+    creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(codigoMateria:nil).group("idEstudiante");
     creditosFal.each do |est|
-      registros=Registro.where(idEstudiante_id:est.idEstudiante)
+      registros=Registro.where(idEstudiante:est.idEstudiante)
       numRegistroSem=0
       registros.each do |reg|
-        plans=Planeacion.find(reg.idPlaneacion_id)
+        plans=Planeacion.find(reg.idPlaneacion)
         if(plans.semestre<semestre)
           numRegistroSem+=1
         end
@@ -208,14 +208,14 @@ class ReservasController < ApplicationController
 
   def darTiposFaltantesSem( id, semestre)
     faltantes=[]
-    faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+    faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
 
-    registros=Registro.where(idEstudiante_id:id)
+    registros=Registro.where(idEstudiante:id)
     numRegistroSem=0
     registros.each do |reg|
-      plans=Planeacion.find(reg.idPlaneacion_id)
+      plans=Planeacion.find(reg.idPlaneacion)
       if(plans.semestre<semestre)
-        mat=Materia.find(plans.idMateria_id)
+        mat=Materia.find(plans.codigoMateria)
         faltantes.detect{|f|
           if(f.tipoMateria == mat.tipo)
             f.numCreFaltantes= f.numCreFaltantes-4
