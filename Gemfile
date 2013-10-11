@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 gem 'rubyzip',  "~> 0.9.9"
 
+gem 'lazy_high_charts' 
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

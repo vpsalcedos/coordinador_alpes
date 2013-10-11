@@ -13,7 +13,13 @@
 <%= form_tag('reservasUltimosEst',:method => :get) do%>
 <%= submit_tag("Reservar") %>
 <% end %>
+ 
  <p>Planear Proximos Semestres</p>
 <%= form_tag('planearSemestres',:method => :get) do%>
 <%= submit_tag("Planear Semestres") %>
+<% end %>
+
+ <p>Semestre Planeado</p>
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+<%= submit_tag("Semestre Planeado") %>
 <% end %>
