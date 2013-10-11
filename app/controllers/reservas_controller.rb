@@ -171,6 +171,7 @@ class ReservasController < ApplicationController
     else
       planeado=planeacionesMateria[0]
       planeado.cupos+=1;
+      planeado.save
       Registro.create(idEstudiante: estudiante, idPlaneacion: planeado.id, prioridad: prioridad)
     end
 
