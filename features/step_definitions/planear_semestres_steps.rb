@@ -35,10 +35,10 @@ Then(/^The database should have (\d+) additional rows in the table Registro with
 
   numEsperado=arg1.to_i
   total=0
-  registros=Registro.where("idEstudiante_id=?",arg3.to_i)
+  registros=Registro.where("idEstudiante=?",arg3.to_i)
   if(!registros.empty?)
     registros.each do |reg|
-      plans=Planeacion.find(reg.idPlaneacion_id)
+      plans=Planeacion.find(reg.idPlaneacion)
       if(plans.semestre==arg2.to_s)
         total+=1
       end

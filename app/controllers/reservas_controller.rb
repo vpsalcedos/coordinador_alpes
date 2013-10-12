@@ -72,7 +72,7 @@ class ReservasController < ApplicationController
 
     end
     @materias=Materia.all
-    
+
   end
 
   # Inicio métodos para calcular los otros cupos
@@ -236,7 +236,7 @@ class ReservasController < ApplicationController
   end
 
 def reservasSemestrePorEstUltimo(semestre)
-    
+
     ultimosSem,noUltimoSem=darEstUltimosYNoUltSem(semestre)
     @materias=[]
     ultimosSem.each do |est|
@@ -282,14 +282,14 @@ def reservasSemestrePorEstUltimo(semestre)
 
     end
     @materias=Materia.all
-    
+
   end
 
   # Inicio métodos para calcular los otros cupos
   #ARREGLARRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!
   def reservasSemestrePorEst(semestre)
 
-    
+
     ultimosSem,noUltimoSem=darEstUltimosYNoUltSem(semestre)
     @materias=[]
     noUltimoSem.each do |est|
@@ -345,7 +345,7 @@ def reservasSemestrePorEstUltimo(semestre)
           end
         end
       end
-      
+
     end
     @materias =  Materia.all
   end
