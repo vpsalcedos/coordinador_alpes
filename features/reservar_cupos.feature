@@ -17,6 +17,6 @@ Feature: Ver estudiantes de ultimo semestre
   #BD Test
   Scenario: Los cupos son asignados al primer semestre en la BD
     Given I have enter to the planning page
-    When I press "Resrevar"
+    When I press "Planear Semestres"
     Then The database should have 2 additional rows in the table Registro with semester 1 and idEstudiante 1
 
