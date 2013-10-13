@@ -1,10 +1,10 @@
 Given(/^I have entered (\d+) number of students in the students per section field$/) do |h|
-  visit '/reservas/home/secciones'
+  visit '/generar_secciones/generar'
   @code= h.to_i
 end
 
 When(/^I press "Generar"$/) do
-  fill_in "codigo", with: @code.to_i
+  fill_in "numsecciones", with: @code.to_i
   click_button "Generar"
 end
 
@@ -13,13 +13,19 @@ Then(/^I should see an error message of students per section$/) do
 end
 
 Given(/^I have entered a negative number of students in the students per section field$/) do
-  visit '/reservas/home'
+  visit '/generar_secciones/generar'
   @code=-1
 end
 
 Given(/^I have enter to the visualize page$/) do
   visit '/reservas/home'
 end
+
+Given(/^I have enter to the generate section page$/) do
+  visit '/generar_secciones/generar'
+  @code=1
+end
+  
 
 When(/^I press "Generar Secciones"$/) do
   click_button "Generar Secciones"

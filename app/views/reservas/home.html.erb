@@ -19,6 +19,10 @@
 <%= submit_tag("Planear Semestres") %>
 <% end %>
 
+<%= form_tag(generar_secciones_generar_path,:method => :get) do%>
+<%= submit_tag("Generar Secciones") %>
+<% end %>
+
  <p>Semestre Planeado</p>
 
 <%= form_tag('semestrePlaneado',:method => :get) do%>

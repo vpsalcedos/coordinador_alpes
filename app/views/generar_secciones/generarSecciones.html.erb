@@ -1,0 +1,38 @@
+<h1>Generar Secciones Proximo Semestre</h1>
+<br><br>
+
+<div class="well">
+	<%= form_tag('generarSecciones' , method: "post") do%>
+	<p> Estudiantes por seccion :<p>
+	<input name="numsecciones" value=<%= @n %>>
+	<%= submit_tag("Generar") %>
+	<% end %>
+</div>
+
+<div class="well">
+<table>
+  <tr>
+	<th>codigo</th>
+    <th>Nombre Materia</th>
+    <th>Cupos</th>
+    <th>Cantidad Secciones</th>
+    <th>Porcentaje de ocupacion</th>
+  </tr>
+  <% @secciones.each do |materia| %>
+
+      <tr>
+        <td><%= materia[0]%></td>
+        <td><%= materia[1] %></td>
+        <td><%= materia[2] %></td>
+        <td><%= materia[3] %></td>
+        <td><%= (materia[4])%></td>
+
+      </tr>
+  <% end %>
+
+ 
+  
+</table>
+
+</div>
+

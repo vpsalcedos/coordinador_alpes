@@ -19,6 +19,6 @@ para conocer la cantidad de secciones a crear para el nuevo semestre
     Then I should see an error message of students per section
 
   Scenario: Succesful generate sections
-    Given I have enter to the visualize page
+    Given I have enter to the generate section page
     When I press "Generar"
     Then I should see a table

@@ -1,0 +1,12 @@
+<h1>Generar Secciones Proximo Semestre</h1>
+<br><br>
+
+<div class="well">
+	<%= form_tag('generarSecciones' , method: "post") do%>
+	<p> Estudiantes por seccion :<p>
+	<input name="numsecciones">
+	<%= submit_tag("Generar") %>
+	<% end %>
+</div>
+
+
