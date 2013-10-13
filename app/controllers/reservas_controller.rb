@@ -372,7 +372,7 @@ def reservasSemestrePorEstUltimo(semestre)
   end
 
   def semestrePlaneado
-    semestre=2
+    semestre=params[:semestre]
     semestre2Planeado(semestre)
   end
 
@@ -383,7 +383,7 @@ def reservasSemestrePorEstUltimo(semestre)
     planesMateria=planes.joins('JOIN materia ON materia.id=planeacions.codigoMateria')
     @maestrias=[]
     m=[]
-    totalCupos=planes.select("sum(cupos) as cupos").first.cupos
+    @totalCupos=planes.select("sum(cupos) as cupos").first.cupos
     cuposMaestria=planesMateria.select("sum(cupos) as cupos, programa").group("programa")
 
     cuposMaestria.each do |cM|
@@ -393,7 +393,7 @@ def reservasSemestrePorEstUltimo(semestre)
 
       maest2=[]
       maest2.push(cM.programa)
-      maest2.push((cM.cupos*100)/totalCupos)
+      maest2.push((cM.cupos*100)/@totalCupos)
       m.push(maest2)
 
       cuposTipo=planesMateria.select("sum(cupos) as cupos, tipo").where("programa=?",cM.programa).group("tipo")

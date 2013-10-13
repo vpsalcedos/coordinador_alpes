@@ -20,6 +20,18 @@
 <% end %>
 
  <p>Semestre Planeado</p>
+
 <%= form_tag('semestrePlaneado',:method => :get) do%>
-<%= submit_tag("Semestre Planeado") %>
+<input hidden name="semestre" value="2">
+<%= submit_tag("Cupos de Segundo Semestre") %>
+<% end %>
+
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+    <input hidden name="semestre" value="3">
+    <%= submit_tag("Cupos de Tercer Semestre") %>
+<% end %>
+
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+    <input hidden name="semestre" value="4">
+    <%= submit_tag("Cupos de Cuarto Semestre") %>
 <% end %>

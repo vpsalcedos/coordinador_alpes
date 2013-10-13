@@ -4,6 +4,11 @@ function toggle_visibilityMaest(maestria) {
         m=<%=maest[0]%>;
         if(m!=maestria){
             $('.<%=maest[0] %>').collapse('hide');
+            <% tipos=maest[2]%>
+            <% tipos.each do |tipo| %>
+            $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            <% end %>
+
         }
     <% end %>
 };
@@ -73,14 +78,14 @@ function toggle_visibilityTipo(maestria, tipo) {
       <% tipos=maest[2]%>
       <% tipos.each do |tipo| %>
       <tr data-toggle="collapse" data-parent="#<%= maest[0]%>" data-target=".<%= maest[0]%><%=tipo[0]%>" id="<%= maest[0]%><%=tipo[0]%>" class="accordion-toggle" onclick="toggle_visibilityTipo(<%= maest[0]%>, <%=tipo[0]%>);">
-        <td class="hiddenRow">
+        <td class="typeHidden">
           <div class="accordian-body collapse <%= maest[0]%>">
             <div class="accordion-inner">
               <%= tipo[0] %>
             </div>
           </div>
         </td>
-        <td class="hiddenRow">
+        <td class="typeHidden">
           <div class="accordian-body collapse <%= maest[0]%>">
             <div class="accordion-inner">
               <%= tipo[1] %>
@@ -90,14 +95,14 @@ function toggle_visibilityTipo(maestria, tipo) {
       </tr>
 
       <tr>
-        <td class="matHidden">
+        <td class="matHeadHidden">
           <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
             <div class="accordion-inner">
               Materia
             </div>
           </div>
         </td>
-        <td class="matHidden">
+        <td class="matHeadHidden">
           <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
             <div class="accordion-inner">
               Cupos
@@ -107,14 +112,14 @@ function toggle_visibilityTipo(maestria, tipo) {
               <% materias= tipo[2] %>
               <% materias.each do |mat| %>
                   <tr>
-                    <td class="hiddenRow">
+                    <td class="matHidden">
                       <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
                         <div class="accordion-inner">
                           <%= mat[0] %>
                         </div>
                       </div>
                     </td>
-                    <td class="hiddenRow">
+                    <td class="matHidden">
                       <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
                         <div class="accordion-inner">
                           <%= mat[1] %>
@@ -128,6 +133,7 @@ function toggle_visibilityTipo(maestria, tipo) {
     </table>
 
 </div>
+Total de cupos asignados = <%=@totalCupos%>
 </div>
 
 
