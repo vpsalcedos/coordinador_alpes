@@ -27,5 +27,6 @@ module CoordinadorAlpes
 
 
     config.assets.enabled = false
+
   end
 end

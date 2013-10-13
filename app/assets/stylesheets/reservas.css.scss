@@ -1,3 +1,15 @@
 // Place all the styles related to the reservas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.hiddenRow {
+  padding: 0 !important;
+}
+.headHidden{
+  padding: 0 !important;
+  background:pink;
+}
+.matHidden{
+  padding: 0 !important;
+  background:#9c9;;
+}
+tr.on {background:#9c9;}

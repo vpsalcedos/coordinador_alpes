@@ -1,47 +1,133 @@
-<script type="text/javascript">
-  $(function () {
-      $('#container').highcharts({
-          chart: {
-              plotBackgroundColor: null,
-              plotBorderWidth: null,
-              plotShadow: false
-          },
-          title: {
-              text: 'Cantidad de estudiantes'
-          },
-          tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-          },
-          plotOptions: {
-              pie: {
-                  allowPointSelect: true,
-                  cursor: 'pointer',
-                  dataLabels: {
-                      enabled: true,
-                      color: '#000000',
-                      connectorColor: '#000000',
-                      format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                  }
-              }
-          },
-          series: [{
-              type: 'pie',
-              name: 'porcentaje',
-              data: [
-                  ['MATI',   50.0],
-                  ['MESI',   20.0],
-                  ['MISIS',  30.0],
-              ]
-          }]
-      });
-  });
-</script>
+<script>
+function toggle_visibilityMaest(maestria) {
+    <% @maestrias.each do |maest| %>
+        m=<%=maest[0]%>;
+        if(m!=maestria){
+            $('.<%=maest[0] %>').collapse('hide');
+        }
+    <% end %>
+};
+function toggle_visibilityTipo(maestria, tipo) {
+    <% @maestrias.each do |maest| %>
+    m=<%=maest[0]%>;
+    if(m==maestria){
+        <% tipos=maest[2]%>
+        <% tipos.each do |tipo| %>
+            t=<%=tipo[0]%>;
+            if(t!=tipo){
+                $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            }
+        <% end %>
 
+    }
+    <% end %>
+};
+</script>
 <h1>Semestre Planeado</h1>
 <br><br>
 
 <%= javascript_include_tag 'highcharts','exporting' %>
-<%= high_chart("my_id", @h) %>
-<div id="container" class="well" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<%= high_chart("my_id4", @h) do |c| %>
+    <%= raw "options.tooltip.formatter = function() {return '<b> YUPI!! '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
+    <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+<% end %>
+
+
+<div class="accordion" id="accordion2">
+
+    <table class="table" style="border-collapse:collapse;">
+      <thead>
+      <tr>
+
+        <th>Maestria</th>
+        <th>Cupos</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <% @maestrias.each do |maest| %>
+
+      <div class="accordion-heading">
+        <tr data-toggle="collapse" data-parent="#accordion2" data-target=".<%= maest[0]%>" id="<%= maest[0]%>" class="accordion-toggle" onclick="toggle_visibilityMaest(<%= maest[0]%>);">
+            <td><%= maest[0]%> </td>
+            <td><%= maest[1]%></td>
+        </tr >
+      </div>
+      <tr>
+        <td class="headHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              Tipo
+            </div>
+          </div>
+        </td>
+        <td class="headHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              Cupos
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <% tipos=maest[2]%>
+      <% tipos.each do |tipo| %>
+      <tr data-toggle="collapse" data-parent="#<%= maest[0]%>" data-target=".<%= maest[0]%><%=tipo[0]%>" id="<%= maest[0]%><%=tipo[0]%>" class="accordion-toggle" onclick="toggle_visibilityTipo(<%= maest[0]%>, <%=tipo[0]%>);">
+        <td class="hiddenRow">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              <%= tipo[0] %>
+            </div>
+          </div>
+        </td>
+        <td class="hiddenRow">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              <%= tipo[1] %>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="matHidden">
+          <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+            <div class="accordion-inner">
+              Materia
+            </div>
+          </div>
+        </td>
+        <td class="matHidden">
+          <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+            <div class="accordion-inner">
+              Cupos
+          </div>
+        </td>
+      </tr>
+              <% materias= tipo[2] %>
+              <% materias.each do |mat| %>
+                  <tr>
+                    <td class="hiddenRow">
+                      <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+                        <div class="accordion-inner">
+                          <%= mat[0] %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="hiddenRow">
+                      <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+                        <div class="accordion-inner">
+                          <%= mat[1] %>
+                        </div>
+                    </td>
+                  </tr>
+             <% end %>
+      <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+</div>
+</div>
 
 

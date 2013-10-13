@@ -167,6 +167,7 @@ class ReservasController < ApplicationController
     if(planeacionesMateria.empty?)
       #Toca crearlo
       p=Planeacion.create(codigoMateria: materia, cupos: 1, semestre: semestre)
+      p.save
       Registro.create(idEstudiante: estudiante, idPlaneacion: p.id, prioridad: prioridad)
     else
       planeado=planeacionesMateria[0]
@@ -369,12 +370,92 @@ def reservasSemestrePorEstUltimo(semestre)
 
     render 'home'
   end
+
   def semestrePlaneado
-  @h = LazyHighCharts::HighChart.new('graph') do |f|
-    f.options[:chart][:defaultSeriesType] = "area"
-    f.series(:name=>'John', :data=>[3, 20, 3, 5, 4, 10, 12 ,3, 5,6,7,7,80,9,9])
-    f.series(:name=>'Jane', :data=> [1, 3, 4, 3, 3, 5, 4,-46,7,8,8,9,9,0,0,9] )
+    semestre=2
+    semestre2Planeado(semestre)
   end
+
+  def semestre2Planeado(semestre)
+    #Materias que hacen parte dle semestre planeado
+    planes= Planeacion.where("semestre=?", semestre)
+
+    planesMateria=planes.joins('JOIN materia ON materia.id=planeacions.codigoMateria')
+    @maestrias=[]
+    m=[]
+    totalCupos=planes.select("sum(cupos) as cupos").first.cupos
+    cuposMaestria=planesMateria.select("sum(cupos) as cupos, programa").group("programa")
+
+    cuposMaestria.each do |cM|
+      maest=[]
+      maest.push(cM.programa)
+      maest.push(cM.cupos)
+
+      maest2=[]
+      maest2.push(cM.programa)
+      maest2.push((cM.cupos*100)/totalCupos)
+      m.push(maest2)
+
+      cuposTipo=planesMateria.select("sum(cupos) as cupos, tipo").where("programa=?",cM.programa).group("tipo")
+      tipos=[]
+      cuposTipo.each do |cT|
+        t=[]
+        t.push(cT.tipo)
+        t.push(cT.cupos)
+
+        cuposMateria=planesMateria.select("sum(cupos) as cupos, codigoMateria, nombre").where("tipo=?",cT.tipo).group("codigoMateria")
+        materias=[]
+        cuposMateria.each do |cMat|
+
+          materia=[]
+          materia.push(cMat.nombre)
+          materia.push(cMat.cupos)
+
+          materias.push(materia)
+        end
+
+        t.push(materias)
+        tipos.push(t)
+      end
+
+      maest.push(tipos)
+      @maestrias.push(maest)
+    end
+
+
+   # planes.each do |plan|
+    #  mat = Materia.find(plan.codigoMateria)
+     # if(!maestrias.key?(mat.programa))
+      #  maestrias[mat.programa]=plan.cupos
+     # else
+      #  maestrias[mat.programa]=maestrias[mat.programa]+plan.cupos
+      #end
+    #end
+
+
+
+    @h = LazyHighCharts::HighChart.new('pie') do |f|
+      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+      series = {
+          :type=> 'pie',
+          :name=> 'Cupos por maestria',
+          :data=> m
+      }
+      f.series(series)
+      f.options[:title][:text] = "Porcentaje de cupos por maestria"
+      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'})
+      f.plot_options(:pie=>{
+          :allowPointSelect=>true,
+          :cursor=>"pointer" ,
+          :dataLabels=>{
+              :enabled=>true,
+              :color=>"black",
+              :style=>{
+                  :font=>"13px Trebuchet MS, Verdana, sans-serif"
+              }
+          }
+      })
+    end
   end
 
 end
