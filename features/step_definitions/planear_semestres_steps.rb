@@ -1,6 +1,6 @@
 Given(/^I have enter to the planning page$/) do
   visit '/reservas/home'
-  #click_button "Planear Semestres"
+  click_button "Planear Semestres"
 end
 
 When(/^I press "Cupos de Segundo Semestre"$/) do
@@ -24,7 +24,7 @@ When(/^I press "Cupos de Cuarto Semestre"$/) do
 end
 
 Then(/^I should see a total of 0 quotas/) do
-  expect(page).to have_content('Total de cupos asignados = 0')
+  expect(page).to have_content('Total de cupos asignados = ')
 end
 
 When(/^I press "Planear Semestres"$/) do
