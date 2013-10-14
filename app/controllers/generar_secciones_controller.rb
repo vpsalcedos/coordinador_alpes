@@ -34,6 +34,7 @@ class GenerarSeccionesController < ApplicationController
     	end
     	@secciones=sec
     	@n=numestu
+    	@prueba= "width: 20%"
   	end
   end
 end
