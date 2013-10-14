@@ -423,15 +423,12 @@ def reservasSemestrePorEstUltimo(semestre)
     end
 
 
-   # planes.each do |plan|
-    #  mat = Materia.find(plan.codigoMateria)
-     # if(!maestrias.key?(mat.programa))
-      #  maestrias[mat.programa]=plan.cupos
-     # else
-      #  maestrias[mat.programa]=maestrias[mat.programa]+plan.cupos
-      #end
-    #end
 
+    ultimo= []
+    noUltimo=[]
+    ultimo,noUltimo=darEstUltimosYNoUltSem( semestre)
+    @numEstUltimo=ultimo.size
+    @numEstNoUltimo= noUltimo.size
 
 
     @h = LazyHighCharts::HighChart.new('pie') do |f|

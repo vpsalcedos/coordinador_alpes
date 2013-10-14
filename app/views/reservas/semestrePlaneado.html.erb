@@ -8,7 +8,14 @@ function toggle_visibilityMaest(maestria) {
             <% tipos.each do |tipo| %>
             $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
             <% end %>
+            document.getElementById("graph<%=maest[0]%>").style.display='none';
 
+        }else{
+            document.getElementById("graph<%=maest[0]%>").style.display='block';
+            <% tipos=maest[2]%>
+            <% tipos.each do |tipo| %>
+            $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            <% end %>
         }
     <% end %>
 };
@@ -27,17 +34,71 @@ function toggle_visibilityTipo(maestria, tipo) {
     }
     <% end %>
 };
+
+function hideGraphs() {
+
+    <% @maestrias.each do |maest| %>
+
+        //document.getElementById("graph<%=maest[0]%>").style.display='none';
+    <% end %>
+
+
+
+}
+window.onload = hideGraphs;
+
 </script>
 <h1>Semestre Planeado</h1>
 <br><br>
 
 <%= javascript_include_tag 'highcharts','exporting' %>
-<%= high_chart("my_id4", @h) do |c| %>
-    <%= raw "options.tooltip.formatter = function() {return '<b> YUPI!! '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
+<%= high_chart("my_id", @h) do |c| %>
+    <%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
     <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
 <% end %>
 
+ <% @maestrias.each do |maest| %>
+        <% totalCuposMaest= maest[1]%>
+        <% tipos=maest[2] %>
+        <% estadisticasTipo=[]%>
 
+        <% tipos.each do |t| %>
+           <%estTipo=[]  %>
+           <% estTipo.push(t[0]) %>
+           <% estTipo.push((t[1]*100)/totalCuposMaest) %>
+
+           <% estadisticasTipo.push(estTipo) %>
+       <% end %>
+
+    <%t = LazyHighCharts::HighChart.new('pie') do |f|
+        f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+        series = {
+        :type=> 'pie',
+        :name=> 'Cupos por tipo para la maestria'<< maest[0],
+        :data=> estadisticasTipo
+        }
+        f.series(series)
+        f.options[:title][:text] = "Porcentaje de cupos por tipo para la maestria " << maest[0]
+        f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'})
+        f.plot_options(:pie=>{
+        :allowPointSelect=>true,
+        :cursor=>"pointer" ,
+        :dataLabels=>{
+        :enabled=>true,
+        :color=>"black",
+        :style=>{
+        :font=>"13px Trebuchet MS, Verdana, sans-serif"
+        }
+        }
+        })
+    end %>
+
+    <%= high_chart("graph"<< maest[0], t) do |c| %>
+        <%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
+        <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+    <% end %>
+
+      <% end %>
 <div class="accordion" id="accordion2">
 
     <table class="table" style="border-collapse:collapse;">
@@ -134,6 +195,8 @@ function toggle_visibilityTipo(maestria, tipo) {
 
 </div>
 <p>Total de cupos asignados = <%=@totalCupos%></p>
+<p> Estudiantes de ultimo semestre esperados = <%=@numEstUltimo%></p>
+<p> Estudiantes de otros semestres esperados = <%=@numEstNoUltimo%></p>
 </div>
 
 
