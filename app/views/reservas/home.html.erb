@@ -9,9 +9,10 @@
 <%= submit_tag("Limpiar") %>
 <% end %>
 
- <p>Reservar Cupos Estudiantes de Ultimo Semestre</p>
-<%= form_tag('reservasUltimosEst',:method => :get) do%>
-<%= submit_tag("Reservar") %>
+ <p>Ver Planeacion proximo semestre (primer semestre)</p>
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+<input hidden name="semestre" value="1">
+<%= submit_tag("Ver Cupos") %>
 <% end %>
  
  <p>Planear Proximos Semestres</p>

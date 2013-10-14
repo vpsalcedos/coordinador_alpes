@@ -3,11 +3,11 @@ Given(/^I have enter to the home page$/) do
 end
 
 When(/^I press "Resrevar"$/) do
-  click_button "Reservar"
+  click_button "Ver Cupos"
 end
 
 Then(/^I should see 32 asigned quotas/) do
-  expect(page).to have_content('de cupos asignados= ')
+  expect(page).to have_content('Total de cupos asignados')
 end
 
 When(/^I press "Ver"$/) do
