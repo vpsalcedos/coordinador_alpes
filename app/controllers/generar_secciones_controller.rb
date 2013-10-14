@@ -6,7 +6,7 @@ class GenerarSeccionesController < ApplicationController
   	numestu=params[:numsecciones].to_i
   	semestre = 1
     if(numestu<=0)
-    	flash[:error] = 'Numero de estudiantes invalido'
+    	flash.now[:error] = 'Numero de estudiantes invalido'
     	render 'generar'
     else
     	
