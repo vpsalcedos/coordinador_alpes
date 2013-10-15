@@ -1,15 +1,45 @@
 <h1>Estudiantes de último semestre</h1>
 <p>Ver estudiantes de último semestre</p>
-<%= form_tag('ultimosEstudiantes',:method => :post) do%>
+<%= form_tag('ultimosEstudiantes',:method => :get) do%>
     <%= submit_tag("Ver") %>
 <% end%>
 
+
+
+ 
+ <p>Planear Proximos Semestres</p>
+<%= form_tag('planearSemestres',:method => :get) do%>
+<%= submit_tag("Planear Semestres") %>
+<% end %>
+
+<%= form_tag(generar_secciones_generar_path,:method => :get) do%>
+<%= submit_tag("Generar Secciones") %>
+<% end %>
+
+ <p>Ver Planeacion proximos semestres </p>
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+<input hidden name="semestre" value="1">
+<%= submit_tag("Ver Cupos semestre 1") %>
+<% end %>
+
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+<input hidden name="semestre" value="2">
+<%= submit_tag("Ver Cupos semestre 2") %>
+<% end %>
+
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+    <input hidden name="semestre" value="3">
+    <%= submit_tag("Ver Cupos semestre 3") %>
+<% end %>
+
+<%= form_tag('semestrePlaneado',:method => :get) do%>
+    <input hidden name="semestre" value="4">
+    <%= submit_tag("Ver Cupos semestre 4") %>
+<% end %>
+
+<br><br>
  <p>Limpiar Escenario</p>
 <%= form_tag('limpiarEscenario',:method => :get) do%>
 <%= submit_tag("Limpiar") %>
 <% end %>
 
- <p>Reservar Cupos Estudiantes de Ultimo Semestre</p>
-<%= form_tag('reservasUltimosEst',:method => :get) do%>
-<%= submit_tag("Reservar") %>
-<% end %>

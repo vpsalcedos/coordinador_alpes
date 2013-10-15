@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Carpeta do
-  let(:carpeta) { FactoryGirl.create :carpeta }
-  subject { carpeta }
+  let(:student) { FactoryGirl.create :student }
+  subject { student }
 
   it { should respond_to(:idEstudiante) }
   it { should respond_to(:tipoMateria) }

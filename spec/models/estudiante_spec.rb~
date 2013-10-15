@@ -1,0 +1,17 @@
+require 'spec_helper'
+
+describe Estudiante do
+   let(:estudiante) { FactoryGirl.create :estudiante }
+  subject { estudiante }
+
+  # ============
+  # Test for valid model
+  # ============
+  it { should respond_to(:nombre) }
+  it { should respond_to(:codigo) }
+  it { should respond_to(:apellido) }
+  it { should respond_to(:programa) }
+  it { should be_valid }
+
+
+end

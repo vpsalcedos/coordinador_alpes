@@ -14,7 +14,7 @@ class EstadoCarpetaController < ApplicationController
 
         id=@estudiante.id
         #Las entradas correspondientes a las materias que le faltan al estudiante.
-        @faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
+        @faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
         #http://guides.rubyonrails.org/active_record_querying.html
       else
         flash.now[:error] = 'Codigo invalido!!'

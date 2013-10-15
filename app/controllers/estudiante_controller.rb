@@ -8,7 +8,7 @@ def creditosfaltantes
 
 	e = Estudiante.find_by codigo:@codigo
 
-	c = Carpeta.where(idEstudiante: e.id , idMateria: nil , creditos: "4")
+	c = Carpeta.where(idEstudiante: e.id , codigoMateria: nil)
 	@creditosFestu = c.size*4
 
 	print("\n------creditos---------\n")
@@ -22,7 +22,7 @@ def creditosfaltantes
 	todos.each do |estudiante|
 		id = estudiante.id
 
-		faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+		faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
 		creditosFal = 0
 		faltantes.each do |fal|
 			creditosFal += fal.numCreFaltantes		
@@ -47,7 +47,7 @@ end
     todos.each do |estudiante|
       id = estudiante.id
 
-      faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND idMateria IS NULL",(id)).group("tipoMateria")
+      faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(id)).group("tipoMateria")
       creditosFal = 0
       faltantes.each do |fal|
         creditosFal += fal.numCreFaltantes
@@ -111,7 +111,7 @@ end
 
   def agregarAPlaneacion(materia,prioridad,semestre,estudiante)
     planeaciones=Planeacion.all
-    planeacionesMateria=planeaciones.where("idMateria_id=? AND semestre=1",(materia))
+    planeacionesMateria=planeaciones.where("codigoMateria_id=? AND semestre=1",(materia))
     if(planeacionesMateria.empty?)
       #Toca crearlo
       p=Planeacion.create(idMateria_id: materia, cupos: 1, semestre: semestre)

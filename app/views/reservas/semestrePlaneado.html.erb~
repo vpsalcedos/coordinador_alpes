@@ -126,7 +126,7 @@ window.onload = hideGraphs;
         <td class="headHidden">
           <div class="accordian-body collapse <%= maest[0]%>">
             <div class="accordion-inner">
-              - Tipo
+              Tipo
             </div>
           </div>
         </td>
@@ -145,7 +145,7 @@ window.onload = hideGraphs;
         <td class="typeHidden">
           <div class="accordian-body collapse <%= maest[0]%>">
             <div class="accordion-inner">
-              - <%= tipo[0] %>
+              <%= tipo[0] %>
             </div>
           </div>
         </td>
@@ -162,7 +162,7 @@ window.onload = hideGraphs;
         <td class="matHeadHidden">
           <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
             <div class="accordion-inner">
-              + Materia
+              Materia
             </div>
           </div>
         </td>
@@ -179,7 +179,7 @@ window.onload = hideGraphs;
                     <td class="matHidden">
                       <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
                         <div class="accordion-inner">
-                          + <%= mat[0] %>
+                          <%= mat[0] %>
 <br>
 
 

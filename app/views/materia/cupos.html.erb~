@@ -5,10 +5,11 @@
 <table>
   <tr>
     <th>id</th>
-    <th>Nombre</th>
+    <th>Nombre</th>}
+    <th>Codigo</th>
     <th>Tipo</th>
-    <th>Cupos Ult Sem</th>
-    <th>Cupos No Ult Sem</th>
+    <th>Programa</th>
+    <th>Creditos</th>
   </tr>
   
   <% @materias.each do |mat| %>
@@ -16,9 +17,10 @@
       <tr>
 	<td><%= mat.id %></td>
         <td><%= mat.nombre %></td>
+        <td><%= mat.codigo %></td>
         <td><%= mat.tipo %></td>
-        <td><%= mat.cupoUltimoSemestre %></td>
-        <td><%= mat.cupo %></td>
+        <td><%= mat.programa %></td>
+	<td><%= mat.creditos %></td>
       </tr>
 
   <% end %>

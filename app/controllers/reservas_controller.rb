@@ -378,8 +378,9 @@ def reservasSemestrePorEstUltimo(semestre)
 
   def semestre2Planeado(semestre)
     #Materias que hacen parte dle semestre planeado
+    @sem = semestre # subir el numero del semstre
     planes= Planeacion.where("semestre=?", semestre)
-
+ 
     planesMateria=planes.joins('JOIN materia ON materia.id=planeacions.codigoMateria')
     @maestrias=[]
     m=[]
@@ -410,7 +411,7 @@ def reservasSemestrePorEstUltimo(semestre)
           materia=[]
           materia.push(cMat.nombre)
           materia.push(cMat.cupos)
-
+	  materia.push(cMat.codigoMateria)  #necesitamos el ID para conocer los Registrados
           materias.push(materia)
         end
 
