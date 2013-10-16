@@ -3,7 +3,7 @@ Given(/^I have enter to the home page$/) do
 end
 
 When(/^I press "Resrevar"$/) do
-  click_button "Ver Cupos"
+  click_button "Ver Cupos semestre 1"
 end
 
 Then(/^I should see 32 asigned quotas/) do
