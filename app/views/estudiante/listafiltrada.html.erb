@@ -2,7 +2,6 @@
 <br>
 
 <div class="well">
-
 <table width=60%;>                         
   <tr>         
     <th>id</th>                 
@@ -12,6 +11,7 @@
     <th>Programa</th>
   </tr>
 <% @estudiantes.each do |estudiante| %>
+<% if(@m ==estudiante.programa) %>
   <tr>
     <td><%= link_to estudiante.id , estudiante_infoestudiante_path(:id => estudiante.id) %></td> 
     <td><%= link_to estudiante.nombre , estudiante_infoestudiante_path(:id => estudiante.id) %></td>
@@ -19,6 +19,8 @@
     <td><%= link_to estudiante.codigo , estudiante_infoestudiante_path(:id => estudiante.id) %></td>  
     <td><%= estudiante.programa %></td> 
   </tr>
+<% else %>
+<% end %>
 <% end %>
 </table> 
 
@@ -47,5 +49,4 @@
 <% end %>
 </div>
 </filtro>
-
 </div>

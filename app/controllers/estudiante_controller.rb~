@@ -134,4 +134,75 @@ end
     return prioridad
   end
 
+
+
+def listafiltrada
+	@m= params[:M]
+	@estudiantes = Estudiante.all
+	
+  end
+
+
+def infoestudiante
+	id= params[:id]
+	@e = Estudiante.find(id)
+
+	#Creditos faltantes
+	c = Carpeta.where(idEstudiante: id , codigoMateria: nil)
+	@creditosFestu = c.size*4
+	#Semestre actual
+	act=40-@creditosFestu
+	tmp=act/8
+	if(tmp<1) 
+		tmp ="no ha visto materias"
+	end
+	if(tmp==4)
+		tmp= "Último semestre"
+	end
+	@semact=tmp
+	
+	#las materais que le ahcen falta
+        @faltantes=Carpeta.select("tipoMateria, sum(creditos) as numCreFaltantes").where("idEstudiante=? AND codigoMateria IS NULL",(@e.id)).group("tipoMateria")
+       
+    	#tabla planeacion
+
+	reg = Registro.where(idEstudiante: @e.id )
+	reg.each do |re|
+		plan = Planeacion.find(re.idPlaneacion)
+		seme = plan.semestre
+		ma = Materia.find(plan.codigoMateria)
+		ma.codigo
+		if(seme == "1")
+			if(@s1m1==nil)
+				@s1m1=ma
+			else
+				@s1m2=ma
+			end
+		end
+		if(seme =="2")
+			if(@s2m1==nil)
+				@s2m1=ma
+			else
+				@s2m2=ma
+			end
+		end
+		if(seme =="3")
+			if(@s3m1==nil)
+				@s3m1=ma
+			else
+				@s3m2=ma
+			end
+		end
+		if(seme =="4")
+			if(@s4m1==nil)
+				@s4m1=ma
+			else
+				@s4m2=ma
+			end
+		end
+	end      
+end
+
+
+
 end

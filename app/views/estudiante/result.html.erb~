@@ -1,8 +1,9 @@
-
 <h1>ESTUDIANTES</h1>
 <br>
+
 <div class="well">
-<table>                         
+
+<table width=60%;>                         
   <tr>         
     <th>id</th>                 
     <th>Nombre</th>
@@ -12,12 +13,39 @@
   </tr>
 <% @estudiantes.each do |estudiante| %>
   <tr>
-    <td><%= estudiante.id %></td> 
-    <td><%= estudiante.nombre %></td>
-    <td><%= estudiante.apellido %></td>
-    <td><%= estudiante.codigo %></td>  
+    <td><%= link_to estudiante.id , estudiante_infoestudiante_path(:id => estudiante.id) %></td> 
+    <td><%= link_to estudiante.nombre , estudiante_infoestudiante_path(:id => estudiante.id) %></td>
+    <td><%= link_to estudiante.apellido , estudiante_infoestudiante_path(:id => estudiante.id) %></td>
+    <td><%= link_to estudiante.codigo , estudiante_infoestudiante_path(:id => estudiante.id) %></td>  
     <td><%= estudiante.programa %></td> 
   </tr>
 <% end %>
 </table> 
+
+
+<filtro>
+<div class="well">
+<p>Desea filtrar la lista por:<p>
+<%= form_tag(estudiante_listafiltrada_path , method: "post") do%>
+<input name="M" type="hidden" value="MATI">
+<%= submit_tag("MATI") %>
+<% end %>
+<%= form_tag(estudiante_listafiltrada_path , method: "post") do%>
+<input name="M" type="hidden" value="MESI">
+<%= submit_tag("MESI") %>
+<% end %>
+<%= form_tag(estudiante_listafiltrada_path , method: "post") do%>
+<input name="M" type="hidden" value="MBIT">
+<%= submit_tag("MBIT") %>
+<% end %>
+<%= form_tag(estudiante_listafiltrada_path , method: "post") do%>
+<input name="M" type="hidden" value="MISO">
+<%= submit_tag("MISO") %>
+<% end %>
+<%= form_tag(estudiante_result_path , method: "get") do%>
+<%= submit_tag("Todos") %>
+<% end %>
+</div>
+</filtro>
+
 </div>

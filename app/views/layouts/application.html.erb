@@ -11,6 +11,7 @@
 table, td, th
 {
 border:1px solid #4F81BD;
+
 }
 th
 {
@@ -26,6 +27,14 @@ h1 {
     font-size: 25px;
     line-height: 40px;
 }
+filtro
+{
+position:fixed;
+left:60%;
+top:60%;
+
+
+}
 </style>
 
 </head>
@@ -37,7 +46,7 @@ h1 {
 
 <div class='container' >
 	<div class="logo" align ="center">
-  		<%= link_to ( image_tag "logo.png" ), welcome_index_path %>
+  		<%= link_to ( image_tag "logomed.png" ), welcome_index_path %>
 	</div>
 
 
@@ -45,11 +54,11 @@ h1 {
 
 		<div class='navbar-inner'>
 
-			<nav style="font-size:20px;color:#4F81BD">
+			<nav style="font-size:18px;color:#4F81BD">
 			<br>
  			 <ul class="navbar pull-center" style="color:#4F81BD">
 			  <a href="/materia/cupos"><u>Materias</u></a> - 
-  			  <a href="/estudiante/new"><u>Estudiantes</u></a> - 
+  			  <a href="/estudiante/result?utf8=✓&commit=mostrar"><u>Estudiantes</u></a> - 
   			  <a href="/estado_carpeta/home"><u>Estado carpeta</u></a> - 
    			 <a href="/reservas/home"><u>Reservas</u></a> 
   			</ul>

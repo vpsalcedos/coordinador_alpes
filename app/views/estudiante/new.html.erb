@@ -3,22 +3,22 @@
 
 <br>
 <%= form_tag(estudiante_result_path , method: "get") do%>
-    <p> mostrar todos los estudiantes<p>
+    <p> mostrar todos los estudiantes</p>
 <%= submit_tag("mostrar") %>
 <% end %>
 
 <br><br><br><br>
 
 <%= form_tag(estudiante_creditosfaltantes_path , method: "post") do%>
-<p> Conocer creditos faltantes del estudiante :<p>
+<p> Conocer creditos faltantes del estudiante :</p>
   <br> 
-<p> Codigo estudiante :<p>
+<p> Codigo estudiante :</p>
 <input name="codigo">
 <%= submit_tag("consultar") %>
 <% end %>
 
 <%= form_tag(estudiante_buscarEstudiantesMasOcho_path , method: "get") do%>
-<p> A los estudiantes de mas de 8 creditos asigarles aleatoriamente cupos en las materias del tipo que le faltan<p>
+<p> A los estudiantes de mas de 8 creditos asigarles aleatoriamente cupos en las materias del tipo que le faltan</p>
   <br> 
 <%= submit_tag("Ver") %>
 <% end %>

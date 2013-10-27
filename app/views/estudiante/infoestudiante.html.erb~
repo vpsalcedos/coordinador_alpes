@@ -1,0 +1,68 @@
+<h1>Información del estudiante</h1>
+
+
+<div class="well">
+
+<p>Nombre: <%= @e.nombre %><p>
+<p>Apellido: <%= @e.apellido %><p>
+<p>Código: <%= @e.codigo %><p>
+<p>Programa: <%= @e.programa %><p>
+
+<% if @semact=="Último semestre" %>
+	<p >Estudiante de <font color="red"><%= @semact %></font><p>
+<% end %>
+<br>
+<p>Tabla Materias faltantes<p>
+<table width=60%;>
+  <tr>
+    <th>Tipo de Materia</th>
+    <th>Número de Créditos</th>
+    <th>Número de Materias</th>
+
+  </tr>
+  <% @faltantes.each do |materia| %>
+
+      <tr>
+        <td><%= materia.tipoMateria %></td>
+        <td><%= materia.numCreFaltantes %></td>
+        <td><%= materia.numCreFaltantes/4 %></td>
+
+      </tr>
+  <% end %>
+</table>
+<p>Total creditos faltantes = <%= @creditosFestu %> <p>
+<br>
+
+<p>Tabla planeación:<p>
+<table width=60%;>
+  <tr>
+    <th>Materia \ Semestre</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+  </tr>
+ 
+      <tr>
+        <td bgcolor="#4F81BD"><font color="white"> Materia 1 </font></td>
+	<td><%=@s1m1 %></td>
+	<td><%=@s2m1%></td>
+        <td><%=@s3m1%></td>
+        <td><%=@s4m1%></td>
+
+      </tr>
+   <tr>
+        <td bgcolor="#4F81BD"><font color="white"> Materia 2 </font></td>
+	<td><%= @s1m2%> </td>
+	<td><%=@s2m2%></td>
+        <td><%=@s3m2%></td>
+        <td><%=@s4m2%></td>
+
+      </tr>
+</table>
+
+
+<br><br><br><br>
+<p>Find me in app/views/estudiante/infoestudiante.html.erb</p>
+<%= @e.id %>
+</div>

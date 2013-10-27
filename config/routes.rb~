@@ -1,9 +1,19 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "estudiante/infoestudiante"
+  get "estudiante/estudiante"
+  post "estudiante/listafiltrada"
+  get "generar_secciones/generar"
+  post "generar_secciones/generarSecciones"
+
+  get "materia/cupos"
+  get "estudiante/cuposmas8"
   get "welcome/index"
-  post "reservas/ultimosEstudiantes"
+  get "reservas/ultimosEstudiantes"
   get "reservas/reservasUltimosEst"
   get "reservas/limpiarEscenario"
   get "reservas/home"
+  get "reservas/planearSemestres"
+  get "reservas/semestrePlaneado"
 
   get "estudiante/buscarEstudiantesMasOcho"
   post "estudiante/creditosfaltantes"

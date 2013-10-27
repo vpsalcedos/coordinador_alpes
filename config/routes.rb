@@ -1,4 +1,6 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "estudiante/infoestudiante"
+  post "estudiante/listafiltrada"
   get "generar_secciones/generar"
   post "generar_secciones/generarSecciones"
 
