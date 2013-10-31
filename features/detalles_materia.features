@@ -1,0 +1,10 @@
+Features: Detalles planeacion semestre por materia
+Como coordinador 
+Quiero conocer la información detallada de la planeación para cada materia
+Para realizar una asignación mas precisa de los recursos deacuerdo a los estudiantes
+
+Scenario: Informacion detallda materia
+Given a user visit the infomateria page
+when she click on any semestre details 
+Then she should see estudiantes list
+

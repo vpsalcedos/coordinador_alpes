@@ -9,18 +9,21 @@
     <th>id</th>
     <th>Nombre</th>
     <th>Codigo</th>
-
+    <th>Tipo</th>
     <th>Programa</th>
     </tr>
   <% @materias.each do |mat| %>
 
-
+<% if(@m ==mat.programa) %>
   <tr>
     <td><%= link_to mat.id , materia_infomateria_path(:id => mat.id) %></td> 
     <td><%= link_to mat.nombre , materia_infomateria_path(:id => mat.id) %></td>
     <td><%= link_to mat.codigo , materia_infomateria_path(:id => mat.id) %></td>
+    <td><%= link_to mat.tipo , materia_infomateria_path(:id => mat.id) %></td>  
     <td><%= mat.programa %></td> 
   </tr>
+<% else %>
+<% end %>
 <% end %>
 </table> 
 

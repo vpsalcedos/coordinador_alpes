@@ -3,16 +3,16 @@
 
 <div class="well">
 
-<p>Nombre: <%= @e.nombre %></p>
-<p>Apellido: <%= @e.apellido %></p>
-<p>Código: <%= @e.codigo %></p>
-<p>Programa: <%= @e.programa %></p>
+<p><b>Nombre:</b> <%= @e.nombre %></p>
+<p><b>Apellido:</b> <%= @e.apellido %></p>
+<p><b>Código:</b> <%= @e.codigo %></p>
+<p><b>Programa:</b> <%= @e.programa %></p>
 
-<% if @semact=="Último semestre" %>
+<% if (@semact.==('Último semestre') )%>
 	<p >Estudiante de <font color="red"><%= @semact %></font></p>
 <% end %>
 <br>
-<p>Tabla Materias faltantes</p>
+<p><b>Tabla Materias faltantes</b></p>
 <table width=60%;>
   <tr>
     <th>Tipo de Materia</th>
@@ -33,7 +33,7 @@
 <p>Total creditos faltantes = <%= @creditosFestu %> </p>
 <br>
 
-<p>Tabla planeación:</p>
+<p><b>Tabla planeación:</b></p>
 <table width=60%;>
   <tr>
     <th>Materia \ Semestre</th>
@@ -45,24 +45,76 @@
  
       <tr>
         <td bgcolor="#4F81BD"><font color="white"> Materia 1 </font></td>
-	<td><%=@s1m1 %></td>
-	<td><%=@s2m1%></td>
-        <td><%=@s3m1%></td>
-        <td><%=@s4m1%></td>
+	<td>
+<% if (@s1m1=="")%>
+-
+<% else %>
+<%= link_to @s1m1.codigo , materia_infomateria_path(:id => @s1m1.id) %>
+<% end %>
+</td>
+	<td>
+<% if (@s2m1=="")%>
+-
+<% else %>
+<%= link_to @s2m1.codigo , materia_infomateria_path(:id => @s2m1.id) %>
+<% end %>
+</td>
+
+	<td>
+<% if (@s3m1=="")%>
+-
+<% else %>
+<%= link_to @s3m1.codigo , materia_infomateria_path(:id => @s3m1.id) %>
+<% end %>
+</td>
+
+	<td>
+<% if (@s4m1=="")%>
+-
+<% else %>
+<%= link_to @s4m1.codigo , materia_infomateria_path(:id => @s4m1.id) %>
+<% end %>
+</td>
+
+
 
       </tr>
    <tr>
         <td bgcolor="#4F81BD"><font color="white"> Materia 2 </font></td>
-	<td><%= @s1m2%> </td>
-	<td><%=@s2m2%></td>
-        <td><%=@s3m2%></td>
-        <td><%=@s4m2%></td>
+	<td>
+<% if (@s1m2=="")%>
+-
+<% else %>
+<%= link_to @s1m2.codigo , materia_infomateria_path(:id => @s1m2.id) %>
+<% end %>
+</td>
+	<td>
+<% if (@s2m2=="")%>
+-
+<% else %>
+<%= link_to @s2m2.codigo , materia_infomateria_path(:id => @s2m2.id) %>
+<% end %>
+</td>
 
+	<td>
+<% if (@s3m2=="")%>
+-
+<% else %>
+<%= link_to @s3m2.codigo , materia_infomateria_path(:id => @s3m2.id) %>
+<% end %>
+</td>
+
+	<td>
+<% if (@s4m2=="")%>
+-
+<% else %>
+<%= link_to @s4m2.codigo , materia_infomateria_path(:id => @s4m2.id) %>
+<% end %>
+</td>
       </tr>
 </table>
 
 
 <br><br><br><br>
-<p>Find me in app/views/estudiante/infoestudiante.html.erb</p>
-<%= @e.id %>
+
 </div>

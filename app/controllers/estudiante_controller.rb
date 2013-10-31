@@ -181,30 +181,30 @@ def infoestudiante
 		ma = Materia.find(plan.codigoMateria)
 		if(seme == "1")
 			if(@s1m1=="")
-				@s1m1=ma.codigo
+				@s1m1=ma
 			else
-				@s1m2=ma.codigo
+				@s1m2=ma
 			end
 		end
 		if(seme =="2")
 			if(@s2m1=="")
-				@s2m1=ma.codigo
+				@s2m1=ma
 			else
-				@s2m2=ma.codigo
+				@s2m2=ma
 			end
 		end
 		if(seme =="3")
 			if(@s3m1=="")
-				@s3m1=ma.codigo
+				@s3m1=ma
 			else
-				@s3m2=ma.codigo
+				@s3m2=ma
 			end
 		end
 		if(seme =="4")
 			if(@s4m1=="")
-				@s4m1=ma.codigo
+				@s4m1=ma
 			else
-				@s4m2=ma.codigo
+				@s4m2=ma
 			end
 		end
 	end      

@@ -1,0 +1,100 @@
+<h1>Información de la materia</h1>
+
+<div class="well">
+
+
+<p><b>Nombre:</b> <%= @mate.nombre %></p>
+<p><b>Código materia:</b> <%= @mate.codigo %></p>
+<p><b>Programa: </b><%= @mate.programa %></p>
+<p><b>creditos: </b><%= @mate.creditos %></p>
+
+
+<br>
+<p><b>Planeación</b> </p>
+
+
+<% if(@plan1.first==nil)%>
+<% p1=0 %>
+<% @p1ulti=0 %>
+<% @p1mismo=0 %>
+<% else %>
+<% p1= @plan1.first.cupos %>
+<% end %>
+
+<% if(@plan2.first==nil)%>
+<% p2=0 %>
+<% @p2ulti=0 %>
+<% @p2mismo=0 %>
+<% else %>
+<% p2=@plan2.first.cupos %>
+<% end %>
+
+<% if(@plan3.first==nil)%>
+<% p3=0 %>
+<% @p3ulti=0 %>
+<% @p3mismo=0 %>
+<% else %>
+<% p3=@plan3.first.cupos %>
+<% end %>
+ 
+<% if(@plan4.first==nil)%>
+<% p4=0 %>
+<% @p4ulti=0 %>
+<% @p4mismo=0 %>
+<% else %>
+<% p4=@plan4.first.cupos %>
+<% end %>
+
+
+<%
+bar = LazyHighCharts::HighChart.new('column') do |f|
+    f.series(:name=>'Ultimo Semestre',:data=> [ @p1ulti, @p2ulti, @p3ulti, @p4ulti ], :color=>"red")
+    f.series(:name=>'Mismo Programa',:data=> [@p1mismo, @p2mismo, @p3mismo, @p4mismo ],:color=>"green")
+    f.series(:name=>'Otros',:data=> [p1-@p1ulti-@p1mismo, p2-@p2ulti-@p2mismo, p3-@p3ulti-@p3mismo, p4-@p4ulti-@p4mismo ])
+    	
+    f.title({ :text=>"Cupos planeados"})
+
+    f.xAxis(:categories=> ["Semstre 1", "Semstre 2", "Semstre 3", "Semstre 4" ])
+    f.yAxis(:min=>0,:title=>{ :text=>"Cupos"},:stackLabels=>{ :enabled=>true,:color=>"black"})
+
+    f.options[:chart][:defaultSeriesType] = "column"
+
+    f.plot_options(:series=>{:stacking=>"normal",:dataLabels=>{ :enabled=>true,:color=>"white"}}) 
+
+
+   
+  end
+%>
+<%= high_chart("Planeacion", bar) %>
+
+
+
+<br>
+<br>
+
+<p><b>Ver detalles</b> </p>
+<% if(@plan1.first==nil)%>
+<% else %>
+<%= link_to "Semestre 1 " , materia_detalles_path(:id => @mate.id, :sem => "1" ) %>
+<% end %>
+ - 
+<% if(@plan2.first==nil)%>
+<% else %>
+<%= link_to "Semestre 2 " , materia_detalles_path(:id => @mate.id, :sem => "2" ) %>
+<% end %>
+ - 
+<% if(@plan3.first==nil)%>
+<% else %>
+<%= link_to "Semestre 3 " , materia_detalles_path(:id => @mate.id, :sem => "3" ) %>
+<% end %>
+ - 
+<% if(@plan4.first==nil)%>
+<% else %>
+<%= link_to "Semestre 4 " , materia_detalles_path(:id => @mate.id, :sem => "4" ) %>
+<% end %>
+
+<% if(@plan1.first==nil and @plan2.first==nil and @plan3.first==nil and @plan4.first==nil  )%>
+<p>No se econtraron cupos planeados para esta materia.</p>
+<% end %>
+
+</div>

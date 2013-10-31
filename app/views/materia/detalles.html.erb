@@ -1,0 +1,50 @@
+<h1>Detalles Planeación</h1>
+
+<p> <b>Materia:</b> <%= @materia.nombre %> </p>
+<p> <b>Código:</b> <%= @materia.codigo %> </p>
+
+<p> Lista de estudiantes para la planeación del semestre <%= @sem %></p>
+
+<div class="well">
+
+<table width=60%;>                         
+  <tr>         
+                    
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Codigo</th>
+    <th>Programa</th>
+    <th>Prioridad</th>
+  </tr>
+
+<% @reg.each do |r| %>
+<% e = Estudiante.find(r.idEstudiante) %>
+  <tr>	
+    
+    <td><%= link_to e.nombre , estudiante_infoestudiante_path(:id => e.id) %></td>
+    <td><%= link_to e.apellido , estudiante_infoestudiante_path(:id => e.id) %></td>
+    <td><%= link_to e.codigo , estudiante_infoestudiante_path(:id => e.id) %></td>  
+
+
+    <td><%= e.programa %></td> 
+
+
+<% if r.prioridad.start_with?('Ultimo') %>
+	<td><font color="red"><%= r.prioridad %></font></td> 
+<% else %>
+<% if r.prioridad.start_with?('Mismo') %>
+	<td><font color="green"><%= r.prioridad %></font></td> 
+<% else %>
+    <td><%= r.prioridad %></td> 
+<% end %>
+<% end %>
+  </tr>
+<% end %>
+</table> 
+
+</div>
+
+
+
+
+
