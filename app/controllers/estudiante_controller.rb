@@ -157,7 +157,7 @@ def infoestudiante
 		tmp ="no ha visto materias"
 	end
 	if(tmp==4)
-		tmp= "Último semestre"
+		tmp= "Ultimo semestre"
 	end
 	@semact=tmp
 	

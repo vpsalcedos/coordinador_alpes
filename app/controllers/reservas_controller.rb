@@ -225,7 +225,7 @@ class ReservasController < ApplicationController
         }
       end
     end
-
+    faltantes= faltantes.delete_if{|f| f.numCreFaltantes==0}
     return faltantes
   end
 
@@ -320,7 +320,6 @@ def reservasSemestrePorEstUltimo(semestre)
             end
           else
             #Le faltan dos materias
-
             n= (tipofalt.numCreFaltantes/4).round
             randMat1=Random.rand(materiasPosibles.size)
             randMat2=Random.rand(materiasPosibles.size)
@@ -366,7 +365,7 @@ def reservasSemestrePorEstUltimo(semestre)
       semestre+=1
     end
     registros=Registro.all
-    puts registros.length
+    #puts registros.length
 
     render 'home'
   end
