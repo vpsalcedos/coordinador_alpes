@@ -43,3 +43,104 @@
 <%= submit_tag("Limpiar") %>
 <% end %>
 
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Ejecutar planeacion</a>
+<%= form_tag('setMateriasSemestre',:method => :get ) do%>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Desea especificar las materias en cada semestre?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem1" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Si</a>
+  </div>
+</div>
+
+<div id="sem1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 1</p>
+
+        <input hidden name="materias1[]"/>
+        <%@materias1 = Materia.all%>
+        <%@materias1.each do |c|%>
+            <%= check_box_tag "materias1[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+        <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+        <a href="#sem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem2</a>
+  </div>
+</div>
+
+<div id="sem2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 2</p>
+    <input hidden name="materias2[]"/>
+    <%@materias2 = Materia.all%>
+    <%@materias2.each do |c|%>
+        <%= check_box_tag "materias2[]", c.id %> <%= c.nombre%><br />
+    <%end%>
+  </div>
+
+  <div class="modal-footer">
+
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem3</a>
+  </div>
+</div>
+
+<div id="sem3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 3</p>
+    <input hidden  name="materias3[]"/>
+        <%@materias3 =  Materia.all%>
+        <%@materias3.each do |c|%>
+          <%= check_box_tag "materias3[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
+  </div>
+</div>
+
+<div id="sem4" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 4</p>
+    <input hidden name="materias4[]"/>
+        <%@materias4 = Materia.all%>
+        <%@materias4.each do |c|%>
+         <%= check_box_tag "materias4[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <%= submit_tag("Terminar") %>
+
+
+  </div>
+</div>
+    <% end %>
+

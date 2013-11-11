@@ -43,3 +43,12 @@ Feature: Editar Planeacion
     Then I select "4"
     Then I press "Siguiente"
     Then I should see "Resultados"
+
+   #Pruebas sobre BD
+  Scenario: Planear sobre las materias correctas
+    Given I am on the plannings page
+    When I presss "Ejecutar planeacion"
+    When I press "Si"
+    Then I select some courses in each semester
+    Then I execute the planning
+    Then I should see a valid planning over the courses I selected in each semester

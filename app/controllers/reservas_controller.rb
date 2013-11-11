@@ -1,5 +1,9 @@
 class ReservasController < ApplicationController
 
+  #Contiene la lista de materias de los 4 semestres
+  @@materiasSemestres=Array.new(4)
+
+
   def ultimosEstudiantes
     @ultimosSem=[]
     creditosFal = Carpeta.select("sum(creditos) as numCred, idEstudiante").where(codigoMateria:nil).group("idEstudiante");
@@ -36,7 +40,17 @@ class ReservasController < ApplicationController
       if(!faltantes.empty?)
           #Para cada tipo que le falta, buscar la lista de materias faltantes de ese tipo
            faltantes.each do |tipofalt|
-             materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+
+             materiasSem1=@@materiasSemestres[0]
+             if(materiasSem1==nil)
+               materiasSem1=Materia.all
+             end
+             materiasPosibles=materiasSem1.select{
+               |mat| mat.tipo==tipofalt.tipoMateria
+             }
+                 #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+
+
              if(!materiasPosibles.empty?)
                if(tipofalt.numCreFaltantes<=4)
                  #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -96,7 +110,16 @@ class ReservasController < ApplicationController
         #@algunos << e
         i = 0
         faltantes.each do |tipofalt|
-          materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+
+          materiasSem1=@@materiasSemestres[0]
+          if(materiasSem1==nil)
+            materiasSem1=Materia.all
+          end
+          materiasPosibles=materiasSem1.select{
+              |mat| mat.tipo==tipofalt.tipoMateria
+          }
+
+          #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
           if(!materiasPosibles.empty?)
             if(tipofalt.numCreFaltantes<=4)
               #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -247,7 +270,15 @@ def reservasSemestrePorEstUltimo(semestre)
       if(!faltantes.empty?)
           #Para cada tipo que le falta, buscar la lista de materias faltantes de ese tipo
            faltantes.each do |tipofalt|
-             materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+             materiasSem=@@materiasSemestres[semestre.to_i-1]
+             if(materiasSem==nil)
+               materiasSem=Materia.all
+             end
+             materiasPosibles=materiasSem.select{
+                 |mat| mat.tipo==tipofalt.tipoMateria
+             }
+
+             #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
              if(!materiasPosibles.empty?)
                if(tipofalt.numCreFaltantes<=4)
                  #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -302,7 +333,15 @@ def reservasSemestrePorEstUltimo(semestre)
       #@algunos << e
       i = 0
       faltantes.each do |tipofalt|
-        materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+
+        materiasSem=@@materiasSemestres[semestre.to_i-1]
+        if(materiasSem==nil)
+          materiasSem=Materia.all
+        end
+        materiasPosibles=materiasSem.select{
+            |mat| mat.tipo==tipofalt.tipoMateria
+        }
+        #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
         if(!materiasPosibles.empty?)
           if(tipofalt.numCreFaltantes<=4)
             #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -354,6 +393,9 @@ def reservasSemestrePorEstUltimo(semestre)
     Planeacion.delete_all
     Registro.delete_all
 
+    if (@@materiasSemestres.empty?)
+      setMateriasAll
+    end
     #Planeacion de primer semestre
     reservasUltimosEst
     cuposmas8
@@ -455,4 +497,71 @@ def reservasSemestrePorEstUltimo(semestre)
     end
   end
 
+
+  def setMateriasSemestre
+        Planeacion.delete_all
+    Registro.delete_all
+    mat=params[:materias1]
+    materias=[]
+    mat.each do |id|
+      if(!id.empty?)
+        materias.push(Materia.find(id.to_i))
+      end
+    end
+    @@materiasSemestres.insert(0,materias)
+
+    mat=params[:materias2]
+    materias=[]
+    mat.each do |id|
+      if(!id.empty?)
+        materias.push(Materia.find(id.to_i))
+      end
+    end
+    @@materiasSemestres.insert(1,materias)
+
+    mat=params[:materias3]
+    materias=[]
+    mat.each do |id|
+      if(!id.empty?)
+        materias.push(Materia.find(id.to_i))
+      end
+    end
+    @@materiasSemestres.insert(2,materias)
+
+    mat=params[:materias4]
+    materias=[]
+    mat.each do |id|
+      if(!id.empty?)
+        materias.push(Materia.find(id.to_i))
+      end
+    end
+    @@materiasSemestres.insert(3,materias)
+
+    Planeacion.delete_all
+    Registro.delete_all
+
+
+    #Planeacion de primer semestre
+    reservasUltimosEst
+    cuposmas8
+    #Planeacion otros semestres
+    semestre=2
+    while semestre<5 do
+      reservasSemestrePorEstUltimo(semestre.to_s)
+      reservasSemestrePorEst(semestre.to_s)
+      semestre+=1
+    end
+
+
+    render 'home'
+   
+  end
+
+  def setMateriasAll
+    @@materiasSemestres=Array.new(4)
+    @@materiasSemestres.insert(0, Materia.all)
+    @@materiasSemestres.insert(1, Materia.all)
+    @@materiasSemestres.insert(2, Materia.all)
+    @@materiasSemestres.insert(3, Materia.all)
+  end
 end
