@@ -1,0 +1,367 @@
+<% if (Registro.all).empty? == false  %>
+<script>
+function toggle_visibilityMaest(maestria) {
+    <% @maestrias.each do |maest| %>
+        m=<%=maest[0]%>;
+        if(m!=maestria){
+            $('.<%=maest[0] %>').collapse('hide');
+            <% tipos=maest[2]%>
+            <% tipos.each do |tipo| %>
+            $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            <% end %>
+            document.getElementById("graph<%=maest[0]%>").style.display='none';
+
+        }else{
+            document.getElementById("graph<%=maest[0]%>").style.display='block';
+            <% tipos=maest[2]%>
+            <% tipos.each do |tipo| %>
+            $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            <% end %>
+        }
+    <% end %>
+};
+function toggle_visibilityTipo(maestria, tipo) {
+    <% @maestrias.each do |maest| %>
+    m=<%=maest[0]%>;
+    if(m==maestria){
+        <% tipos=maest[2]%>
+        <% tipos.each do |tipo| %>
+            t=<%=tipo[0]%>;
+            if(t!=tipo){
+                $('.<%= maest[0]%><%=tipo[0]%>').collapse('hide');
+            }
+        <% end %>
+
+    }
+    <% end %>
+};
+
+function hideGraphs() {
+
+    <% @maestrias.each do |maest| %>
+
+        //document.getElementById("graph<%=maest[0]%>").style.display='none';
+    <% end %>
+
+
+
+}
+window.onload = hideGraphs;
+
+</script>
+<h1>Planeación del semestre <%= @sem %></h1>
+<br><br>
+ <p>Otros Semestres </p>
+  <div class="nav" align ="left">
+
+    <div class='navbar-inner'>
+
+      <nav style="font-size:18px;color:#4F81BD">
+      <br>
+       <ul class="navbar pull-center" style="color:#4F81BD">
+        <a href="/reservas/semestrePlaneado?utf8=✓&semestre=1&commit=Ver+Cupos+semestre+1"><u>Semetre 1</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=2&commit=Ver+Cupos+semestre+2"><u>Semestre 2</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=3&commit=Ver+Cupos+semestre+3"><u>Semestre 3</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=4&commit=Ver+Cupos+semestre+4"><u>Semestre 4</u></a>
+         
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+
+<%= javascript_include_tag 'highcharts','exporting' %>
+<%= high_chart("my_id", @h) do |c| %>
+    <%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
+    <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+<% end %>
+
+ <% @maestrias.each do |maest| %>
+        <% totalCuposMaest= maest[1]%>
+        <% tipos=maest[2] %>
+        <% estadisticasTipo=[]%>
+
+        <% tipos.each do |t| %>
+           <%estTipo=[]  %>
+           <% estTipo.push(t[0]) %>
+           <% estTipo.push((t[1]*100)/totalCuposMaest) %>
+
+           <% estadisticasTipo.push(estTipo) %>
+       <% end %>
+
+    <%t = LazyHighCharts::HighChart.new('pie') do |f|
+        f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+        series = {
+        :type=> 'pie',
+        :name=> 'Cupos por tipo para la maestria'<< maest[0],
+        :data=> estadisticasTipo
+        }
+        f.series(series)
+        f.options[:title][:text] = "Porcentaje de cupos por tipo para la maestria " << maest[0]
+        f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'})
+        f.plot_options(:pie=>{
+        :allowPointSelect=>true,
+        :cursor=>"pointer" ,
+        :dataLabels=>{
+        :enabled=>true,
+        :color=>"black",
+        :style=>{
+        :font=>"13px Trebuchet MS, Verdana, sans-serif"
+        }
+        }
+        })
+    end %>
+
+    <%= high_chart("graph"<< maest[0], t) do |c| %>
+        <%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
+        <%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+    <% end %>
+
+<% end %>
+
+
+<div class="accordion" id="accordion2">
+
+    <table class="table" style="border-collapse:collapse;">
+      <thead>
+      <tr>
+
+        <th><br>Maestria</th>
+        <th>Cupos</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <% @maestrias.each do |maest| %>
+
+      <div class="accordion-heading">
+        <tr data-toggle="collapse" data-parent="#accordion2" data-target=".<%= maest[0]%>" id="<%= maest[0]%>" class="accordion-toggle" onclick="toggle_visibilityMaest(<%= maest[0]%>);">
+            <td><br><%= maest[0]%><br> </td>
+
+            <td><%= maest[1]%></td>
+        </tr >
+      </div>
+      <tr>
+        <td class="headHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              - Tipo
+            </div>
+          </div>
+        </td>
+        <td class="headHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              Cupos
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <% tipos=maest[2]%>
+      <% tipos.each do |tipo| %>
+      <tr data-toggle="collapse" data-parent="#<%= maest[0]%>" data-target=".<%= maest[0]%><%=tipo[0]%>" id="<%= maest[0]%><%=tipo[0]%>" class="accordion-toggle" onclick="toggle_visibilityTipo(<%= maest[0]%>, <%=tipo[0]%>);">
+        <td class="typeHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              - <%= tipo[0] %>
+            </div>
+          </div>
+        </td>
+        <td class="typeHidden">
+          <div class="accordian-body collapse <%= maest[0]%>">
+            <div class="accordion-inner">
+              <%= tipo[1] %>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="matHeadHidden">
+          <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+            <div class="accordion-inner">
+              + Materia
+            </div>
+          </div>
+        </td>
+        <td class="matHeadHidden">
+          <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+            <div class="accordion-inner">
+              Cupos
+          </div>
+        </td>
+      </tr>
+              <% materias= tipo[2] %>
+              <% materias.each do |mat| %>
+                  <tr>
+                    <td class="matHidden">
+                      <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+                        <div class="accordion-inner">
+                          + <%= mat[0] %>
+<br>
+
+
+
+  
+
+                        </div>
+                      </div>
+                    </td>
+                    <td class="matHidden">
+                      <div class="accordian-body collapse <%= maest[0]%><%=tipo[0]%>">
+                        <div class="accordion-inner">
+                          
+
+<% p =Planeacion.where(semestre: @sem , codigoMateria: mat[2])  %>
+<% r = Registro.where(idPlaneacion: p) %>
+<% total = r.count %>
+<% pTemp = r.where.not(prioridad: "Mismo programa") %>
+<font color=red>Ultimo Semestre: <%= pUltimo = pTemp.all( :conditions => ["prioridad like ?", "%Ultimo%" ]).count %></font><br>
+<font color=orange>Mismo Programa: <%= pMismoprograma = r.where(prioridad: "Mismo programa").count %></font><br>
+Otros: <%= pOtros =  total - pMismoprograma - pUltimo %><br>
+Total: <%=total%>
+                        </div>
+                    </td>
+                  </tr>
+
+
+
+
+
+
+             <% end %>
+      <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+</div>
+<br>
+<p>Datos:</p>
+<p>Total de cupos asignados = <%=@totalCupos%></p>
+<p> Estudiantes de ultimo semestre esperados = <%=@numEstUltimo%></p>
+<p> Estudiantes de otros semestres esperados = <%=@numEstNoUltimo%></p>
+</div>
+<br><br>
+<p>Ejecutar Nueva Planeacion</p> 
+<%= form_tag('planearSemestres',:method => :get) do%>
+<%= submit_tag("Planear") %>
+<% end %>
+
+<p>Limpiar PLaneacion</p>
+<%= form_tag('limpiarEscenario',:method => :get) do%>
+<%= submit_tag("Limpiar") %>
+<% end %>
+
+<% else %>
+<h1>Planeación del semestre <%= @sem %></h1>
+<br><br>
+
+<font color="#990000">No existe ninguna planeación en el sistema.</font>
+<br><br>
+
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Ejecutar planeacion</a>
+<%= form_tag('setMateriasSemestre',:method => :get ) do%>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Desea especificar las materias en cada semestre?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="/reservas/detalles" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem1" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Si</a>
+  </div>
+</div>
+
+<div id="sem1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 1</p>
+
+        <input hidden name="materias1[]"/>
+        <%@materias1 = Materia.all%>
+        <%@materias1.each do |c|%>
+            <%= check_box_tag "materias1[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+        <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+        <a href="#sem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem2</a>
+  </div>
+</div>
+
+<div id="sem2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 2</p>
+    <input hidden name="materias2[]"/>
+    <%@materias2 = Materia.all%>
+    <%@materias2.each do |c|%>
+        <%= check_box_tag "materias2[]", c.id %> <%= c.nombre%><br />
+    <%end%>
+  </div>
+
+  <div class="modal-footer">
+
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem3</a>
+  </div>
+</div>
+
+<div id="sem3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 3</p>
+    <input hidden  name="materias3[]"/>
+        <%@materias3 =  Materia.all%>
+        <%@materias3.each do |c|%>
+          <%= check_box_tag "materias3[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <a href="#sem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
+  </div>
+</div>
+
+<div id="sem4" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Materias del semestre 4</p>
+    <input hidden name="materias4[]"/>
+        <%@materias4 = Materia.all%>
+        <%@materias4.each do |c|%>
+         <%= check_box_tag "materias4[]", c.id %> <%= c.nombre%><br />
+        <%end%>
+  </div>
+  <div class="modal-footer">
+    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <%= submit_tag("Terminar") %>
+
+
+  </div>
+</div>
+    <% end %>
+
+<% end %>
+
+

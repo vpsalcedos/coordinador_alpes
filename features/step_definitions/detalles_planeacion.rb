@@ -1,9 +1,9 @@
-Given(/^I want to see the planning page$/) do |h|
+Given(/^I want to see the planning page$/) do 
   visit '/welcome/index'
 end
 
 When(/^I press "Planeacion"$/) do
-  click_button "Planeación"
+  page.find(:link,"Planeación").click
 end
 
 Then(/^I should see "No existe ninguna planeacion en el sistema"$/) do
@@ -11,7 +11,7 @@ Then(/^I should see "No existe ninguna planeacion en el sistema"$/) do
 end
 
 Then(/^I shouldn't see any table$/) do                                                                                                                                                            
-  expect(page).not to have_content('table')
+  expect(page).to have_no_content('table')
 end         
 
 Then(/^I should see the tables of the courses$/) do
@@ -33,12 +33,12 @@ Then(/^the database shouldn't have rows on the tables related$/) do
 end                                                                                                                                                                                               
                                                                                                                                                                                                   
 Given(/^I am on the planning page$/) do
-  visit '/planeacion/detalles'
+  visit '/reservas/detalles'
 end                                                                                                                                                                                               
                                                                                                                                                                                                   
 When(/^I press "Ejecutar planeacion"$/) do
-  click_button "Ejecutar Planeacion"
+  page.find(:link,"Ejecutar planeacion").click
 end  
 When(/^I press "No"$/) do
-  click_button "No"
+  page.find(:link,"No").click
 end  

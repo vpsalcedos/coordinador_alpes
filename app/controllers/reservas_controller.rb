@@ -416,6 +416,10 @@ def reservasSemestrePorEstUltimo(semestre)
     semestre=params[:semestre]
     semestre2Planeado(semestre)
   end
+  def detalles
+    semestre='1'
+    semestre2Planeado(semestre)
+  end
 
   def semestre2Planeado(semestre)
     #Materias que hacen parte dle semestre planeado

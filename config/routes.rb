@@ -16,6 +16,7 @@ CoordinadorAlpes::Application.routes.draw do
   get "reservas/home"
   get "reservas/planearSemestres"
   get "reservas/semestrePlaneado"
+  get "reservas/detalles"
 
   get "estudiante/buscarEstudiantesMasOcho"
   post "estudiante/creditosfaltantes"
