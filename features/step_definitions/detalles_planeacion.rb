@@ -3,11 +3,11 @@ Given(/^I want to see the planning page$/) do |h|
 end
 
 When(/^I press "Planeacion"$/) do
-  click_button "Planear"
+  click_button "Planeación"
 end
 
 Then(/^I should see "No existe ninguna planeacion en el sistema"$/) do
-  expect(page).to have_content('No existe ninguna planeacion en el sistema')
+  expect(page).to have_content('No existe ninguna planeación en el sistema.')
 end
 
 Then(/^I shouldn't see any table$/) do                                                                                                                                                            

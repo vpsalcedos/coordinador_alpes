@@ -1,3 +1,4 @@
+<% if (Registro.all).empty? == false  %>
 <script>
 function toggle_visibilityMaest(maestria) {
     <% @maestrias.each do |maest| %>
@@ -50,6 +51,24 @@ window.onload = hideGraphs;
 </script>
 <h1>Planeación del semestre <%= @sem %></h1>
 <br><br>
+ <p>Otros Semestres </p>
+  <div class="nav" align ="left">
+
+    <div class='navbar-inner'>
+
+      <nav style="font-size:18px;color:#4F81BD">
+      <br>
+       <ul class="navbar pull-center" style="color:#4F81BD">
+        <a href="/reservas/semestrePlaneado?utf8=✓&semestre=1&commit=Ver+Cupos+semestre+1"><u>Semetre 1</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=2&commit=Ver+Cupos+semestre+2"><u>Semestre 2</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=3&commit=Ver+Cupos+semestre+3"><u>Semestre 3</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=4&commit=Ver+Cupos+semestre+4"><u>Semestre 4</u></a>
+         
+        </ul>
+      </nav>
+
+    </div>
+  </div>
 
 <%= javascript_include_tag 'highcharts','exporting' %>
 <%= high_chart("my_id", @h) do |c| %>
@@ -224,5 +243,28 @@ Total: <%=total%>
 <p> Estudiantes de ultimo semestre esperados = <%=@numEstUltimo%></p>
 <p> Estudiantes de otros semestres esperados = <%=@numEstNoUltimo%></p>
 </div>
+<br><br>
+<p>Ejecutar Nueva Planeacion</p> 
+<%= form_tag('planearSemestres',:method => :get) do%>
+<%= submit_tag("Planear") %>
+<% end %>
+
+<p>Limpiar PLaneacion</p>
+<%= form_tag('limpiarEscenario',:method => :get) do%>
+<%= submit_tag("Limpiar") %>
+<% end %>
+
+<% else %>
+<h1>Planeación del semestre <%= @sem %></h1>
+<br><br>
+
+<font color="#990000">No existe ninguna planeación en el sistema.</font>
+<br><br>
+<p>Ejecutar Planeacion</p> 
+<%= form_tag('planearSemestres',:method => :get) do%>
+<%= submit_tag("Planear") %>
+<% end %>
+
+<% end %>
 
 

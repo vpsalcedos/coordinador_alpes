@@ -256,7 +256,7 @@ class ReservasController < ApplicationController
   def limpiarEscenario
     Planeacion.delete_all
     Registro.delete_all
-    render 'home'
+    render 'semestrePlaneado'
   end
 
 def reservasSemestrePorEstUltimo(semestre)
