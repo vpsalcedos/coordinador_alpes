@@ -1,0 +1,38 @@
+<h1>Resultados</h1>
+<p>Se finalizó la planeación</p>
+
+<font color="#990000"># conflictos </font>
+
+<div class="well">
+  Estudiantes
+<table>                         
+  <tr>
+    <th>id</th>
+    <th>Nombre</th>
+    <th>Codigo</th>
+    
+    <th>Programa</th>
+    </tr>
+</table>
+</div>
+
+<div class="well">
+  Consolidado Materias en conflicto
+<table>                         
+  <tr>
+    <th>id</th>
+    <th>Nombre</th>
+    <th>Codigo</th>
+    
+    <th>Programa</th>
+    </tr>
+</table>
+</div>
+
+<%= form_tag(reservas_planearSemestres_path,:method => :get) do%>
+<%= submit_tag("Volver a PLanear") %>
+<% end %>
+
+<%= form_tag(reservas_detalles_path,:method => :get) do%>
+<%= submit_tag("Continuar") %>
+<% end %>

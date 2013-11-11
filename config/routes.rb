@@ -1,4 +1,5 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "planeacion/resultados"
   get "materia/detalles"
   post "materia/listafiltrada"
   get "materia/infomateria"
