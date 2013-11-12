@@ -16,7 +16,7 @@ class PlaneacionController < ApplicationController
       if(!registros.empty?)
         registros.each do |reg|
           plans=Planeacion.find(reg.idPlaneacion)
-          if(plans.semestre==sem)
+          if(plans.semestre==sem.to_s)
             total+=1
           end
         end
