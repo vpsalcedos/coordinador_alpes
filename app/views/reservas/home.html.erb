@@ -85,13 +85,24 @@
             document.getElementById("replicar2").style.display='block';
             
           } 
+      }else if(checkboxs[2].checked){
+        //4 seleccionado
+              var d = document.getElementById('replicar2');
+
+              var olddiv = document.getElementById('rep32');
+
+              d.removeChild(olddiv);
+              d.removeChild(document.getElementById('rep32s'));
+              document.getElementById("replicar2").style.display='block';
+        modalLink4.onclick=function () {  document.getElementById("setMaterias").submit(); };
+        modalLink4.href='/';
       }
       else if(!checkboxs[0].checked && !checkboxs[1].checked && !checkboxs[2].checked){
         document.getElementById("replicar2").style.display='block';
       } 
     }
 
-    function doload3() {
+function doload3() {
       var checkboxs=document.getElementsByName("rep2");
       for(var i=0,l=checkboxs.length;i<l;i++)
       {
@@ -114,39 +125,107 @@
       var modalLink4 = document.getElementById('linkSem4');
 
       if(checkboxs.length==2){
-      if(checkboxs[0].checked){
+        if(checkboxs[0].checked){
 
-        //tres está seleccionado
-        if(checkboxs[1].checked){
-          //3,4 está seleccionado
-          document.getElementById("setMaterias").submit(); 
-        }else{
-        //3 seleccionado. Ir a tres
-         modalLink3.href='#sem4';
+          //tres está seleccionado
+          if(checkboxs[1].checked){
+            //3,4 está seleccionado
+            document.getElementById("setMaterias").submit(); 
+          }else{
+          //3 seleccionado. Ir a 4
+           modalLink3.href='#sem4';
 
+          }
         }
-      }
-      else if(checkboxs[1].checked){
+        else if(checkboxs[1].checked){
 
-        //4 está seleccionado
-        if(modalLink3.href=='#sem4'){
-
-          //3 Ya ha sido replicado
-          document.getElementById("setMaterias").submit();
-        }else{
-          modalLink3.href=='#sem3';
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
         }
-      }
       }else if(checkboxs.length==1){
-                //4 está seleccionado
-        //document.getElementById("setMaterias").submit();
-        alert("Please check a checkbox"+modalLink3.href);
-        if(modalLink3.href==='#sem4'){
-          //3 Ya ha sido replicado
-          document.getElementById("setMaterias").submit();
-        }else{
-          modalLink3.href='#sem3';
+        if(checkboxs[0].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
         }
+
+                
+      }
+    }
+
+
+function doload4() {
+      var checkboxs=document.getElementsByName("rep3");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+         if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias2[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+
+      var modalLink3 = document.getElementById('linkSem3'); 
+      var modalLink4 = document.getElementById('linkSem4');
+
+      if(checkboxs.length==2){
+        if(checkboxs[0].checked){
+
+          //tres está seleccionado
+          if(checkboxs[1].checked){
+            //3,4 está seleccionado
+            document.getElementById("setMaterias").submit(); 
+          }else{
+          //3 seleccionado. Ir a 4
+           modalLink3.href='#sem4';
+
+          }
+        }
+        else if(checkboxs[1].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
+        }
+      }else if(checkboxs.length==1){
+        if(checkboxs[0].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
+        }
+
+                
       }
     }
     
@@ -219,10 +298,10 @@
 <div id="sem1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 1</h3>
   </div>
   <div class="modal-body">
-    <p>Materias del semestre 1</p>
+    <p>Planeacion Semestre 1</p>
 
         <input hidden name="materias1[]"/>
         <%@materias1 = Materia.all%>
@@ -237,14 +316,14 @@
   </div>
   <div class="modal-footer">
         <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-        <a href="#sem2" id="linkSem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload2()">Sem2</a>
+        <a href="#sem2" id="linkSem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload2()">Siguiente1</a>
   </div>
 </div>
 
 <div id="sem2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 2</h3>
   </div>
   <div class="modal-body">
     <p>Materias del semestre 2</p>
@@ -263,14 +342,14 @@
   <div class="modal-footer">
 
     <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem3" id="linkSem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload3()">Sem3</a>
+    <a href="#sem3" id="linkSem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload3()">Siguiente2</a>
   </div>
 </div>
 
 <div id="sem3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 3</h3>
   </div>
   <div class="modal-body">
     <p>Materias del semestre 3</p>
@@ -287,7 +366,7 @@
   <div class="modal-footer">
 
     <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem4" id="linkSem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
+    <a href="#sem4" id="linkSem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Siguiente3</a>
   </div>
 </div>
 
@@ -297,7 +376,7 @@
     <h3 id="myModalLabel">Modal header</h3>
   </div>
   <div class="modal-body">
-    <p>Materias del semestre 4</p>
+    <p>Planeacion Semestre 4</p>
     <input hidden name="materias4[]"/>
         <%@materias4 = Materia.all%>
         <%@materias4.each do |c|%>

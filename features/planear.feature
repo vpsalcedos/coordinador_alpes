@@ -11,35 +11,35 @@ Feature: Editar Planeacion
     Then I should see "Planeacion Semestre 1"
 
   Scenario: Editar materias en todos los semestres
-    Given I am on the planning page
+    Given I am on the plannings page
     When I press "Ejecutar planeacion"
     When I press "Si"
     Then I should see "Planeacion Semestre 1"
     Then I should see all the courses
-    Then I select some courses
-    Then I press "Siguiente"
+    Then I select some courses 1
+    Then I press "Siguiente" 1
     Then I should see "Planeacion Semestre 2"
-    Then I select some courses
-    Then I press "Siguiente"
+    Then I select some courses 2
+    Then I press "Siguiente" 2
     Then I should see "Planeacion Semestre 3"
-    Then I select some courses
-    Then I press "Siguiente"
+    Then I select some courses 3
+    Then I press "Siguiente" 3
     Then I should see "Planeacion Semestre 4"
-    Then I select some courses
-    Then I press "Siguiente"
+    Then I select some courses 4
+    Then I press "Terminar"
     Then I should see "Resultados"
 
   Scenario: Replicar semestres
-    Given I am on the planning page
+    Given I am on the plannings page
     When I press "Ejecutar planeacion"
     When I press "Si"
     Then I should see "Planeacion Semestre 1"
     Then I should see all the courses
-    Then I select some courses
+    Then I select some courses 1
     Then I select "3"
     Then I press "Siguiente"
     Then I should see "Planeacion Semestre 2"
-    Then I select some courses
+    Then I select some courses 2
     Then I select "4"
     Then I press "Siguiente"
     Then I should see "Resultados"

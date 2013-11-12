@@ -1,6 +1,6 @@
 Given(/^I am on the home page and I want to see the planning page$/) do
   visit '/welcome/index'
-  page.find(:link,"Planeación").click
+  page.find(:link,"Planeacion").click
 end
 
 Given(/^I am on the result page$/) do
