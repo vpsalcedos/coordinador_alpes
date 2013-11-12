@@ -18,25 +18,25 @@ Then(/^I select some courses in each semester$/) do
   materias2=(5..8).to_a
 
   materias1.each do |mId|
-    find(:css, "#materias1_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias1_"<< mId.to_s).set(true)
   end
 
   page.find(:link,"Sem2").click
 
   materias2.each do |mId|
-    find(:css, "#materias2_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias2_"<< mId.to_s).set(true)
   end
 
   page.find(:link,"Sem3").click
 
   materias1.each do |mId|
-    find(:css, "#materias3_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias3_"<< mId.to_s).set(true)
   end
 
   page.find(:link,"Sem4").click
 
   materias2.each do |mId|
-    find(:css, "#materias4_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias4_"<< mId.to_s).set(true)
   end
 
   expect(page).to have_content('Materias del semestre 4')

@@ -1,13 +1,13 @@
-Given(/^I want to see the planning page$/) do |h|
+Given(/^I want to see the planning page$/) do
   visit '/welcome/index'
 end
 
 When(/^I press "Planeacion"$/) do
-  click_button "Planeación"
+  click_button "Planeacion"
 end
 
 Then(/^I should see "No existe ninguna planeacion en el sistema"$/) do
-  expect(page).to have_content('No existe ninguna planeación en el sistema.')
+  expect(page).to have_content('No existe ninguna planeacion en el sistema.')
 end
 
 Then(/^I shouldn't see any table$/) do                                                                                                                                                            

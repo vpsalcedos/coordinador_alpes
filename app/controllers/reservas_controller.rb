@@ -393,9 +393,8 @@ def reservasSemestrePorEstUltimo(semestre)
     Planeacion.delete_all
     Registro.delete_all
 
-    if (@@materiasSemestres.empty?)
+ 
       setMateriasAll
-    end
     #Planeacion de primer semestre
     reservasUltimosEst
     cuposmas8

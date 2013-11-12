@@ -1,3 +1,158 @@
+<script>
+    function doload() {
+        var checkboxs=document.getElementsByName("materias1[]");
+        var okay=false;
+        for(var i=0,l=checkboxs.length;i<l;i++)
+        {
+            if(checkboxs[i].checked)
+            {
+                okay=true;
+            }
+        }
+        if(okay)alert("Thank you for checking a checkbox");
+        else alert("Please check a checkbox");
+    }
+    
+    function doload2() {
+      var checkboxs=document.getElementsByName("rep");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+          if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias1[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+
+      var modalLink2 = document.getElementById('linkSem2'); 
+      var modalLink3 = document.getElementById('linkSem3'); 
+      var modalLink4 = document.getElementById('linkSem4');
+
+      if(checkboxs[0].checked){
+        //Dos está seleccionado
+        if(checkboxs[1].checked){
+          //Tres está seleccionadp
+
+          if(checkboxs[2].checked){
+            alert("Please check a checkbox");
+            //2,3, 4 selecionados. Ir al final.
+
+            document.getElementById("setMaterias").submit();
+            modalLink2.href='/';
+          }else{
+            //2,3 selecionados. Ir a 4
+            modalLink2.href='#sem4';
+
+          }
+        }else{
+          
+        //2 seleccionado. Ir a tres
+         modalLink2.href='#sem3';
+          if(checkboxs[2].checked){
+            //2, 4 selecionados. El link3 ejecuta el form
+            modalLink4.onclick=function () {  document.getElementById("setMaterias").submit(); };
+            modalLink4.href='/';
+          }else{
+            //Solo 2 seleccionado
+            //Muestra la opción de replicar en 3
+            document.getElementById("replicar3").style.display='block';
+          }
+        }
+      }
+      else if(checkboxs[1].checked){
+        //3 seleccionado
+          if(checkboxs[2].checked){
+            //3, 4 selecionados. El link2 ejecuta el form
+            modalLink3.onclick=function () {  document.getElementById("setMaterias").submit(); };
+            modalLink3.href='/';
+          }else{
+            //Solo 3 seleccionado
+            var d = document.getElementById('replicar2');
+
+            var olddiv = document.getElementById('rep32');
+
+            d.removeChild(olddiv);
+            d.removeChild(document.getElementById('rep32s'));
+            document.getElementById("replicar2").style.display='block';
+            modalLink3.href='#sem4';
+          } 
+      }
+      else if(!checkboxs[0].checked && !checkboxs[1].checked && !checkboxs[2].checked){
+        document.getElementById("replicar2").style.display='block';
+      } 
+    }
+
+    function doload3() {
+      var checkboxs=document.getElementsByName("rep2");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+        alert("Please check a checkbox")
+
+          if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias2[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+
+      var modalLink3 = document.getElementById('linkSem3'); 
+      var modalLink4 = document.getElementById('linkSem4');
+
+      if(checkboxs.length==2){
+      if(checkboxs[0].checked){
+
+        //tres está seleccionado
+        if(checkboxs[1].checked){
+          //3,4 está seleccionado
+          document.getElementById("setMaterias").submit(); 
+        }else{
+        //3 seleccionado. Ir a tres
+         modalLink3.href='#sem4';
+
+        }
+      }
+      else if(checkboxs[1].checked){
+
+        //4 está seleccionado
+        if(modalLink3.href=='#sem4'){
+
+          //3 Ya ha sido replicado
+          document.getElementById("setMaterias").submit();
+        }else{
+          modalLink3.href=='#sem3';
+        }
+      }
+      }else if(checkboxs.length==1){
+                //4 está seleccionado
+        document.getElementById("setMaterias").submit();
+        if(modalLink3.href=="#sem4"){
+
+          //3 Ya ha sido replicado
+          document.getElementById("setMaterias").submit();
+        }else{
+          modalLink3.href='#sem3';
+        }
+      }
+    }
+    
+</script>
+
 <h1>Estudiantes de último semestre</h1>
 <p>Ver estudiantes de último semestre</p>
 <%= form_tag('ultimosEstudiantes',:method => :get) do%>
@@ -45,7 +200,7 @@
 
 <!-- Button to trigger modal -->
 <a href="#myModal" role="button" class="btn" data-toggle="modal">Ejecutar planeacion</a>
-<%= form_tag('setMateriasSemestre',:method => :get ) do%>
+<%= form_tag('setMateriasSemestre',:method => :get,:id => "setMaterias"  ) do%>
 <!-- Modal -->
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
@@ -72,12 +227,17 @@
         <input hidden name="materias1[]"/>
         <%@materias1 = Materia.all%>
         <%@materias1.each do |c|%>
-            <%= check_box_tag "materias1[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias1[]", c.id, false, :id => "materias1_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
+        <p> Replicar en </p>
+      <input id="rep2" name="rep" type="checkbox" value="2" /> 2<br />
+      <input id="rep3" name="rep" type="checkbox" value="3" /> 3<br />
+      <input id="rep4" name="rep" type="checkbox" value="4" /> 4<br />
+    
   </div>
   <div class="modal-footer">
         <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-        <a href="#sem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem2</a>
+        <a href="#sem2" id="linkSem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload2()">Sem2</a>
   </div>
 </div>
 
@@ -91,14 +251,19 @@
     <input hidden name="materias2[]"/>
     <%@materias2 = Materia.all%>
     <%@materias2.each do |c|%>
-        <%= check_box_tag "materias2[]", c.id %> <%= c.nombre%><br />
+        <%= check_box_tag "materias2[]", c.id, false, :id => "materias2_#{c.id}" %> <%= c.nombre%><br />
     <%end%>
+    <div style="display:none" id="replicar2">
+     <p> Replicar en </p>
+      <input id="rep32" name="rep2" type="checkbox" value="3"> <div id="rep32s">3</div><br />
+      <input id="rep42" name="rep2" type="checkbox" value="4" /> 4<br />
+    </div>
   </div>
 
   <div class="modal-footer">
 
     <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem3</a>
+    <a href="#sem3" id="linkSem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload3()">Sem3</a>
   </div>
 </div>
 
@@ -112,13 +277,17 @@
     <input hidden  name="materias3[]"/>
         <%@materias3 =  Materia.all%>
         <%@materias3.each do |c|%>
-          <%= check_box_tag "materias3[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias3[]", c.id, false, :id => "materias3_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
+  <div style="display:none" id="replicar3">
+     <p> Replicar en </p>
+      <input id="rep4" name="rep3" type="checkbox" value="4" /> 4<br />
+    </div>
   </div>
   <div class="modal-footer">
 
     <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
+    <a href="#sem4" id="linkSem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
   </div>
 </div>
 
@@ -132,7 +301,7 @@
     <input hidden name="materias4[]"/>
         <%@materias4 = Materia.all%>
         <%@materias4.each do |c|%>
-         <%= check_box_tag "materias4[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias4[]", c.id, false, :id => "materias4_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
   </div>
   <div class="modal-footer">
