@@ -7,9 +7,9 @@
 <div class="well">
 
 <div  class="well" style="float: right; clear: left;" ><%= image_tag("la caja 1 peque.png", :alt => "Nuestro producto") %></div>
-<p style="font-size:18px;">Nuestro Producto</p>
+<p style="font-size:18px;"><b>Nuestro Producto</b></p>
 <br>
-<div  style="padding: 5px 350px 20px 10px;">
+<div  style="padding: 5px 350px 5px 10px;">
 <p align="justify" >Coordinador de los Alpes es la herramienta idea para el coordinador de maestrias, con esta herramienta ahorrá tiempo y esfuerzo en las arduas tareas que implican planear y asignar cupos a los estudiantes para cada una de la materias ofrecidas</p>
 <p>Características :</p>
 <p>- Optimizador para asignación de cupos </p>
@@ -23,18 +23,20 @@ y mucho más!
 </div>
 
 
-
-
 <div class="well">
 
-<p style="font-size:18px;">Objetivos de COORDINADOR de los ALPES</p>
-<p>Objetivo 1 bla bla bla b</p>
+<p style="font-size:18px;"></b>Para quien está dirigido COORDINADOR de los ALPES?</b></p>
+<p>COORDINADOR de los ALPES está dirigido a Coordinadores de maestria en Ingeniería de Sistemas y Computación de la Universidad de los Andes con intenciones de optimizar y planear mejor sus maestrias</p>
 
 </div>
 
 <div class="well">
 
-<p style="font-size:18px;">Para quien está dirigido COORDINADOR de los ALPES?</p>
-<p>COORDINADOR de los ALPES está dirigido a  </p>
+<p style="font-size:18px;"><b>Objetivos de COORDINADOR de los ALPES</b></p>
+<p> - Disminuir las peticiones de conflicto de horario</p>
+<p> - Disminuir los problemas de asignación de cupos</p>
+<p> - Ayudarle al Coordinador a consumir menos tiempo en la planeación de sus cursos</p>
 
 </div>
+
+

@@ -17,7 +17,7 @@
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false
-        },
+             },
         title: {
                 text: 'MATI'
             },
@@ -34,6 +34,7 @@
                     showInLegend: true
                 }
             },
+exporting: {        enabled: false        },
         series: [{
             type: 'pie',
             name: 'pieMATI',
@@ -76,7 +77,7 @@
                     },
                     showInLegend: true
                 }
-            },
+            },exporting: {        enabled: false        },
         series: [{
             type: 'pie',
             name: 'pieMESI',
@@ -118,7 +119,7 @@
                     },
                     showInLegend: true
                 }
-            },
+            },exporting: {        enabled: false        },
         series: [{
             type: 'pie',
             name: 'pieMBIT',
@@ -158,7 +159,7 @@
                     },
                     showInLegend: true
                 }
-            },
+            },exporting: {        enabled: false        },
         series: [{
             type: 'pie',
             name: 'pieMISO',
@@ -184,7 +185,7 @@
 <p><b>Total estudiantes por maestrias (Actual)</b></p>
 <%
 bar = LazyHighCharts::HighChart.new('column') do |f|
-    f.series(:name=>'Ultimo Semestre',:data=> [ 12, 5, 2, 8 ], :color=>"red")
+    f.series(:name=>'Último Semestre',:data=> [ 12, 5, 2, 8 ], :color=>"red")
     f.series(:name=>'Otros',:data=> [23, 16, 14, 11 ])
     	
     f.title({ :text=>"Estadísticas estudiantes por maestria"})
@@ -196,7 +197,7 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
 
     f.plot_options(:series=>{:stacking=>"normal",:dataLabels=>{ :enabled=>true,:color=>"white"}}) 
 
-
+    f.exporting( :enabled=> false )
    
   end
 %>
@@ -215,9 +216,9 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
 <div class="well" style="width: 250px; height: 140px;position: relative;float: right" >
 
 <p><b>Información adicional</b> </p>
-<p> - Total estudiantes : 113</p>
+<p> - Total estudiantes : 120</p>
 <p> - Total Estudiantes último semestre : 30</p>
-<p> - Total Materias : 45</p>
+<p> - Total Materias : 50</p>
 
 
 </div>
@@ -228,14 +229,14 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
   $(function () {
     new Highcharts.Chart({
 	    chart: {  type: 'line' ,renderTo: 'estporcre'},
-            title: {   text: 'Población estudiantes de Maestría en Sistemas según crŕeditos'      },
+            title: {   text: 'Población estudiantes de Maestría en Sistemas según cŕeditos'      },
             xAxis: {  title: {   text: 'Créditos'   }, categories: ['4', '8', '12', '16', '20', '24', '28', '32', '36', '40']  },
             yAxis: {  title: {   text: 'Número estudiantes'   }  },
             tooltip: {
-                enabled: false,
+                enabled: true,
                 formatter: function() {
                     return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +'°C';
+                        this.x +' creditos - '+ this.y +' estudiantes';
                 }
             },
             plotOptions: {
@@ -245,7 +246,7 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
                     },
                     enableMouseTracking: true
                 }
-            },
+            },exporting: {        enabled: false        },
             series: [{
                 name: 'MATI',
                 data: [18, 14, 9, 14, 18, 21, 25, 26, 23, 18]

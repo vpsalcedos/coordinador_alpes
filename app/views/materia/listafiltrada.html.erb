@@ -4,11 +4,11 @@
 
 <div class="well">
 
-<table width=60%;>                         
-  <tr>
+<table width=65%;>                         
+  <tr height=40px;>
     <th>id</th>
     <th>Nombre</th>
-    <th>Codigo</th>
+    <th width=85px;>Código  </th>
     
     <th>Programa</th>
     </tr>
@@ -28,27 +28,37 @@
 
 
 <filtro>
-<div class="well">
-<p>Desea filtrar la lista por:</p>
+<div class="well" align="center" style="width: 150px; height: 120px">
+<p><b>Desea filtrar la lista por:</b></p>
+<div align="center" style="position: relative;float: left;">
 <%= form_tag(materia_listafiltrada_path , method: "post") do%>
 <input name="M" type="hidden" value="MATI">
 <%= submit_tag("MATI") %>
 <% end %>
+</div>
+<div align="center" style="position: relative;float: left;">
 <%= form_tag(materia_listafiltrada_path , method: "post") do%>
 <input name="M" type="hidden" value="MESI">
 <%= submit_tag("MESI") %>
 <% end %>
+</div>
+<div align="center" style="position: relative;float: left;">
 <%= form_tag(materia_listafiltrada_path , method: "post") do%>
 <input name="M" type="hidden" value="MBIT">
 <%= submit_tag("MBIT") %>
 <% end %>
+</div>
+<div align="center" style="position: relative;float: left;">
 <%= form_tag(materia_listafiltrada_path , method: "post") do%>
 <input name="M" type="hidden" value="MISO">
 <%= submit_tag("MISO") %>
 <% end %>
+</div>
+<div align="center" style="position: relative;float: left;">
 <%= form_tag(materia_new_path , method: "get") do%>
 <%= submit_tag("Todos") %>
 <% end %>
+</div>
 </div>
 </filtro>
 

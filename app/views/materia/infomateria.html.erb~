@@ -6,7 +6,7 @@
 <p><b>Nombre:</b> <%= @mate.nombre %></p>
 <p><b>Código materia:</b> <%= @mate.codigo %></p>
 <p><b>Programa: </b><%= @mate.programa %></p>
-<p><b>creditos: </b><%= @mate.creditos %></p>
+<p><b>créditos: </b><%= @mate.creditos %></p>
 
 
 <br>
@@ -48,7 +48,7 @@
 
 <%
 bar = LazyHighCharts::HighChart.new('column') do |f|
-    f.series(:name=>'Ultimo Semestre',:data=> [ @p1ulti, @p2ulti, @p3ulti, @p4ulti ], :color=>"red")
+    f.series(:name=>'Último Semestre',:data=> [ @p1ulti, @p2ulti, @p3ulti, @p4ulti ], :color=>"red")
     f.series(:name=>'Mismo Programa',:data=> [@p1mismo, @p2mismo, @p3mismo, @p4mismo ],:color=>"green")
     f.series(:name=>'Otros',:data=> [p1-@p1ulti-@p1mismo, p2-@p2ulti-@p2mismo, p3-@p3ulti-@p3mismo, p4-@p4ulti-@p4mismo ])
     	
@@ -60,7 +60,7 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
     f.options[:chart][:defaultSeriesType] = "column"
 
     f.plot_options(:series=>{:stacking=>"normal",:dataLabels=>{ :enabled=>true,:color=>"white"}}) 
-
+    f.exporting( :enabled=> false )
 
    
   end
@@ -69,7 +69,6 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
 
 
 
-<br>
 <br>
 
 <p><b>Ver detalles</b> </p>
