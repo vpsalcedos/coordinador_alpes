@@ -30,12 +30,14 @@ class PlaneacionController < ApplicationController
           @estudiantesConflicto.push(Estudiante.find(est.idEstudiante))
         end
         #Esto no es fijo
-        if (!poolExiste(est.idEstudiante,@estudiantesConflicto))
+        if (!poolExiste(est.tipoMateria,@materiasConflicto))
           @materiasConflicto.push(est.tipoMateria)
         end
       end
     end
-    
+    if (@conflictos==0)
+      redirect_to reservas_detalles_path
+    end
   end
   
   def estudianteExiste(id,estudiantesConflicto)
