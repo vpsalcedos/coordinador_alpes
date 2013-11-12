@@ -256,7 +256,7 @@ class ReservasController < ApplicationController
   def limpiarEscenario
     Planeacion.delete_all
     Registro.delete_all
-    render 'semestrePlaneado'
+    render 'detalles' 
   end
 
 def reservasSemestrePorEstUltimo(semestre)
@@ -408,11 +408,15 @@ def reservasSemestrePorEstUltimo(semestre)
     registros=Registro.all
     #puts registros.length
 
-    render 'home'
+      redirect_to planeacion_resultados_path
   end
 
   def semestrePlaneado
     semestre=params[:semestre]
+    semestre2Planeado(semestre)
+  end
+  def detalles
+    semestre='1'
     semestre2Planeado(semestre)
   end
 
@@ -552,7 +556,7 @@ def reservasSemestrePorEstUltimo(semestre)
     end
 
 
-    render 'home'
+    redirect_to planeacion_resultados_path
    
   end
 

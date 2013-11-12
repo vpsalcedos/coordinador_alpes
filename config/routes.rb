@@ -1,4 +1,5 @@
 CoordinadorAlpes::Application.routes.draw do
+  get "planeacion/resultados"
   get "materia/detalles"
   post "materia/listafiltrada"
   get "materia/infomateria"
@@ -16,6 +17,7 @@ CoordinadorAlpes::Application.routes.draw do
   get "reservas/home"
   get "reservas/planearSemestres"
   get "reservas/semestrePlaneado"
+  get "reservas/detalles"
 
   get "estudiante/buscarEstudiantesMasOcho"
   post "estudiante/creditosfaltantes"

@@ -1,0 +1,46 @@
+<h1>Resultados</h1>
+<p>Se finalizó la planeación</p>
+
+<font color="#990000"># conflictos <%=@conflictos%></font>
+
+<div class="well">
+  Estudiantes
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Codigo</th>
+  </tr>
+  <% @estudiantesConflicto.each do |e| %>
+
+      <tr>
+        <td><%= link_to e.nombre , estudiante_infoestudiante_path(:id => e.id) %></td>
+        <td><%= link_to e.apellido , estudiante_infoestudiante_path(:id => e.id) %></td>
+        <td><%= link_to e.codigo , estudiante_infoestudiante_path(:id => e.id) %></td> 
+      </tr>
+  <% end %>
+</table>
+</div>
+
+<div class="well">
+  Consolidado Materias en conflicto
+<table>
+  <tr>
+    <th>Pool En conflicto</th>
+  </tr>
+  <% @materiasConflicto.each do |mat| %>
+
+      <tr>
+        <td><%= mat %></td>
+      </tr>
+  <% end %>
+</table>
+</div>
+
+<%= form_tag(reservas_planearSemestres_path,:method => :get) do%>
+<%= submit_tag("Volver a PLanear") %>
+<% end %>
+
+<%= form_tag(reservas_detalles_path,:method => :get) do%>
+<%= submit_tag("Continuar") %>
+<% end %>
