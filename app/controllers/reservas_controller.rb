@@ -3,6 +3,26 @@ class ReservasController < ApplicationController
   #Contiene la lista de materias de los 4 semestres
   @@materiasSemestres=Array.new(4)
 
+  def materiasVistas(idEstudiante)
+    materiasV=[]
+    carpetas=Carpeta.where("codigoMateria is NOT NULL AND idEstudiante=?",idEstudiante)
+    carpetas.each do |c|
+      materiasV.push(c.codigoMateria)
+    end
+    
+    registros= Registro.where("idEstudiante=?", idEstudiante)
+    if(!registros.empty?)
+      registros.each do |r|
+          plans=Planeacion.find(r.idPlaneacion)
+        materia= Materia.find(plans.codigoMateria)
+        materiasV.push(materia.codigo)
+      end
+    end
+    materiasV= materiasV.uniq
+
+    return materiasV
+    
+  end
 
   def ultimosEstudiantes
     @ultimosSem=[]
@@ -49,7 +69,8 @@ class ReservasController < ApplicationController
                |mat| mat.tipo==tipofalt.tipoMateria
              }
                  #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
-
+             materiasVistas=materiasVistas(est.id)
+             materiasPosibles=materiasPosibles.delete_if{|m| materiasVistas.include?(m.codigo)}
 
              if(!materiasPosibles.empty?)
                if(tipofalt.numCreFaltantes<=4)
@@ -120,6 +141,9 @@ class ReservasController < ApplicationController
           }
 
           #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+          materiasVistas=materiasVistas(estudiante.id)
+          materiasPosibles=materiasPosibles.delete_if{|m| materiasVistas.include?(m.codigo)}
+
           if(!materiasPosibles.empty?)
             if(tipofalt.numCreFaltantes<=4)
               #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -277,6 +301,8 @@ def reservasSemestrePorEstUltimo(semestre)
              materiasPosibles=materiasSem.select{
                  |mat| mat.tipo==tipofalt.tipoMateria
              }
+             materiasVistas=materiasVistas(est.id)
+             materiasPosibles=materiasPosibles.delete_if{|m| materiasVistas.include?(m.codigo)}
 
              #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
              if(!materiasPosibles.empty?)
@@ -342,6 +368,9 @@ def reservasSemestrePorEstUltimo(semestre)
             |mat| mat.tipo==tipofalt.tipoMateria
         }
         #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+        materiasVistas=materiasVistas(est.id)
+        materiasPosibles=materiasPosibles.delete_if{|m| materiasVistas.include?(m.codigo)}
+
         if(!materiasPosibles.empty?)
           if(tipofalt.numCreFaltantes<=4)
             #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -499,7 +528,7 @@ def reservasSemestrePorEstUltimo(semestre)
       })
     end
   end
-
+  
 
   def setMateriasSemestre
         Planeacion.delete_all
