@@ -1,3 +1,215 @@
+<h1>Tablero de control</h1>
+
+<div class="well" align="center" style="height: 400px;">
+
+
+
+<p><b>Materias mas vistas por maestrias</b></p>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    new Highcharts.Chart({
+        chart: {
+	    renderTo: 'pieMATI',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+                text: 'MATI'
+            },
+            tooltip: {
+        	    pointFormat: '<b>{point.y}</b> Estudiantes'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+        series: [{
+            type: 'pie',
+            name: 'pieMATI',
+            data: [
+                ['MATI-XXXX', 45],
+                ['MATI-YYYY', 26],
+                ['MATI-ZZZZ', 8],
+                ['MATI-WWWW', 6],
+                ['MATI-VVVV', 2]
+            ]
+        }]
+    });
+});
+</script>
+<div id="pieMATI" style="width: 200px; height: 350px;position: relative;float: left;"></div>
+
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    new Highcharts.Chart({
+        chart: {
+	    renderTo: 'pieMESI',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+                text: 'MESI'
+            },
+            tooltip: {
+        	    pointFormat: '<b>{point.y}</b> Estudiantes'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+        series: [{
+            type: 'pie',
+            name: 'pieMESI',
+            data: [
+                ['MESI-XXXX', 45],
+                ['MESI-YYYY', 26],
+                ['MESI-ZZZZ', 8],
+                ['MESI-WWWW', 6],
+            ]
+        }]
+    });
+});
+</script>
+<div id="pieMESI" style="width: 200px; height: 350px;position: relative;float: left;"></div>
+
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    new Highcharts.Chart({
+        chart: {
+	    renderTo: 'pieMBIT',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+                text: 'MBIT'
+            },
+            tooltip: {
+        	    pointFormat: '<b>{point.y}</b> Estudiantes'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+        series: [{
+            type: 'pie',
+            name: 'pieMBIT',
+            data: [
+                ['MBIT-XXXX', 45],
+                ['MBIT-YYYY', 26],
+                ['MBIT-ZZZZ', 8],
+                ['MBIT-WWWW', 6],
+            ]
+        }]
+    });
+});
+</script>
+<div id="pieMBIT" style="width: 200px; height: 350px;position: relative;float: left;"></div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    new Highcharts.Chart({
+        chart: {
+	    renderTo: 'pieMISO',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+                text: 'MISO'
+            },
+            tooltip: {
+        	    pointFormat: '<b>{point.y}</b> Estudiantes'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+        series: [{
+            type: 'pie',
+            name: 'pieMISO',
+            data: [
+                ['MISO-XXXX', 45],
+                ['MISO-YYYY', 26],
+                ['MISO-ZZZZ', 8],
+                ['MISO-WWWW', 6],
+            ]
+        }]
+    });
+});
+</script>
+<div id="pieMISO" style="width: 200px; height: 350px;position: relative;float: left;"></div>
+
+
+<p>Promedio historial de inscritos en las materias<p>
+</div>
+
+
+<div style="height: 500px;">
+<div class="well" align="center" style="width: 500px; height: 430px;position: relative;float: left;" >
+<p><b>Total estudiantes por maestrias (Actual)</b></p>
+<%
+bar = LazyHighCharts::HighChart.new('column') do |f|
+    f.series(:name=>'Ultimo Semestre',:data=> [ 12, 5, 2, 8 ], :color=>"red")
+    f.series(:name=>'Otros',:data=> [23, 16, 14, 11 ])
+    	
+    f.title({ :text=>"Estadísticas estudiantes por maestria"})
+
+    f.xAxis(:categories=> ["MATI", "MESI", "MBIT", "MISO" ])
+    f.yAxis(:min=>0,:title=>{ :text=>"Número estudiantes"},:stackLabels=>{ :enabled=>true,:color=>"black"})
+
+    f.options[:chart][:defaultSeriesType] = "column"
+
+    f.plot_options(:series=>{:stacking=>"normal",:dataLabels=>{ :enabled=>true,:color=>"white"}}) 
+
+
+   
+  end
+%>
+<%= high_chart("Estadísticas", bar) %>
+
+</div>
+<div class="well" style="width: 250px; height: 160px;position: relative;float: right" >
+
+<p><b>Total Materias</b> </p>
+<p> - MESI : 12</p>
+<p> - MBIT : 8</p>
+<p> - MISO : 11</p>
+<p> - MATI : 10</p>
 
 </div>
 <div class="well" style="width: 250px; height: 140px;position: relative;float: right" >
