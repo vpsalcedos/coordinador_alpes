@@ -116,6 +116,5 @@
 
 
 <br><br><br><br>
-<p>Find me in app/views/estudiante/infoestudiante.html.erb</p>
-<%= @e.id %>
+
 </div>

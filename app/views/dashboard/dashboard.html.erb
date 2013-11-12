@@ -39,11 +39,18 @@ exporting: {        enabled: false        },
             type: 'pie',
             name: 'pieMATI',
             data: [
-                ['MATI-XXXX', 45],
-                ['MATI-YYYY', 26],
-                ['MATI-ZZZZ', 8],
-                ['MATI-WWWW', 6],
-                ['MATI-VVVV', 2]
+		['<%= @listaMATI[0] %>', <%= @listaMATI[1] %>],
+                ['<%= @listaMATI[2] %>', <%= @listaMATI[3] %>],
+                ['<%= @listaMATI[4] %>', <%= @listaMATI[5] %>],
+                ['<%= @listaMATI[6] %>', <%= @listaMATI[7] %>],
+                ['<%= @listaMATI[8] %>', <%= @listaMATI[9] %>],
+		['<%= @listaMATI[10] %>', <%= @listaMATI[11] %>],
+['<%= @listaMATI[12] %>', <%= @listaMATI[13] %>],
+['<%= @listaMATI[14] %>', <%= @listaMATI[15] %>],
+['<%= @listaMATI[16] %>', <%= @listaMATI[17] %>],
+['<%= @listaMATI[18] %>', <%= @listaMATI[19] %>],
+['<%= @listaMATI[20] %>', <%= @listaMATI[21] %>],
+
             ]
         }]
     });
@@ -82,10 +89,16 @@ exporting: {        enabled: false        },
             type: 'pie',
             name: 'pieMESI',
             data: [
-                ['MESI-XXXX', 45],
-                ['MESI-YYYY', 26],
-                ['MESI-ZZZZ', 8],
-                ['MESI-WWWW', 6],
+		['<%= @listaMESI[0] %>', <%= @listaMESI[1] %>],
+                ['<%= @listaMESI[2] %>', <%= @listaMESI[3] %>],
+                ['<%= @listaMESI[4] %>', <%= @listaMESI[5] %>],
+                ['<%= @listaMESI[6] %>', <%= @listaMESI[7] %>],
+                ['<%= @listaMESI[8] %>', <%= @listaMESI[9] %>],
+		['<%= @listaMESI[10] %>', <%= @listaMESI[11] %>],
+['<%= @listaMESI[12] %>', <%= @listaMESI[13] %>],
+['<%= @listaMESI[14] %>', <%= @listaMESI[15] %>],
+['<%= @listaMESI[16] %>', <%= @listaMESI[17] %>],
+
             ]
         }]
     });
@@ -124,11 +137,14 @@ exporting: {        enabled: false        },
             type: 'pie',
             name: 'pieMBIT',
             data: [
-                ['MBIT-XXXX', 45],
-                ['MBIT-YYYY', 26],
-                ['MBIT-ZZZZ', 8],
-                ['MBIT-WWWW', 6],
+		['<%= @listaMBIT[0] %>', <%= @listaMBIT[1] %>],
+                ['<%= @listaMBIT[2] %>', <%= @listaMBIT[3] %>],
+                ['<%= @listaMBIT[4] %>', <%= @listaMBIT[5] %>],
+                ['<%= @listaMBIT[6] %>', <%= @listaMBIT[7] %>],
+                ['<%= @listaMBIT[8] %>', <%= @listaMBIT[9] %>],
+		['<%= @listaMBIT[10] %>', <%= @listaMBIT[11] %>],
             ]
+            
         }]
     });
 });
@@ -164,10 +180,13 @@ exporting: {        enabled: false        },
             type: 'pie',
             name: 'pieMISO',
             data: [
-                ['MISO-XXXX', 45],
-                ['MISO-YYYY', 26],
-                ['MISO-ZZZZ', 8],
-                ['MISO-WWWW', 6],
+		['<%= @listaMISO[0] %>', <%= @listaMISO[1] %>],
+                ['<%= @listaMISO[2] %>', <%= @listaMISO[3] %>],
+                ['<%= @listaMISO[4] %>', <%= @listaMISO[5] %>],
+                ['<%= @listaMISO[6] %>', <%= @listaMISO[7] %>],
+                ['<%= @listaMISO[8] %>', <%= @listaMISO[9] %>],
+		['<%= @listaMISO[10] %>', <%= @listaMISO[11] %>],
+                
             ]
         }]
     });
@@ -185,8 +204,8 @@ exporting: {        enabled: false        },
 <p><b>Total estudiantes por maestrias (Actual)</b></p>
 <%
 bar = LazyHighCharts::HighChart.new('column') do |f|
-    f.series(:name=>'Último Semestre',:data=> [ 12, 5, 2, 8 ], :color=>"red")
-    f.series(:name=>'Otros',:data=> [23, 16, 14, 11 ])
+    f.series(:name=>'Último Semestre',:data=> [ @UMATI, @UMESI, @UMBIT, @UMISO ], :color=>"red")
+    f.series(:name=>'Otros',:data=> [@OMATI, @OMESI, @OMBIT, @OMISO ])
     	
     f.title({ :text=>"Estadísticas estudiantes por maestria"})
 
@@ -207,18 +226,19 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
 <div class="well" style="width: 250px; height: 160px;position: relative;float: right" >
 
 <p><b>Total Materias</b> </p>
-<p> - MESI : 12</p>
-<p> - MBIT : 8</p>
-<p> - MISO : 11</p>
-<p> - MATI : 10</p>
+<p> - MESI : <%= @totalMateriasMESI  %></p>
+<p> - MBIT : <%= @totalMateriasMBIT  %></p>
+<p> - MISO : <%= @totalMateriasMISO  %></p>
+<p> - MATI : <%= @totalMateriasMATI  %></p>
+<p> - MISIS : <%= @totalMateriasMISIS  %></p>
 
 </div>
 <div class="well" style="width: 250px; height: 140px;position: relative;float: right" >
 
 <p><b>Información adicional</b> </p>
-<p> - Total estudiantes : 120</p>
+<p> - Total estudiantes : <%= @totalEstudiantes %></p>
 <p> - Total Estudiantes último semestre : 30</p>
-<p> - Total Materias : 50</p>
+<p> - Total Materias : <%= @totalMaterias %></p>
 
 
 </div>

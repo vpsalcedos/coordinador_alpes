@@ -11,6 +11,9 @@
 <% if (@semact.==('Último semestre') )%>
 	<p >Estudiante de <font color="red"><%= @semact %></font></p>
 <% end %>
+<% if (@semact.==('no ha visto materias') )%>
+	<p >El estudiante no ha visto materias</p>
+<% end %>
 <br>
 <p><b>Tabla Materias faltantes</b></p>
 <table width=60%;>

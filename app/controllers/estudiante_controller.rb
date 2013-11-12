@@ -151,13 +151,16 @@ def infoestudiante
 	c = Carpeta.where(idEstudiante: id , codigoMateria: nil)
 	@creditosFestu = c.size*4
 	#Semestre actual
-	act=40-@creditosFestu
-	tmp=act/8
-	if(tmp<1) 
+	#act=40-@creditosFestu
+	#tmp=act/8
+	#if(tmp<1) 
+	tmp=""
+	if(@creditosFestu>39)
 		tmp ="no ha visto materias"
 	end
-	if(tmp==4)
-		tmp= "Ultimo semestre"
+	#if(tmp==4)
+	if(@creditosFestu<9)
+		tmp= "Último semestre"
 	end
 	@semact=tmp
 	
