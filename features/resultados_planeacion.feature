@@ -15,7 +15,7 @@ Feature: Resultados de la planeacion
     Then I should see al least 2 conflicts on the result page
     
   Scenario: Ver resultados de planeacio
-		Given I am result page
+		Given I am on the result page
     Then I should see the result page title
     Then I should see "# conflictos"
     Then I should see "Estudiantes"
