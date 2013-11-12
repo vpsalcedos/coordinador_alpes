@@ -81,8 +81,9 @@
 
             d.removeChild(olddiv);
             d.removeChild(document.getElementById('rep32s'));
-            document.getElementById("replicar2").style.display='block';
             modalLink3.href='#sem4';
+            document.getElementById("replicar2").style.display='block';
+            
           } 
       }
       else if(!checkboxs[0].checked && !checkboxs[1].checked && !checkboxs[2].checked){
@@ -94,9 +95,7 @@
       var checkboxs=document.getElementsByName("rep2");
       for(var i=0,l=checkboxs.length;i<l;i++)
       {
-        alert("Please check a checkbox")
-
-          if(checkboxs[i].checked)
+         if(checkboxs[i].checked)
           {
               var val=checkboxs[i].value
               var checkboxsCam=document.getElementsByName("materias"+val+"[]");
@@ -140,9 +139,9 @@
       }
       }else if(checkboxs.length==1){
                 //4 está seleccionado
-        document.getElementById("setMaterias").submit();
-        if(modalLink3.href=="#sem4"){
-
+        //document.getElementById("setMaterias").submit();
+        alert("Please check a checkbox"+modalLink3.href);
+        if(modalLink3.href==='#sem4'){
           //3 Ya ha sido replicado
           document.getElementById("setMaterias").submit();
         }else{
