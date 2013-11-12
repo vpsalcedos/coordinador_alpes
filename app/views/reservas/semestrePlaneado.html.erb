@@ -49,6 +49,25 @@ window.onload = hideGraphs;
 
 </script>
 <h1>Planeación del semestre <%= @sem %></h1>
+
+ <p>Otros Semestres </p>
+  <div class="nav" align ="left">
+
+    <div class='navbar-inner'>
+
+      <nav style="font-size:18px;color:#4F81BD">
+      <br>
+       <ul class="navbar pull-center" style="color:#4F81BD">
+        <a href="/reservas/detalles"><u>Semetre 1</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=2&commit=Ver+Cupos+semestre+2"><u>Semestre 2</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=3&commit=Ver+Cupos+semestre+3"><u>Semestre 3</u></a> - 
+         <a href="/reservas/semestrePlaneado?utf8=✓&semestre=4&commit=Ver+Cupos+semestre+4"><u>Semestre 4</u></a>
+         
+        </ul>
+      </nav>
+
+    </div>
+  </div>
 <br><br>
 
 <%= javascript_include_tag 'highcharts','exporting' %>

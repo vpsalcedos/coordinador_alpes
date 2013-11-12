@@ -50,7 +50,7 @@ window.onload = hideGraphs;
 
 </script>
 <h1>Planeación del semestre <%= @sem %></h1>
-<br><br>
+
  <p>Otros Semestres </p>
   <div class="nav" align ="left">
 
@@ -59,7 +59,7 @@ window.onload = hideGraphs;
       <nav style="font-size:18px;color:#4F81BD">
       <br>
        <ul class="navbar pull-center" style="color:#4F81BD">
-        <a href="/reservas/semestrePlaneado?utf8=✓&semestre=1&commit=Ver+Cupos+semestre+1"><u>Semetre 1</u></a> - 
+        <a href="/reservas/detalles"><u>Semetre 1</u></a> - 
          <a href="/reservas/semestrePlaneado?utf8=✓&semestre=2&commit=Ver+Cupos+semestre+2"><u>Semestre 2</u></a> - 
          <a href="/reservas/semestrePlaneado?utf8=✓&semestre=3&commit=Ver+Cupos+semestre+3"><u>Semestre 3</u></a> - 
          <a href="/reservas/semestrePlaneado?utf8=✓&semestre=4&commit=Ver+Cupos+semestre+4"><u>Semestre 4</u></a>
@@ -69,7 +69,7 @@ window.onload = hideGraphs;
 
     </div>
   </div>
-
+<br><br>
 <%= javascript_include_tag 'highcharts','exporting' %>
 <%= high_chart("my_id", @h) do |c| %>
     <%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: '+ this.y +' %';}"  %>
@@ -243,27 +243,27 @@ Total: <%=total%>
 <p> Estudiantes de ultimo semestre esperados = <%=@numEstUltimo%></p>
 <p> Estudiantes de otros semestres esperados = <%=@numEstNoUltimo%></p>
 </div>
-<br><br>
-<p>Ejecutar Nueva Planeacion</p> 
-<%= form_tag('planearSemestres',:method => :get) do%>
-<%= submit_tag("Planear") %>
-<% end %>
 
 <p>Limpiar PLaneacion</p>
 <%= form_tag('limpiarEscenario',:method => :get) do%>
 <%= submit_tag("Limpiar") %>
 <% end %>
 
+<p>Ejecutar Nueva Planeacion</p> 
+
 <% else %>
 <h1>Planeación del semestre <%= @sem %></h1>
 <br><br>
 
 <font color="#990000">No existe ninguna planeación en el sistema.</font>
-<br><br>
+<p>Ejecutar Planeacion</p> 
+
+<% end %>
+<!-- Aqui va el boton de planeacion -->
 
 <!-- Button to trigger modal -->
 <a href="#myModal" role="button" class="btn" data-toggle="modal">Ejecutar planeacion</a>
-<%= form_tag('setMateriasSemestre',:method => :get ) do%>
+
 <!-- Modal -->
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
@@ -274,69 +274,83 @@ Total: <%=total%>
     <p>Desea especificar las materias en cada semestre?</p>
   </div>
   <div class="modal-footer">
-    <a href="/reservas/detalles" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
+    <%= form_tag('planearSemestres',:method => :get) do%>
+      <%= submit_tag("No") %>
+    <% end %>
     <a href="#sem1" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Si</a>
   </div>
 </div>
-
+<%= form_tag('setMateriasSemestre',:method => :get,:id => "setMaterias"  ) do%>
 <div id="sem1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 1</h3>
   </div>
   <div class="modal-body">
-    <p>Materias del semestre 1</p>
+    <p>Planeacion Semestre 1</p>
 
         <input hidden name="materias1[]"/>
         <%@materias1 = Materia.all%>
         <%@materias1.each do |c|%>
-            <%= check_box_tag "materias1[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias1[]", c.id, false, :id => "materias1_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
+        <p> Replicar en </p>
+      <input id="rep2" name="rep" type="checkbox" value="2" /> 2<br />
+      <input id="rep3" name="rep" type="checkbox" value="3" /> 3<br />
+      <input id="rep4" name="rep" type="checkbox" value="4" /> 4<br />
+    
   </div>
   <div class="modal-footer">
-        <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-        <a href="#sem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem2</a>
+        <a href="#sem2" id="linkSem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload2()">Siguiente1</a>
   </div>
 </div>
 
 <div id="sem2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 2</h3>
   </div>
   <div class="modal-body">
     <p>Materias del semestre 2</p>
     <input hidden name="materias2[]"/>
     <%@materias2 = Materia.all%>
     <%@materias2.each do |c|%>
-        <%= check_box_tag "materias2[]", c.id %> <%= c.nombre%><br />
+        <%= check_box_tag "materias2[]", c.id, false, :id => "materias2_#{c.id}" %> <%= c.nombre%><br />
     <%end%>
+    <div style="display:none" id="replicar2">
+     <p> Replicar en </p>
+      <input id="rep32" name="rep2" type="checkbox" value="3"> <div id="rep32s">3</div><br />
+      <input id="rep42" name="rep2" type="checkbox" value="4" /> 4<br />
+    </div>
   </div>
 
   <div class="modal-footer">
 
-    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem3</a>
+    <a href="#sem3" id="linkSem3" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload3()">Siguiente2</a>
   </div>
 </div>
 
 <div id="sem3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 3</h3>
   </div>
   <div class="modal-body">
     <p>Materias del semestre 3</p>
     <input hidden  name="materias3[]"/>
         <%@materias3 =  Materia.all%>
         <%@materias3.each do |c|%>
-          <%= check_box_tag "materias3[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias3[]", c.id, false, :id => "materias3_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
+  <div style="display:none" id="replicar3">
+     <p> Replicar en </p>
+      <input id="rep4" name="rep3" type="checkbox" value="4" /> 4<br />
+    </div>
   </div>
   <div class="modal-footer">
 
-    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
-    <a href="#sem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Sem4</a>
+
+    <a href="#sem4" id="linkSem4" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Siguiente3</a>
   </div>
 </div>
 
@@ -346,22 +360,19 @@ Total: <%=total%>
     <h3 id="myModalLabel">Modal header</h3>
   </div>
   <div class="modal-body">
-    <p>Materias del semestre 4</p>
+    <p>Planeacion Semestre 4</p>
     <input hidden name="materias4[]"/>
         <%@materias4 = Materia.all%>
         <%@materias4.each do |c|%>
-         <%= check_box_tag "materias4[]", c.id %> <%= c.nombre%><br />
+            <%= check_box_tag "materias4[]", c.id, false, :id => "materias4_#{c.id}" %> <%= c.nombre%><br />
         <%end%>
   </div>
   <div class="modal-footer">
-    <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">No</a>
     <%= submit_tag("Terminar") %>
 
 
   </div>
 </div>
     <% end %>
-
-<% end %>
 
 
