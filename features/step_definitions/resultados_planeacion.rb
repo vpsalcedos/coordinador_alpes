@@ -14,27 +14,28 @@ Then(/^I should select courses except MISO-4206 and MISO-4331$/) do
   materias2=(1..8).to_a
 
   materias1.each do |mId|
-    find(:css, "#materias1_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias1_"<< mId.to_s).set(true)
   end
 
-  page.find(:link,"Sem2").click
+  page.find(:link,"Siguiente1").click
 
   materias2.each do |mId|
-    find(:css, "#materias2_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias2_"<< mId.to_s).set(true)
   end
 
-  page.find(:link,"Sem3").click
+  page.find(:link,"Siguiente2").click
 
   materias2.each do |mId|
-    find(:css, "#materias3_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias3_"<< mId.to_s).set(true)
   end
 
-  page.find(:link,"Sem4").click
+  page.find(:link,"Siguiente3").click
 
   materias2.each do |mId|
-    find(:css, "#materias4_[value='"<< mId.to_s<<"']").set(true)
+    find(:css, "#materias4_"<< mId.to_s).set(true)
   end
-  expect(page).to have_content('Materias del semestre 4')
+
+  expect(page).to have_content('Planeacion Semestre 4')
 end
 
 Then(/^I should see al least 2 conflicts on the result page$/) do

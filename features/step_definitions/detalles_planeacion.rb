@@ -4,7 +4,7 @@ Given(/^I want to see the planning page$/) do
 end
 
 When(/^I press "Planeacion"$/) do
-  click_button "Planeacion"
+  page.find(:link,"Planeacion").click
 
 end
 
@@ -13,11 +13,11 @@ Then(/^I should see "No existe ninguna planeacion en el sistema"$/) do
 end
 
 Then(/^I shouldn't see any table$/) do                                                                                                                                                            
-  expect(page).to have_no_content('table')
+  expect(page).to have_no_content('Materia Cupos')
 end         
 
 Then(/^I should see the tables of the courses$/) do
-  expect(page).to have_content('table')
+  expect(page).to have_content('Materia Cupos')
 end
 
 Then(/^the database shouldn't have rows on the tables related$/) do
@@ -42,5 +42,5 @@ When(/^I press "Ejecutar planeacion"$/) do
   page.find(:link,"Ejecutar planeacion").click
 end  
 When(/^I press "No"$/) do
-  page.find(:link,"No").click
+  click_button "No"
 end  
