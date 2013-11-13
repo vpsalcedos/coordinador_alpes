@@ -280,7 +280,7 @@ class ReservasController < ApplicationController
   def limpiarEscenario
     Planeacion.delete_all
     Registro.delete_all
-    render 'detalles' 
+    redirect_to reservas_detalles_path
   end
 
 def reservasSemestrePorEstUltimo(semestre)
