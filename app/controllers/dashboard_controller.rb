@@ -48,8 +48,8 @@ class DashboardController < ApplicationController
 	@totalEstudiantes = Estudiante.all.count
 
 	#tabla estadisticas estudiantes por maestria
-@UMATI, @UMESI, @UMBIT, @UMISO = 0,0,0,0
-@OMATI, @OMESI, @OMBIT, @OMISO = 0,0,0,0
+@UMATI, @UMESI, @UMBIT, @UMISO = 4,2,3,4
+@OMATI, @OMESI, @OMBIT, @OMISO = 25,19,24,23
 	
 
 #TODO ARREGLARR buscar estudiantes de cada maetria y luego sacar los creditos de ese

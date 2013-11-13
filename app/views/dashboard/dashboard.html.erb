@@ -237,7 +237,7 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
 
 <p><b>Información adicional</b> </p>
 <p> - Total estudiantes : <%= @totalEstudiantes %></p>
-<p> - Total Estudiantes último semestre : 30</p>
+<p> - Total Estudiantes último semestre : 13</p>
 <p> - Total Materias : <%= @totalMaterias %></p>
 
 
@@ -250,7 +250,7 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
     new Highcharts.Chart({
 	    chart: {  type: 'line' ,renderTo: 'estporcre'},
             title: {   text: 'Población estudiantes de Maestría en Sistemas según cŕeditos'      },
-            xAxis: {  title: {   text: 'Créditos'   }, categories: ['4', '8', '12', '16', '20', '24', '28', '32', '36', '40']  },
+            xAxis: {  title: {   text: 'Créditos'   }, categories: ['4', '8', '12', '16', '20', '24', '28', '32', '36']  },
             yAxis: {  title: {   text: 'Número estudiantes'   }  },
             tooltip: {
                 enabled: true,
@@ -269,16 +269,16 @@ bar = LazyHighCharts::HighChart.new('column') do |f|
             },exporting: {        enabled: false        },
             series: [{
                 name: 'MATI',
-                data: [18, 14, 9, 14, 18, 21, 25, 26, 23, 18]
+                data: [5, 4, 3, 4, 3, 5, 3, 4, 4]
             },{
                 name: 'MESI',
-                data: [21, 25, 26, 23, 18, 17, 16, 19, 14, 12]
+                data: [3, 5, 4, 2,4, 3, 3, 4, 2]
             },{
                 name: 'MBIT',
-                data: [ 9, 14, 18, 17, 16,21,  23, 18,25, 26]
+                data: [ 3, 2, 5, 2, 3,4,  3, 2,3]
             },{
                 name: 'MISO',
-                data: [25, 26, 23, 17, 11, 10, 20, 18, 21, 11]
+                data: [4, 2, 3, 3, 2, 4, 2, 3, 4]
             },]
         });
     });
