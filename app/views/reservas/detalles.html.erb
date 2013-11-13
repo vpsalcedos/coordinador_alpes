@@ -1,4 +1,4 @@
-<% if (Registro.all).empty? == false  %>
+
 <script>
 function toggle_visibilityMaest(maestria) {
     <% @maestrias.each do |maest| %>
@@ -48,7 +48,289 @@ function hideGraphs() {
 }
 window.onload = hideGraphs;
 
+    function doload() {
+        var checkboxs=document.getElementsByName("materias1[]");
+        var okay=false;
+        for(var i=0,l=checkboxs.length;i<l;i++)
+        {
+            if(checkboxs[i].checked)
+            {
+                okay=true;
+            }
+        }
+        if(okay)alert("Thank you for checking a checkbox");
+        else alert("Please check a checkbox");
+    }
+    
+    function doload2() {
+        var checkboxs=document.getElementsByName("materias1[]");
+  var okay=false;
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+    if(checkboxs[i].checked)
+      {
+          okay=true;
+      }
+  }
+  if(!okay){
+    var modalLink2 = document.getElementById('linkSem2'); 
+    modalLink2.href='#finalModal';
+    var modalLinkF = document.getElementById('linkFinal'); 
+    modalLinkF.href='#sem1';
+  }else{
+
+      var checkboxs=document.getElementsByName("rep");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+          if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias1[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+
+      var modalLink2 = document.getElementById('linkSem2'); 
+      var modalLink3 = document.getElementById('linkSem3'); 
+      var modalLink4 = document.getElementById('linkSem4');
+modalLink2.href='#sem2';
+      if(checkboxs[0].checked){
+        //Dos está seleccionado
+        if(checkboxs[1].checked){
+          //Tres está seleccionadp
+
+          if(checkboxs[2].checked){
+            //2,3, 4 selecionados. Ir al final.
+
+            document.getElementById("setMaterias").submit();
+            modalLink2.href='/';
+          }else{
+            //2,3 selecionados. Ir a 4
+            modalLink2.href='#sem4';
+
+          }
+        }else{
+          
+        //2 seleccionado. Ir a tres
+         modalLink2.href='#sem3';
+          if(checkboxs[2].checked){
+            //2, 4 selecionados. El link3 ejecuta el form
+            modalLink4.onclick=function () {  document.getElementById("setMaterias").submit(); };
+            modalLink4.href='/';
+          }else{
+            //Solo 2 seleccionado
+            //Muestra la opción de replicar en 3
+            document.getElementById("replicar3").style.display='block';
+          }
+        }
+      }
+      else if(checkboxs[1].checked){
+        //3 seleccionado
+          if(checkboxs[2].checked){
+            //3, 4 selecionados. El link2 ejecuta el form
+            modalLink3.onclick=function () {  document.getElementById("setMaterias").submit(); };
+            modalLink3.href='/';
+          }else{
+            //Solo 3 seleccionado
+            var d = document.getElementById('replicar2');
+
+            var olddiv = document.getElementById('rep32');
+
+            d.removeChild(olddiv);
+            d.removeChild(document.getElementById('rep32s'));
+            modalLink3.href='#sem4';
+            document.getElementById("replicar2").style.display='block';
+            
+          } 
+      }else if(checkboxs[2].checked){
+        //4 seleccionado
+              var d = document.getElementById('replicar2');
+
+              var olddiv = document.getElementById('rep32');
+
+              d.removeChild(olddiv);
+              d.removeChild(document.getElementById('rep32s'));
+              document.getElementById("replicar2").style.display='block';
+        modalLink4.onclick=function () {  document.getElementById("setMaterias").submit(); };
+        modalLink4.href='/';
+      }
+      else if(!checkboxs[0].checked && !checkboxs[1].checked && !checkboxs[2].checked){
+        document.getElementById("replicar2").style.display='block';
+      } 
+    }
+    }
+
+function doload3() {
+          var checkboxs=document.getElementsByName("materias2[]");
+  var okay=false;
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+    if(checkboxs[i].checked)
+      {
+          okay=true;
+      }
+  }
+  if(!okay){
+    var modalLink3 = document.getElementById('linkSem3'); 
+    modalLink3.href='#finalModal';
+    var modalLinkF = document.getElementById('linkFinal'); 
+    modalLinkF.href='#sem2';
+  }else{
+      var checkboxs=document.getElementsByName("rep2");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+         if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias2[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+
+      var modalLink3 = document.getElementById('linkSem3'); 
+      var modalLink4 = document.getElementById('linkSem4');
+      modalLink3.href='#sem3';
+      if(checkboxs.length==2){
+        if(checkboxs[0].checked){
+
+          //tres está seleccionado
+          if(checkboxs[1].checked){
+            //3,4 está seleccionado
+            document.getElementById("setMaterias").submit(); 
+          }else{
+          //3 seleccionado. Ir a 4
+           modalLink3.href='#sem4';
+
+          }
+        }
+        else if(checkboxs[1].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
+        }
+      }else if(checkboxs.length==1){
+        if(checkboxs[0].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+
+           document.getElementById("setMaterias").submit();
+                     modalLink3.href='/';
+        }
+
+                
+      }
+    }
+  }
+
+
+function doload4() {
+      var checkboxs=document.getElementsByName("rep3");
+      for(var i=0,l=checkboxs.length;i<l;i++)
+      {
+         if(checkboxs[i].checked)
+          {
+              var val=checkboxs[i].value
+              var checkboxsCam=document.getElementsByName("materias"+val+"[]");
+              var checkboxsOr=document.getElementsByName("materias2[]");
+                  for(var j=0,m=checkboxsOr.length;j<m;j++)
+                  {
+                      if(checkboxsOr[j].checked){
+                          checkboxsCam[j].checked=true;
+                      }
+                  }
+          }
+
+      }
+      var modalLink4 = document.getElementById('linkSem4');
+
+      if(checkboxs.length==2){
+        if(checkboxs[0].checked){
+
+          //tres está seleccionado
+          if(checkboxs[1].checked){
+            //3,4 está seleccionado
+            document.getElementById("setMaterias").submit(); 
+          }else{
+          //3 seleccionado. Ir a 4
+           modalLink3.href='#sem4';
+
+          }
+        }
+        else if(checkboxs[1].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
+        }
+      }else if(checkboxs.length==1){
+
+        if(checkboxs[0].checked){
+
+          //4 está seleccionado
+          s=modalLink3.href
+          if(s.indexOf("#sem4") !== -1){
+            //3 Ya ha sido replicado
+            document.getElementById("setMaterias").submit();
+          }else{
+            modalLink3.href=='#sem3';
+          }
+        }
+
+                
+      }
+    }
+ function checkAll(number){
+  var checkboxs=document.getElementsByName("materias"+number+"[]");
+
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+        checkboxs[i].checked=true;
+  }
+ }
+
+ function verificarAlguna(number){
+  var checkboxs=document.getElementsByName("materias"+number+"[]");
+  var okay=false;
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+    if(checkboxs[i].checked)
+      {
+          okay=true;
+      }
+  }
+  if(!okay){
+    alert("Error! Debe seleccionar alguna");
+  }
+ }
+
 </script>
+<% if (Registro.all).empty? == false  %>
 <h1>Planeación del semestre <%= @sem %></h1>
 
  <p>Otros Semestres </p>
@@ -260,7 +542,6 @@ Total: <%=total%>
 
 <% end %>
 <!-- Aqui va el boton de planeacion -->
-
 <!-- Button to trigger modal -->
 <a href="#myModal" role="button" class="btn" data-toggle="modal">Ejecutar planeacion</a>
 
@@ -268,14 +549,14 @@ Total: <%=total%>
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Ejecutar Planeacion</h3>
   </div>
   <div class="modal-body">
-    <p>Desea especificar las materias en cada semestre?</p>
+    <p><font size="3">Desea especificar las materias en cada semestre?</font></p>
   </div>
   <div class="modal-footer">
     <%= form_tag('planearSemestres',:method => :get) do%>
-      <%= submit_tag("No") %>
+      <%= submit_tag("No")%>
     <% end %>
     <a href="#sem1" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Si</a>
   </div>
@@ -286,20 +567,27 @@ Total: <%=total%>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Planeacion Semestre 1</h3>
   </div>
-  <div class="modal-body">
-    <p>Planeacion Semestre 1</p>
+  <div class="modal-body"> <font size="3"> 
+    <p>Seleccione las materias que desea que esten disponibles en este semestre,</p>
+    <input id="all" type="checkbox" value="all" onclick="checkAll(1)"/> Seleccionar todas<br />
 
         <input hidden name="materias1[]"/>
-        <%@materias1 = Materia.all%>
-        <%@materias1.each do |c|%>
+        <%programas = Materia.group("programa")%>
+        <%programas.each do |p| %>
+          <%materias=Materia.where("programa=?", p.programa)%>
+          <h5><%=p.programa%></h5>
+           <%materias.each do |c|%>
             <%= check_box_tag "materias1[]", c.id, false, :id => "materias1_#{c.id}" %> <%= c.nombre%><br />
+          <%end%>
         <%end%>
-        <p> Replicar en </p>
-      <input id="rep2" name="rep" type="checkbox" value="2" /> 2<br />
-      <input id="rep3" name="rep" type="checkbox" value="3" /> 3<br />
-      <input id="rep4" name="rep" type="checkbox" value="4" /> 4<br />
+          
+         <hr>
+        <p> Si desea esta configuracion de materias en otro semestre, seleccione cual </p>
+      <input id="rep2" name="rep" type="checkbox" value="2" /> Semestre 2<br />
+      <input id="rep3" name="rep" type="checkbox" value="3" /> Semestre 3<br />
+      <input id="rep4" name="rep" type="checkbox" value="4" /> Semestre 4<br />
     
-  </div>
+ </font> </div>
   <div class="modal-footer">
         <a href="#sem2" id="linkSem2" data-toggle="modal" data-dismiss="modal" class="btn btn-primary" onclick="doload2()">Siguiente1</a>
   </div>
@@ -310,18 +598,26 @@ Total: <%=total%>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Planeacion Semestre 2</h3>
   </div>
-  <div class="modal-body">
-    <p>Materias del semestre 2</p>
+  <div class="modal-body"><font size="3"> 
+    <p>Planeacion Semestre 2</p>
+        <input id="all" type="checkbox" value="all" onclick="checkAll(2)"/> Seleccionar todas<br />
     <input hidden name="materias2[]"/>
-    <%@materias2 = Materia.all%>
-    <%@materias2.each do |c|%>
+    <%programas = Materia.group("programa")%>
+    <%programas.each do |p| %>
+      <%materias=Materia.where("programa=?", p.programa)%>
+      <h5><%=p.programa%></h5>
+       <%materias.each do |c|%>
         <%= check_box_tag "materias2[]", c.id, false, :id => "materias2_#{c.id}" %> <%= c.nombre%><br />
-    <%end%>
-    <div style="display:none" id="replicar2">
+      <%end%>
+    <%end%>        
+     <hr>
+   <div style="display:none" id="replicar2">
+    <p> Si desea esta configuracion de materias en otro semestre, seleccione cual </p>
      <p> Replicar en </p>
-      <input id="rep32" name="rep2" type="checkbox" value="3"> <div id="rep32s">3</div><br />
-      <input id="rep42" name="rep2" type="checkbox" value="4" /> 4<br />
+      <input id="rep32" name="rep2" type="checkbox" value="3"> <div id="rep32s">Semestre 3</div><br />
+      <input id="rep42" name="rep2" type="checkbox" value="4" /> Semestre 4<br />
     </div>
+    </font>
   </div>
 
   <div class="modal-footer">
@@ -335,17 +631,24 @@ Total: <%=total%>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Planeacion Semestre 3</h3>
   </div>
-  <div class="modal-body">
-    <p>Materias del semestre 3</p>
+  <div class="modal-body"><font size="3"> 
+    <p>Planeacion Semestre 3</p>
+        <input id="all" type="checkbox" value="all" onclick="checkAll(3)"/> Seleccionar todas<br />
     <input hidden  name="materias3[]"/>
-        <%@materias3 =  Materia.all%>
-        <%@materias3.each do |c|%>
-            <%= check_box_tag "materias3[]", c.id, false, :id => "materias3_#{c.id}" %> <%= c.nombre%><br />
-        <%end%>
+    <%programas = Materia.group("programa")%>
+    <%programas.each do |p| %>
+      <%materias=Materia.where("programa=?", p.programa)%>
+      <h5><%=p.programa%></h5>
+       <%materias.each do |c|%>
+        <%= check_box_tag "materias3[]", c.id, false, :id => "materias3_#{c.id}" %> <%= c.nombre%><br />
+      <%end%>
+    <%end%>   
+     <hr>
   <div style="display:none" id="replicar3">
-     <p> Replicar en </p>
-      <input id="rep4" name="rep3" type="checkbox" value="4" /> 4<br />
+      <p> Si desea esta configuracion de materias en otro semestre, seleccione cual </p>
+      <input id="rep4" name="rep3" type="checkbox" value="4" /> Semestre 4<br />
     </div>
+    </font>
   </div>
   <div class="modal-footer">
 
@@ -357,22 +660,43 @@ Total: <%=total%>
 <div id="sem4" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Planeacion Semestre 4</h3>
   </div>
-  <div class="modal-body">
+  <div class="modal-body"><font size="3"> 
     <p>Planeacion Semestre 4</p>
+        <input id="all" type="checkbox" value="all" onclick="checkAll(4)"/> Seleccionar todas<br />
     <input hidden name="materias4[]"/>
-        <%@materias4 = Materia.all%>
-        <%@materias4.each do |c|%>
-            <%= check_box_tag "materias4[]", c.id, false, :id => "materias4_#{c.id}" %> <%= c.nombre%><br />
-        <%end%>
-  </div>
+     <%programas = Materia.group("programa")%>
+    <%programas.each do |p| %>
+      <%materias=Materia.where("programa=?", p.programa)%>
+      <h5><%=p.programa%></h5>
+       <%materias.each do |c|%>
+         <%= check_box_tag "materias4[]", c.id, false, :id => "materias4_#{c.id}" %> <%= c.nombre%><br />
+      <%end%>
+    <%end%>  
+
+ </font> </div>
   <div class="modal-footer">
     <%= submit_tag("Terminar") %>
 
 
   </div>
 </div>
-    <% end %>
 
+<div id="finalModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Error</h3>
+  </div>
+  <div class="modal-body"><font size="3"> 
+    <div class="alert alert-error">
+    <p>Error! No ha seleccionado ninguna materia</p>
+    </div>
+
+ </font> </div>
+  <div class="modal-footer">
+  <a href="#" id="linkFinal" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Regresar</a>
+  </div>
+</div>
+    <% end %>
 

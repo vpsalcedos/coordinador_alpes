@@ -4,6 +4,7 @@ Given(/^I have enter to the planning page$/) do
 end
 
 When(/^I press "Cupos de Segundo Semestre"$/) do
+  visit '/reservas/home'
   click_button "Ver Cupos semestre 2"
 end
 
@@ -12,6 +13,7 @@ Then(/^I should see a total of 4 quotas/) do
 end
 
 When(/^I press "Cupos de Tercer Semestre"$/) do
+  visit '/reservas/home'
   click_button "Ver Cupos semestre 3"
 end
 
@@ -20,6 +22,7 @@ Then(/^I should see a total of 2 quotas/) do
 end
 
 When(/^I press "Cupos de Cuarto Semestre"$/) do
+  visit '/reservas/home'
   click_button "Ver Cupos semestre 4"
 end
 
@@ -28,6 +31,7 @@ Then(/^I should see a total of 0 quotas/) do
 end
 
 When(/^I press "Planear Semestres"$/) do
+  visit '/reservas/home'
   click_button "Planear Semestres"
 end
 

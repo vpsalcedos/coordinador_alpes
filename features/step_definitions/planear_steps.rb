@@ -109,3 +109,15 @@ Then(/^I should see "Resultados"$/) do
   expect(page).to have_content('Resultados')
 end
 
+Then(/^I should see an error message alert$/) do
+  expect(page).to have_content('Error')
+end
+
+Then(/^I select "3"$/) do 
+    find(:css, "#rep3").set(true)
+end
+
+Then(/^I select "4"$/) do
+  find(:css, "#rep4").set(true)
+end
+

@@ -228,7 +228,29 @@ function doload4() {
                 
       }
     }
-    
+ function checkAll(number){
+  var checkboxs=document.getElementsByName("materias"+number+"[]");
+
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+        checkboxs[i].checked=true;
+  }
+ }
+
+ function verificarAlguna(number){
+  var checkboxs=document.getElementsByName("materias"+number+"[]");
+  var okay=false;
+  for(var i=0,l=checkboxs.length;i<l;i++)
+  {
+    if(checkboxs[i].checked)
+      {
+          okay=true;
+      }
+  }
+  if(!okay){
+    alert("Error! Debe seleccionar alguna");
+  }
+ }
 </script>
 
 <h1>Estudiantes de último semestre</h1>
