@@ -1,0 +1,74 @@
+<h1>Carpeta del Estudiante</h1>
+<div class="well">
+
+<p><b>Nombre:</b> <%= @e.nombre %></p>
+<p><b>Apellido:</b> <%= @e.apellido %></p>
+<p><b>Código:</b> <%= @e.codigo %></p>
+<p><b>Programa:</b> <%= @e.programa %></p>
+
+<% if (@semact.==('Último semestre') )%>
+  <p >Estudiante de <font color="red"><%= @semact %></font></p>
+<% end %>
+<% if (@semact.==('no ha visto materias') )%>
+  <p >El estudiante no ha visto materias</p>
+<% end %>
+<br>
+<table width=100%;>
+  <tr>
+    <th>Tipo de Materia</th>
+    <th>Vistos</th>
+    <th>Semestre 1</th>
+    <th>Semestre 2</th>
+    <th>Semestre 3</th>
+    <th>Semestre 4</th>
+
+  </tr>
+  <% @faltantes.each do |materia| %>
+
+      <tr>
+        <td><%= materia.tipoMateria %></td>
+        <td><div class='vistas'><%= materia.numCreFaltantes %></div></td>
+        <td><div class='planeadas'>
+          <% if (@s1m1!="" && @s1m1.codigo==materia.tipoMateria)%>
+            <%= @s1m1.codigo  %>
+          <% end %>
+          <% if (@s1m2!="" && @s1m2.codigo==materia.tipoMateria)%>
+          <%= link_to @s1m2.codigo , materia_infomateria_path(:id => @s1m2.id) %>
+          
+          <% end %>
+          </div></td>
+        <td><div class='planeadas'>
+           <% if (@s2m1!="" && @s2m1.codigo==materia.tipoMateria)%>
+          <%= link_to @s2m1.codigo , materia_infomateria_path(:id => @s2m1.id) %>
+          <% end %>
+          <% if (@s2m2!="" && @s2m2.codigo==materia.tipoMateria)%>
+          <%= link_to @s2m2.codigo , materia_infomateria_path(:id => @s2m2.id) %>
+          
+          <% end %>
+          </div></td>
+        <td><div class='planeadas'>
+           <% if (@s3m1!="" && @s3m1.codigo==materia.tipoMateria)%>
+          <%= link_to @s3m1.codigo , materia_infomateria_path(:id => @s3m1.id) %>
+          <% end %>
+          <% if (@s3m2!="" && @s3m2.codigo==materia.tipoMateria)%>
+          <%= link_to @s3m2.codigo , materia_infomateria_path(:id => @s3m2.id) %>
+          
+          <% end %>
+          </div></td>
+        <td><div class='planeadas'>
+          <% if (@s4m1!="" && @s4m1.codigo==materia.tipoMateria)%>
+          <%= link_to @s4m1.codigo , materia_infomateria_path(:id => @s4m1.id) %>
+          <% end %>
+          <% if (@s4m2!="" && @s4m2.codigo==materia.tipoMateria)%>
+          <%= link_to @s4m2.codigo , materia_infomateria_path(:id => @s4m2.id) %>
+          
+          <% end %>
+          </div></td>
+
+      </tr>
+  <% end %>
+</table>
+<p>Total creditos faltantes = <%= @creditosFestu %> </p>
+
+
+</div>

@@ -19,7 +19,7 @@ class ReservasController < ApplicationController
       end
     end
     materiasV= materiasV.uniq
-
+    puts "acaACaw"
     return materiasV
     
   end
@@ -141,9 +141,11 @@ class ReservasController < ApplicationController
           }
 
           #materiasPosibles= Materia.where("tipo=?", tipofalt.tipoMateria)
+          puts "Antes"
           materiasVistas=materiasVistas(estudiante.id)
+          puts "aca22"
           materiasPosibles=materiasPosibles.delete_if{|m| materiasVistas.include?(m.codigo)}
-
+puts "Llego aca2"
           if(!materiasPosibles.empty?)
             if(tipofalt.numCreFaltantes<=4)
               #Es solo una materia(Asumiendo materias de 4 créditos)
@@ -161,14 +163,13 @@ class ReservasController < ApplicationController
               end
             else
               #Le faltan dos materias
-
+puts "Llego aca3"
               n= (tipofalt.numCreFaltantes/4).round
               randMat1=Random.rand(materiasPosibles.size)
               randMat2=Random.rand(materiasPosibles.size)
-              while(randMat1==randMat2)
-                randMat2=Random.rand(materiasPosibles.size)
-              end
+              
               if(i<2)
+                
                 materia=materiasPosibles[randMat1]
                 #materia.cupo+=1
                 #materia.save
@@ -176,13 +177,22 @@ class ReservasController < ApplicationController
                 agregarAPlaneacion(materia.id,prioridad,"1",id)
                 i += 1
               end
-              if(i<2)
-                materia=materiasPosibles[randMat2]
-                #materia.cupo+=1
-                #materia.save
-                prioridad=darPrioridad(materia,estudiante)
-                agregarAPlaneacion(materia.id,prioridad,"1",id)
-                i += 1
+puts "Llego aca3"
+              if(materiasPosibles.size!=1)
+                while(randMat1==randMat2)
+                  randMat2=Random.rand(materiasPosibles.size)
+                end
+      
+              
+                if(i<2)
+                  puts "5"
+                  materia=materiasPosibles[randMat2]
+                  #materia.cupo+=1
+                  #materia.save
+                  prioridad=darPrioridad(materia,estudiante)
+                  agregarAPlaneacion(materia.id,prioridad,"1",id)
+                  i += 1
+                end
               end
             end
           end
@@ -280,7 +290,7 @@ class ReservasController < ApplicationController
   def limpiarEscenario
     Planeacion.delete_all
     Registro.delete_all
-    redirect_to reservas_detalles_path
+    render 'detalles' 
   end
 
 def reservasSemestrePorEstUltimo(semestre)
@@ -484,7 +494,7 @@ def reservasSemestrePorEstUltimo(semestre)
           materia=[]
           materia.push(cMat.nombre)
           materia.push(cMat.cupos)
-	  materia.push(cMat.codigoMateria)  #necesitamos el ID para conocer los Registrados
+    materia.push(cMat.codigoMateria)  #necesitamos el ID para conocer los Registrados
           materias.push(materia)
         end
 

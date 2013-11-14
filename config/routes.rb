@@ -24,6 +24,7 @@ CoordinadorAlpes::Application.routes.draw do
   post "estudiante/creditosfaltantes"
 
   get "estado_carpeta/estadoCarpeta"
+  get "estado_carpeta/carpeta"
   get "estudiante/result"
   get "materia/new"
   get "estudiante/new"
@@ -31,7 +32,7 @@ CoordinadorAlpes::Application.routes.draw do
 
   get "estado_carpeta/home"
   post "estado_carpeta/estadoCarpeta"
-  get "reservas/setMateriasSemestre"
+  post "reservas/setMateriasSemestre"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
