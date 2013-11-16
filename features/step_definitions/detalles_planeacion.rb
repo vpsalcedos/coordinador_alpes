@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start
+
+# Previous content of test helper now starts here
+
 Given(/^I want to see the planning page$/) do
 
   visit '/welcome/index'
